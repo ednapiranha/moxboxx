@@ -48,8 +48,8 @@ define(['jquery', 'persona'],
       flash.text('updated!');
     }).error(function(data) {
       flash.text(JSON.parse(data.responseText).message);
-      flash.fadeIn(2500, function() {
-        flash.fadeOut(3500);
+      flash.fadeIn(500, function() {
+        flash.fadeOut(4500);
       });
     });
   });

@@ -1,5 +1,6 @@
 module.exports = function(app, client, isLoggedIn, hasUsername) {
   var user = require('../lib/user');
+  var playlist = require('../lib/playlist');
 
   app.get('/', function (req, res) {
     if (req.session.email) {
@@ -21,11 +22,11 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
       if (!err) {
         req.session.username = user.username;
       }
-    });
 
-    res.render('profile', {
-      pageType: 'profile',
-      session: req.session
+      res.render('profile', {
+        pageType: 'profile',
+        session: req.session
+      });
     });
   });
 
@@ -53,6 +54,17 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
     res.render('new', {
       pageType: 'new',
       session: req.session
+    });
+  });
+
+  app.post('/playlist', isLoggedIn, hasUsername, function (req, res) {
+    playlist.add(req, client, function(err, user) {
+      if (err) {
+        res.status(500);
+        res.json({ message: err.toString() });
+      } else {
+        res.json({ message: 'Playlist has been created!' });
+      }
     });
   });
 };
