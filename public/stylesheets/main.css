@@ -46,3 +46,118 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
+/* Main styles */
+
+html, body {
+    height: 100%;
+    position: relative;
+}
+
+@font-face {
+    font-family: 'LeagueGothicRegular';
+    src: url('../fonts/League_Gothic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'LeagueGothicRegular';
+    text-transform: uppercase;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #6aecff;
+}
+
+.actions li a, #playlist-actions li a {
+    display: block;
+    padding: 10px;
+}
+
+a.on {
+    background-color: #6aecff;
+    color: #111;
+}
+
+header, h1, div, li {
+    background-color: #111;
+    color: #fff;
+    margin: 2px 2px 0 2px;
+    padding: 10px;
+}
+
+.actions {
+    display: inline-block;
+    float: left;
+}
+
+.actions li {
+    display: inline-block;
+    float: left;
+    font-size: 30px;
+    padding: 0;
+}
+
+header {
+    clear: both;
+    display: block;
+    float: left;
+    font-size: 50px;
+}
+
+header span {
+    display: inline-block;
+    float: left;
+}
+
+h1 {
+    font-size: 20px;
+}
+
+#playlist-actions {
+    clear: both;
+    float: left;
+}
+
+#playlist-actions li {
+    float: left;
+    font-size: 25px;
+    padding: 0;
+}
+
+#flash {
+    display: none;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 300px;
+}
+
+.wrapper {
+    clear: both;
+    float: left;
+    margin: 2px 0 0;
+    min-height: 100px;
+    padding: 0;
+    width: 100%;
+}
+
+section {
+    padding: 20px 10px;
+}
+
+#footer {
+    background-color: #eee;
+    clear: both;
+    float: left;
+    margin: 5px 0;
+    min-height: 20px;
+    padding: 0;
+    width: 100%;
+}

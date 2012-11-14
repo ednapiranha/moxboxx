@@ -1,0 +1,8 @@
+extend layout
+
+block content
+  h1 Edit your profile
+
+  form(method='post', action='/profile')
+    input(type='text', name='username', placeholder='Username', value='#{session.username || ''}')
+    button(type='submit') Update
