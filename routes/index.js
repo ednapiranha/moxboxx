@@ -58,12 +58,42 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
   });
 
   app.post('/playlist', isLoggedIn, hasUsername, function (req, res) {
-    playlist.add(req, client, function(err, user) {
+    playlist.add(req, client, function(err, playlist) {
       if (err) {
         res.status(500);
         res.json({ message: err.toString() });
       } else {
-        res.json({ message: 'Playlist has been created!' });
+        res.json({ url: '/playlist/' + playlist.id });
+      }
+    });
+  });
+
+  app.get('/playlist/:id', function (req, res) {
+    playlist.get(req, client, function(err, playlist) {
+      if (req.params.id !== 'undefined') {
+        if (err) {
+          res.redirect('/500');
+        } else {
+          res.render('playlist', {
+            pageType: 'playlist',
+            session: req.session,
+            playlist: playlist
+          });
+        }
+      }
+    });
+  });
+
+  app.get('/playlists', isLoggedIn, hasUsername, function(req, res) {
+    playlist.yourRecent(req, client, function(err, playlists) {
+      if (err) {
+        //res.redirect('/500');
+      } else {
+        res.render('playlists', {
+          pageType: 'playlists',
+          session: req.session,
+          playlists: playlists
+        });
       }
     });
   });

@@ -45,7 +45,11 @@ define(['jquery', 'persona'],
       dataType: 'json',
       cache: false
     }).done(function(data) {
-      flash.text('updated!');
+      if (data.message) {
+        flash.text(data.message);
+      } else {
+        document.location.href = data.url;
+      }
     }).error(function(data) {
       flash.text(JSON.parse(data.responseText).message);
       flash.fadeIn(500, function() {

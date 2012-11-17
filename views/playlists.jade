@@ -1,0 +1,11 @@
+extend layout
+
+block content
+  h1 Your Playlists
+
+  ol
+    for playlist in playlists
+      li
+        h2
+          a(href='/playlist/#{playlist.id}', title='#{playlist.title}')= playlist.title
+        img(src='#{playlist.owner.gravatar}')

@@ -25,17 +25,18 @@ html
           li
             a(href='#', id='login') Log in
 
-    ul#playlist-actions
-      li
-        if pageType === 'new'
-          a(href='/playlist/new', class='on') Create Playlist
-        else
-          a(href='/playlist/new') Create Playlist
-      li
-        if pageType === 'list'
-          a(href='/playlists', class='on') View Playlists
-        else
-          a(href='/playlists') View Playlists
+    if session.email
+      ul#playlist-actions
+        li
+          if pageType === 'new'
+            a(href='/playlist/new', class='on') Create Playlist
+          else
+            a(href='/playlist/new') Create Playlist
+        li
+          if pageType === 'list'
+            a(href='/playlists', class='on') View Playlists
+          else
+            a(href='/playlists') View Playlists
 
     .wrapper
       block content

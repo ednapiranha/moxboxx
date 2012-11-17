@@ -1,0 +1,7 @@
+extend layout
+
+block content
+  h1= playlist.title
+  h2= 'Created by ' + playlist.owner.username
+  img(src='#{playlist.owner.gravatar}')
+  h3= playlist.created
