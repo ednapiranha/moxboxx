@@ -167,6 +167,16 @@ section {
     padding: 0 10px 10px 0;
 }
 
+.mox-items {
+    float: left;
+    width: 600px;
+}
+
+#moxlist li, .object-wrapper {
+    margin: 0;
+    padding: 2px 0;
+}
+
 #add-track {
     float: left;
     max-width: 500px;

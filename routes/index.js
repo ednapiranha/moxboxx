@@ -78,6 +78,10 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
           var moxes = [];
 
           mox.allByPlaylistId(req, client, function(err, moxes) {
+            moxes = moxes.sort(function(a, b) {
+              return parseInt(b.id, 10) - parseInt(a.id, 10);
+            });
+
             if (err) {
               res.status(500);
               res.json({ message: err.toString() });

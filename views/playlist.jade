@@ -7,15 +7,16 @@ block content
     img(src='#{playlist.owner.gravatar}')
     h3= playlist.created
 
-  ol.moxlist
-    for mox in moxes
-      li!= mox.content
+  .mox-items
+    #add-track
+      h2 Add a mox
+      p This can be a youtube/vimeo/soundcloud/rdio url
 
-  #add-track
-    h2 Add a mox
-    p This can be a youtube/vimeo/soundcloud/rdio url
+      form(method='post', action='/mox', id='new-mox')
+        input(type='text', name='url')
+        input(type='hidden', name='playlist_id', value='#{playlist.id}')
+        button(type='submit') Add
 
-    form(method='post', action='/mox', id='new-mox')
-      input(type='text', name='url')
-      input(type='hidden', name='playlist_id', value='#{playlist.id}')
-      button(type='submit') Add
+    ol#moxlist
+      for mox in moxes
+        li!= mox.content

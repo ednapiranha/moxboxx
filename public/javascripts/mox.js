@@ -3,6 +3,8 @@
 define(['jquery'],
   function($) {
 
+  var moxlist = $('#moxlist');
+
   var self = {
     add: function(self) {
       $.ajax({
@@ -12,7 +14,8 @@ define(['jquery'],
         dataType: 'json',
         cache: false
       }).done(function(data) {
-        console.log(data.mox)
+        var moxItem = $('<li>' + data.mox.content + '</li>');
+        moxlist.prepend(moxItem);
       }).error(function(data) {
         flash.text(JSON.parse(data.responseText).message);
         flash.fadeIn(500, function() {
