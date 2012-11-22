@@ -12,14 +12,7 @@ define(['jquery'],
         dataType: 'json',
         cache: false
       }).done(function(data) {
-        if (data.message) {
-          flash.text(data.message);
-          flash.fadeIn(500, function() {
-            flash.fadeOut(4500);
-          });
-        } else {
-          document.location.href = data.url;
-        }
+        console.log(data.mox)
       }).error(function(data) {
         flash.text(JSON.parse(data.responseText).message);
         flash.fadeIn(500, function() {

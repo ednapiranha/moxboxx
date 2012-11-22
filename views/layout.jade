@@ -25,7 +25,7 @@ html
           li
             a(href='#', id='login') Log in
 
-    if session.email
+    if session.username
       ul#playlist-actions
         li
           if pageType === 'new'
@@ -33,7 +33,7 @@ html
           else
             a(href='/playlist/new') Create Playlist
         li
-          if pageType === 'list'
+          if pageType === 'playlists'
             a(href='/playlists', class='on') View Playlists
           else
             a(href='/playlists') View Playlists

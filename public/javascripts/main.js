@@ -8,8 +8,8 @@ requirejs.config({
   }
 });
 
-define(['jquery', 'persona'],
-  function($, persona, roller) {
+define(['jquery', 'user', 'playlist', 'mox'],
+  function($, user, playlist, mox) {
 
   var body = $('body');
   var form = $('form');
@@ -22,13 +22,13 @@ define(['jquery', 'persona'],
       // persona login
       case self.is('#login'):
         ev.preventDefault();
-        persona.login();
+        user.login();
         break;
 
       // persona logout
       case self.is('#logout'):
         ev.preventDefault();
-        persona.logout();
+        user.logout();
         break;
     }
   });
@@ -38,23 +38,21 @@ define(['jquery', 'persona'],
 
     var self = $(this);
 
-    $.ajax({
-      url: self.attr('action'),
-      data: self.serialize(),
-      type: self.attr('method'),
-      dataType: 'json',
-      cache: false
-    }).done(function(data) {
-      if (data.message) {
-        flash.text(data.message);
-      } else {
-        document.location.href = data.url;
-      }
-    }).error(function(data) {
-      flash.text(JSON.parse(data.responseText).message);
-      flash.fadeIn(500, function() {
-        flash.fadeOut(4500);
-      });
-    });
+    switch (true) {
+      // profile editing
+      case self.is('#profile-edit'):
+        user.saveProfile(self);
+        break;
+
+      // add playlist
+      case self.is('#new-playlist'):
+        playlist.add(self);
+        break;
+
+      // add mox
+      case self.is('#new-mox'):
+        mox.add(self);
+        break;
+    }
   });
 });

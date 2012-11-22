@@ -1,6 +1,7 @@
 module.exports = function(app, client, isLoggedIn, hasUsername) {
   var user = require('../lib/user');
   var playlist = require('../lib/playlist');
+  var mox = require('../lib/mox');
 
   app.get('/', function (req, res) {
     if (req.session.email) {
@@ -74,10 +75,20 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
         if (err) {
           res.redirect('/500');
         } else {
-          res.render('playlist', {
-            pageType: 'playlist',
-            session: req.session,
-            playlist: playlist
+          var moxes = [];
+
+          mox.allByPlaylistId(req, client, function(err, moxes) {
+            if (err) {
+              res.status(500);
+              res.json({ message: err.toString() });
+            } else {
+              res.render('playlist', {
+                pageType: 'playlist',
+                session: req.session,
+                playlist: playlist,
+                moxes: moxes
+              });
+            }
           });
         }
       }
@@ -94,6 +105,17 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
           session: req.session,
           playlists: playlists
         });
+      }
+    });
+  });
+
+  app.post('/mox', isLoggedIn, hasUsername, function (req, res) {
+    mox.add(req, client, function(err, mox) {
+      if (err) {
+        res.status(500);
+        res.json({ message: err.toString() });
+      } else {
+        res.json({ mox: mox });
       }
     });
   });
