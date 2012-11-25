@@ -1,7 +1,7 @@
 'use strict';
 
-define(['jquery'],
-  function($) {
+define(['jquery', 'utils'],
+  function($, utils) {
 
   var flash = $('#flash');
 
@@ -36,7 +36,7 @@ define(['jquery'],
         cache: false
       }).done(function(data) {
         if (data.status === 'okay') {
-          document.location.href = '/';
+          document.location.href = '/logout';
         } else {
           console.log('Logout failed because ' + data.reason);
         }
@@ -44,27 +44,7 @@ define(['jquery'],
     },
 
     saveProfile: function(self) {
-      $.ajax({
-        url: self.attr('action'),
-        data: self.serialize(),
-        type: self.attr('method'),
-        dataType: 'json',
-        cache: false
-      }).done(function(data) {
-        if (data.message) {
-          flash.text(data.message);
-          flash.fadeIn(500, function() {
-            flash.fadeOut(4500);
-          });
-        } else {
-          document.location.href = data.url;
-        }
-      }).error(function(data) {
-        flash.text(JSON.parse(data.responseText).message);
-        flash.fadeIn(500, function() {
-          flash.fadeOut(4500);
-        });
-      });
+      utils.serverPost(self);
     }
   };
 

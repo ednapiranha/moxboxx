@@ -18,10 +18,21 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
     }
   });
 
+  app.get('/logout', function (req, res) {
+    req.session.reset();
+
+    res.redirect('/');
+  });
+
   app.get('/profile', isLoggedIn, function (req, res) {
     user.loadProfile(req, client, function(err, user) {
-      if (!err) {
+      if (err) {
+        res.status(500);
+        res.json({ message: err.toString() });
+      } else {
+        console.log('got here')
         req.session.username = user.username;
+        req.session.userId = user.id;
       }
 
       res.render('profile', {
@@ -37,7 +48,6 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
         res.status(500);
         res.json({ message: err.toString() });
       } else {
-        req.session.userId = user.id;
         req.session.username = user.username;
         res.json({ message: 'Profile has been updated!' });
       }

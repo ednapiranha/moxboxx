@@ -13,7 +13,6 @@ define(['jquery', 'user', 'playlist', 'mox'],
 
   var body = $('body');
   var form = $('form');
-  var flash = $('#flash');
 
   body.on('click', function(ev) {
     var self = $(ev.target);
@@ -29,6 +28,11 @@ define(['jquery', 'user', 'playlist', 'mox'],
       case self.is('#logout'):
         ev.preventDefault();
         user.logout();
+        break;
+
+      // playlist delete
+      case self.hasClass('.playlist-delete'):
+        playlist.delete(self);
         break;
     }
   });
