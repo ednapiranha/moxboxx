@@ -41,10 +41,11 @@ define(['jquery'],
       });
     },
 
-    serverDelete: function(self, callback) {
+    serverDelete: function(self, options, callback) {
+      console.log(self.data('action'), options)
       $.ajax({
-        url: self.attr('action'),
-        data: self.serialize(),
+        url: self.data('action'),
+        data: options,
         type: 'DELETE',
         dataType: 'json',
         cache: false

@@ -1,7 +1,7 @@
 'use strict';
 
-define(['jquery', 'utils'],
-  function($, utils) {
+define(['jquery', 'utils', 'views'],
+  function($, utils, views) {
 
   var flash = $('#flash');
 
@@ -17,6 +17,11 @@ define(['jquery', 'utils'],
           document.location.href = data.url;
         }
       });
+    },
+
+    delete: function(self, options) {
+      utils.serverDelete(self, options);
+      views.remove(self);
     }
   };
 

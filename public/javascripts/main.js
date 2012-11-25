@@ -30,9 +30,21 @@ define(['jquery', 'user', 'playlist', 'mox'],
         user.logout();
         break;
 
+      // mox delete
+      case self.hasClass('mox-delete'):
+        var item = self.closest('.item');
+        mox.delete(item, {
+          playlist_id: item.data('playlistid'),
+          id: item.data('id')
+        });
+        break;
+
       // playlist delete
-      case self.hasClass('.playlist-delete'):
-        playlist.delete(self);
+      case self.hasClass('playlist-delete'):
+        var item = self.closest('.item');
+        playlist.delete(item, {
+          id: item.data('id')
+        });
         break;
     }
   });

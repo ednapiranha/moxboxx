@@ -6,8 +6,15 @@ define(['jquery', 'utils', 'views'],
   var self = {
     add: function(self) {
       utils.serverPost(self, function(data) {
-        views.moxItem({ content: data.mox.content });
+        views.moxItem({
+          content: data.mox.content
+        });
       });
+    },
+
+    delete: function(self, options) {
+      utils.serverDelete(self, options);
+      views.remove(self);
     }
   };
 

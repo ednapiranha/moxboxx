@@ -3,10 +3,12 @@ extend layout
 block content
   h1 Your Playlists
 
-  ol
+  ol#playlists
     for playlist in playlists
-      li
+      li(data-id='#{playlist.id}', data-action='/playlist/', class='item')
         h2
           a(href='/playlist/#{playlist.id}', title='#{playlist.title}')= playlist.title
         p= playlist.created
         img(src='#{playlist.owner.gravatar}')
+        .item-actions
+            a(href='javascript:;', class='playlist-delete') delete

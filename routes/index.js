@@ -30,7 +30,6 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
         res.status(500);
         res.json({ message: err.toString() });
       } else {
-        console.log('got here')
         req.session.username = user.username;
         req.session.userId = user.id;
       }
@@ -112,7 +111,7 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
   app.get('/playlists', isLoggedIn, hasUsername, function(req, res) {
     playlist.yourRecent(req, client, function(err, playlists) {
       if (err) {
-        //res.redirect('/500');
+        res.redirect('/500');
       } else {
         res.render('playlists', {
           pageType: 'playlists',
@@ -130,6 +129,28 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
         res.json({ message: err.toString() });
       } else {
         res.json({ mox: mox });
+      }
+    });
+  });
+
+  app.delete('/mox', isLoggedIn, hasUsername, function (req, res) {
+    mox.delete(req, client, function(err, mox) {
+      if (err) {
+        res.status(500);
+        res.json({ message: err.toString() });
+      } else {
+        res.json({ message: 'deleted' });
+      }
+    });
+  });
+
+  app.delete('/playlist', isLoggedIn, hasUsername, function (req, res) {
+    playlist.delete(req, client, function(err, mox) {
+      if (err) {
+        res.status(500);
+        res.json({ message: err.toString() });
+      } else {
+        res.json({ message: 'deleted' });
       }
     });
   });

@@ -125,6 +125,10 @@ h3 {
     font-size: 20px;
 }
 
+.item {
+    position: relative;
+}
+
 #playlist-actions {
     clear: both;
     float: left;
@@ -172,6 +176,12 @@ section {
     width: 525px;
 }
 
+#playlists {
+    clear: both;
+    float: left;
+    width: 300px;
+}
+
 #moxlist {
     line-height: 15px;
     list-style-type: decimal;
@@ -179,6 +189,7 @@ section {
 
 #moxlist li {
     height: 320px;
+    position: relative;
 }
 
 #moxlist li, .object-wrapper {
@@ -191,6 +202,19 @@ section {
 .object-wrapper iframe {
     height: 295px;
     width: 525px;
+}
+
+.item-actions {
+    background-color: #222;
+    position: absolute;
+    right: -122px;
+    top: 0;
+    width: 100px;
+    z-index: 3;
+}
+
+.item-actions a {
+
 }
 
 #add-track {

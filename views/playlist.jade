@@ -19,4 +19,7 @@ block content
 
     ol#moxlist
       for mox in moxes
-        li!= mox.content
+        li(data-id='#{mox.id}', data-playlistid='#{mox.playlistId}', data-action='/mox/', class='item')
+          != mox.content
+          .item-actions
+            a(href='javascript:;', class='mox-delete') delete
