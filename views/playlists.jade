@@ -1,14 +1,18 @@
 extend layout
 
 block content
-  h1 Your Playlists
+  if isOwner
+    h1 Your Playlists
+  else
+    h1= owner.username
 
   ol#playlists
     for playlist in playlists
       li(data-id='#{playlist.id}', data-action='/playlist/', class='item')
-        h2
-          a(href='/playlist/#{playlist.id}', title='#{playlist.title}')= playlist.title
-        p= playlist.created
         img(src='#{playlist.owner.gravatar}')
-        .item-actions
-            a(href='javascript:;', class='playlist-delete') delete
+        h2
+          a(href='/playlist/#{playlist.id}', title='#{playlist.title}', class='playlist-title')= playlist.title
+        time= playlist.created
+        if isOwner
+          .item-actions
+              a(href='javascript:;', class='playlist-delete') delete

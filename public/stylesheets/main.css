@@ -62,13 +62,16 @@ html, body {
 }
 
 body {
-    font-family: 'LeagueGothicRegular';
+    background-image: url('/images/back.png');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 20px;
-    text-transform: uppercase;
+    padding: 10px;
 }
 
 a {
-    color: #fff;
+    color: #bde258;
     text-decoration: none;
 }
 
@@ -76,30 +79,77 @@ a:hover {
     color: #6aecff;
 }
 
-.actions li a, #playlist-actions li a {
+form {
+    clear: both;
     display: block;
-    padding: 10px;
+    float: left;
+    margin: 10px 0 20px;
+    width: 480px;
 }
 
-a.on {
+form input[type="text"] {
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    clear: both;
+    display: block;
+    float: left;
+    font-size: 25px;
+    padding: 5px;
+    width: 450px;
+}
+
+form input[type="text"]:focus {
+    border: 2px dashed #111;
+    background-color: #dfff71;
+}
+
+form button {
+    background-color: #111;
+    border: 0;
+    border-radius: 5px;
+    clear: both;
+    color: #eee;
+    cursor: pointer;
+    display: block;
+    float: right;
+    font-size: 20px;
+    margin: 15px;
+    padding: 5px;
+}
+
+.actions {
+    position: fixed;
+    right: 10px;
+    top: 0;
+}
+
+.actions li {
+    margin-right: 5px;
+}
+
+.actions li a {
+    background-color: #eee;
+    color: #333;
+    padding: 10px 5px 2px 5px;
+}
+
+.actions li a:hover, #playlist-actions li a:hover, form button:hover,
+#playlists > li a:hover {
     background-color: #6aecff;
     color: #111;
 }
 
-header, h1, div, li {
-    background-color: #111;
-    color: #fff;
-    margin: 2px 2px 0 2px;
-    padding: 10px;
+a.on, #playlist-actions a.on {
+    background-color: #6aecff;
+    color: #111;
 }
 
-.actions {
-    display: inline-block;
-    float: left;
+header a {
+    color: #111;
+    font-size: 17px;
 }
 
 .actions li {
-    display: inline-block;
     float: left;
     font-size: 30px;
     padding: 0;
@@ -109,56 +159,63 @@ header {
     clear: both;
     display: block;
     float: left;
-    font-size: 50px;
+    margin-bottom: 30px;
 }
 
 header span {
+    background: rgba(256, 256, 256, 0.8);
     display: inline-block;
     float: left;
+    font-family: 'LeagueGothicRegular';
+    font-size: 35px;
+    margin-right: 25px;
 }
 
 h1, h2 {
+    background: rgba(256, 256, 256, 0.8);
     font-size: 40px;
+}
+
+h1 {
+    margin-bottom: 30px;
+    padding-left: 20px;
 }
 
 h3 {
     font-size: 20px;
 }
 
+time {
+    background-color: #ccc;
+    border-radius: 5px;
+    color: #fff;
+    float: left;
+    font-size: 14px;
+    padding: 5px;
+}
+
 .item {
     position: relative;
 }
 
-#playlist-actions {
-    clear: both;
-    float: left;
-}
-
-#playlist-actions li {
-    float: left;
-    font-size: 25px;
-    padding: 0;
-}
-
 #flash {
+    background-color: #f00;
+    color: #ffd9d9;
     display: none;
     left: 0;
+    padding: 10px 20px;
     position: absolute;
-    top: 0;
-    width: 300px;
+    top: 70px;
+    width: 445px;
 }
 
 .wrapper {
     clear: both;
+    display: block;
     float: left;
     margin: 2px 0 0;
     min-height: 100px;
     padding: 0;
-    width: 100%;
-}
-
-section {
-    padding: 20px 10px;
 }
 
 .playlist-item {
@@ -167,19 +224,71 @@ section {
     width: 200px;
 }
 
-.playlist-item h1 {
-    padding: 0 10px 10px 0;
+.playlist-item h3 {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.playlist-item img {
+    clear: both;
+    display: block;
+    float: left;
+    margin-right: 30px;
+    width: 100px;
+}
+
+.playlist-item time {
+    margin-top: 10px;
 }
 
 .mox-items {
     float: left;
+    margin-top: 20px;
     width: 525px;
 }
 
 #playlists {
     clear: both;
     float: left;
-    width: 300px;
+    width: 800px;
+}
+
+#playlists li {
+    clear: both;
+    float: left;
+    margin-bottom: 10px;
+    position: relative;
+    width: 100%;
+    white-space: nowrap;
+}
+
+#playlists > li a.playlist-title {
+    display: block;
+    overflow: hidden;
+    padding-left: 10px;
+    text-overflow: ellipsis;
+}
+
+#playlists > li:hover {
+    background-color: #f1f1f1;
+}
+
+#playlists time {
+    margin-left: 10px;
+}
+
+#playlists li.item h2 {
+    float: left;
+    font-size: 35px;
+    line-height: 50px;
+    width: 500px;
+}
+
+#playlists img {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    float: left;
+    width: 50px;
 }
 
 #moxlist {
@@ -207,14 +316,16 @@ section {
 .item-actions {
     background-color: #222;
     position: absolute;
-    right: -122px;
+    right: -102px;
     top: 0;
     width: 100px;
     z-index: 3;
 }
 
 .item-actions a {
-
+    display: block;
+    line-height: 14px;
+    padding: 5px;
 }
 
 #add-track {
@@ -223,11 +334,11 @@ section {
 }
 
 #footer {
-    background-color: #eee;
-    clear: both;
-    float: left;
-    margin: 5px 0;
+    background: rgba(17, 17, 17, 0.9);
+    bottom: 0;
+    left: 0;
     min-height: 20px;
     padding: 0;
+    position: fixed;
     width: 100%;
 }

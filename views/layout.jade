@@ -18,25 +18,22 @@ html
           li
             a(href='/dashboard') Dashboard
           li
+            if pageType === 'new'
+              a(href='/playlist/new', class='on') Create Playlist
+            else
+              a(href='/playlist/new') Create Playlist
+          li
+            if pageType === 'playlists'
+              a(href='/playlists', class='on') View Playlists
+            else
+              a(href='/playlists') View Playlists
+          li
             a(href='/profile') Profile
           li
             a(href='#', id='logout') Log out
         else
           li
             a(href='#', id='login') Log in
-
-    if session.username
-      ul#playlist-actions
-        li
-          if pageType === 'new'
-            a(href='/playlist/new', class='on') Create Playlist
-          else
-            a(href='/playlist/new') Create Playlist
-        li
-          if pageType === 'playlists'
-            a(href='/playlists', class='on') View Playlists
-          else
-            a(href='/playlists') View Playlists
 
     .wrapper
       block content

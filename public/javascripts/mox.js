@@ -7,7 +7,10 @@ define(['jquery', 'utils', 'views'],
     add: function(self) {
       utils.serverPost(self, function(data) {
         views.moxItem({
-          content: data.mox.content
+          content: data.mox.content,
+          isDeletable: data.mox.isDeletable,
+          playlistId: data.mox.playlistId,
+          id: data.mox.id
         });
       });
     },

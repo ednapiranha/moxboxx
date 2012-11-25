@@ -8,11 +8,15 @@ define(['jquery'],
 
   var self = {
     moxItem: function(options) {
-      var moxItem = $('<li data-id="" data-playlistid=""></li>');
+      var moxItem = $('<li class="item" data-action="/mox/" data-id="" data-playlistid=""></li>');
 
+      var actions = $('<div class="item-actions"></div>');
       moxItem.attr('data-id', options.id);
       moxItem.attr('data-playlistid', options.playlistId);
-      moxItem.html(options.content);
+      if (options.isDeletable) {
+        actions.html('<a href="javascript:;" class="mox-delete">delete</a>');
+      }
+      moxItem.html(options.content).append(actions);
 
       moxlist.prepend(moxItem);
       form.find('input[type="text"]').val('');

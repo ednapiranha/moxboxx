@@ -60,6 +60,44 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
     });
   });
 
+  app.get('/user/:id', function(req, res) {
+    var isOwner = false;
+
+    playlist.userRecent(req, client, function(err, playlists) {
+      if (err) {
+        res.redirect('/500');
+      } else {
+        if (req.session && req.session.email &&
+          parseInt(req.session.userId, 10) === parseInt(req.params.id, 10)) {
+          isOwner = true;
+        }
+
+        res.render('playlists', {
+          pageType: 'playlists',
+          session: req.session,
+          playlists: playlists.data,
+          owner: playlists.owner,
+          isOwner: isOwner
+        });
+      }
+    });
+  });
+
+  app.get('/playlists', isLoggedIn, hasUsername, function(req, res) {
+    playlist.yourRecent(req, client, function(err, playlists) {
+      if (err) {
+        res.redirect('/500');
+      } else {
+        res.render('playlists', {
+          pageType: 'playlists',
+          session: req.session,
+          playlists: playlists,
+          isOwner: true
+        });
+      }
+    });
+  });
+
   app.get('/playlist/new', isLoggedIn, hasUsername, function (req, res) {
     res.render('new', {
       pageType: 'new',
@@ -85,6 +123,12 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
           res.redirect('/500');
         } else {
           var moxes = [];
+          var isOwner = false;
+
+          if (req.session && req.session.email &&
+            parseInt(playlist.owner.id, 10) === parseInt(req.session.userId, 10)) {
+            isOwner = true;
+          }
 
           mox.allByPlaylistId(req, client, function(err, moxes) {
             moxes = moxes.sort(function(a, b) {
@@ -99,25 +143,12 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
                 pageType: 'playlist',
                 session: req.session,
                 playlist: playlist,
-                moxes: moxes
+                moxes: moxes,
+                isOwner: isOwner
               });
             }
           });
         }
-      }
-    });
-  });
-
-  app.get('/playlists', isLoggedIn, hasUsername, function(req, res) {
-    playlist.yourRecent(req, client, function(err, playlists) {
-      if (err) {
-        res.redirect('/500');
-      } else {
-        res.render('playlists', {
-          pageType: 'playlists',
-          session: req.session,
-          playlists: playlists
-        });
       }
     });
   });
