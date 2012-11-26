@@ -50,7 +50,6 @@ table {
 /* Main styles */
 
 html, body {
-    height: 100%;
     position: relative;
 }
 
@@ -64,9 +63,9 @@ html, body {
 body {
     background-image: url('/images/back.png');
     background-attachment: fixed;
-    background-repeat: no-repeat;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 20px;
+    min-width: 500px;
     padding: 10px;
 }
 
@@ -95,7 +94,7 @@ form input[type="text"] {
     float: left;
     font-size: 25px;
     padding: 5px;
-    width: 450px;
+    width: 510px;
 }
 
 form input[type="text"]:focus {
@@ -121,6 +120,7 @@ form button {
     position: fixed;
     right: 10px;
     top: 0;
+    z-index: 5;
 }
 
 .actions li {
@@ -162,8 +162,11 @@ header {
     margin-bottom: 30px;
 }
 
+header span, h1, h2, h3, p, #playlists li {
+    background: rgba(256, 256, 256, 0.83);
+}
+
 header span {
-    background: rgba(256, 256, 256, 0.8);
     display: inline-block;
     float: left;
     font-family: 'LeagueGothicRegular';
@@ -172,13 +175,18 @@ header span {
 }
 
 h1, h2 {
-    background: rgba(256, 256, 256, 0.8);
     font-size: 40px;
 }
 
 h1 {
+    clear: both;
+    display: inline-block;
+    float: left;
     margin-bottom: 30px;
-    padding-left: 20px;
+}
+
+h2 {
+    margin-bottom: 20px;
 }
 
 h3 {
@@ -200,13 +208,15 @@ time {
 
 #flash {
     background-color: #f00;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
     color: #ffd9d9;
     display: none;
     left: 0;
     padding: 10px 20px;
     position: absolute;
     top: 70px;
-    width: 445px;
+    width: 495px;
 }
 
 .wrapper {
@@ -220,8 +230,8 @@ time {
 
 .playlist-item {
     float: left;
-    padding: 20px;
-    width: 200px;
+    padding: 20px 20px 0 0;
+    width: 210px;
 }
 
 .playlist-item h3 {
@@ -247,9 +257,16 @@ time {
     width: 525px;
 }
 
+.playlist-wrapper {
+    clear: both;
+    float: left;
+    width: 100%;
+}
+
 #playlists {
     clear: both;
     float: left;
+    margin-bottom: 30px;
     width: 800px;
 }
 
@@ -260,6 +277,10 @@ time {
     position: relative;
     width: 100%;
     white-space: nowrap;
+}
+
+#playlists li h2 {
+    margin-bottom: 0;
 }
 
 #playlists > li a.playlist-title {
@@ -274,6 +295,8 @@ time {
 }
 
 #playlists time {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
     margin-left: 10px;
 }
 
@@ -292,7 +315,12 @@ time {
 }
 
 #moxlist {
-    line-height: 15px;
+    clear: both;
+    color: #333;
+    float: left;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
     list-style-type: decimal;
 }
 

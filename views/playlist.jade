@@ -2,27 +2,28 @@ extend layout
 
 block content
   h1= playlist.title
-  .playlist-item
-    h3= 'Created by ' + playlist.owner.username
-    a(href='/user/#{playlist.owner.id}')
-      img(src='#{playlist.owner.gravatar}')
-    time= playlist.created
+  .playlist-wrapper
+    .playlist-item
+      h3= 'Created by ' + playlist.owner.username
+      a(href='/user/#{playlist.owner.id}')
+        img(src='#{playlist.owner.gravatar}')
+      time= playlist.created
 
-  .mox-items
-    if session.email && isOwner
-      #add-track
-        h2 Add a media link
-        p This can be a youtube/vimeo/soundcloud/rdio url
+    .mox-items
+      if session.email && isOwner
+        #add-track
+          h2 Add a media link
+          p This can be a youtube/vimeo/soundcloud/rdio url
 
-        form(method='post', action='/mox', id='new-mox')
-          input(type='text', name='url')
-          input(type='hidden', name='playlist_id', value='#{playlist.id}')
-          button(type='submit') Add
+          form(method='post', action='/mox', id='new-mox')
+            input(type='text', name='url')
+            input(type='hidden', name='playlist_id', value='#{playlist.id}')
+            button(type='submit') Add
 
-    ol#moxlist
-      for mox in moxes
-        li(data-id='#{mox.id}', data-playlistid='#{mox.playlistId}', data-action='/mox/', class='item')
-          != mox.content
-          .item-actions
-            if session.email && isOwner
-              a(href='javascript:;', class='mox-delete') delete
+      ol#moxlist
+        for mox in moxes
+          li(data-id='#{mox.id}', data-playlistid='#{mox.playlistId}', data-action='/mox/', class='item')
+            != mox.content
+            .item-actions
+              if session.email && isOwner
+                a(href='javascript:;', class='mox-delete') delete

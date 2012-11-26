@@ -1,7 +1,7 @@
 extend layout
 
 block content
-  h1 Edit your username
+  h1 Edit your profile
 
   form(method='post', action='/profile', id='profile-edit')
     input(type='text', name='username', placeholder='Username', value='#{session.username || ''}')
