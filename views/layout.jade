@@ -16,7 +16,10 @@ html
       ul.actions
         if session.email
           li
-            a(href='/dashboard') Dashboard
+            if pageType === 'dashboard'
+              a(href='/dashboard', class='on') Dashboard
+            else
+              a(href='/dashboard') Dashboard
           li
             if pageType === 'new'
               a(href='/playlist/new', class='on') Create Playlist
@@ -28,7 +31,10 @@ html
             else
               a(href='/playlists') View Playlists
           li
-            a(href='/profile') Profile
+            if pageType === 'profile'
+              a(href='/profile', class='on') Profile
+            else
+              a(href='/profile') Profile
           li
             a(href='#', id='logout') Log out
         else

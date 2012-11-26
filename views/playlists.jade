@@ -6,6 +6,8 @@ block content
   else
     h1= owner.username
 
+  p Location: #{owner.location}
+
   ol#playlists
     for playlist in playlists
       li(data-id='#{playlist.id}', data-action='/playlist/', class='item')

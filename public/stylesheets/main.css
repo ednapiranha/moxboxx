@@ -66,12 +66,16 @@ body {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 20px;
     min-width: 500px;
-    padding: 10px;
+    padding: 0 20px;
 }
 
 a {
     color: #bde258;
     text-decoration: none;
+}
+
+p {
+    clear: both;
 }
 
 a:hover {
@@ -82,8 +86,20 @@ form {
     clear: both;
     display: block;
     float: left;
-    margin: 10px 0 20px;
-    width: 480px;
+    margin: 10px 0 20px 0;
+    width: 525px;
+}
+
+form label {
+    clear: both;
+    display: inline-block;
+    float: left;
+    font-size: 25px;
+    margin: 20px 0 5px;
+}
+
+form label:first-child {
+    margin-top: 0;
 }
 
 form input[type="text"] {
@@ -116,10 +132,14 @@ form button {
     padding: 5px;
 }
 
+.tip {
+    background-color: #f2ffad;
+}
+
 .actions {
     position: fixed;
-    right: 10px;
-    top: 0;
+    right: 20px;
+    top: -1px;
     z-index: 5;
 }
 
@@ -139,17 +159,18 @@ form button {
     color: #111;
 }
 
-a.on, #playlist-actions a.on {
+a.on, #playlist-actions a.on, header a.on {
     background-color: #6aecff;
     color: #111;
 }
 
 header a {
-    color: #111;
-    font-size: 17px;
+    color: #555;
+    font-size: 16px;
 }
 
 .actions li {
+    box-shadow: #ccc 1px 1px 1px;
     float: left;
     font-size: 30px;
     padding: 0;
@@ -162,7 +183,8 @@ header {
     margin-bottom: 30px;
 }
 
-header span, h1, h2, h3, p, #playlists li {
+header span, h1, h2, h3, p, #playlists li,
+#moxlist, form label {
     background: rgba(256, 256, 256, 0.83);
 }
 
@@ -226,11 +248,12 @@ time {
     margin: 2px 0 0;
     min-height: 100px;
     padding: 0;
+    width: 800px;
 }
 
 .playlist-item {
     float: left;
-    padding: 20px 20px 0 0;
+    padding: 0 20px 0 0;
     width: 210px;
 }
 
@@ -253,20 +276,21 @@ time {
 
 .mox-items {
     float: left;
-    margin-top: 20px;
+    margin-top: 10px;
     width: 525px;
 }
 
 .playlist-wrapper {
     clear: both;
     float: left;
+    margin-bottom: 30px;
     width: 100%;
 }
 
 #playlists {
     clear: both;
     float: left;
-    margin-bottom: 30px;
+    margin: 20px 0;
     width: 800px;
 }
 
@@ -277,6 +301,10 @@ time {
     position: relative;
     width: 100%;
     white-space: nowrap;
+}
+
+#playlists li .item-actions {
+    top: 0;
 }
 
 #playlists li h2 {
@@ -302,9 +330,9 @@ time {
 
 #playlists li.item h2 {
     float: left;
-    font-size: 35px;
+    font-size: 32px;
     line-height: 50px;
-    width: 500px;
+    width: 570px;
 }
 
 #playlists img {
@@ -321,11 +349,12 @@ time {
     font-size: 20px;
     margin: 0;
     padding: 0;
+    list-style-position: inside;
     list-style-type: decimal;
 }
 
 #moxlist li {
-    height: 320px;
+    height: 330px;
     position: relative;
 }
 
@@ -345,7 +374,7 @@ time {
     background-color: #222;
     position: absolute;
     right: -102px;
-    top: 0;
+    top: 25px;
     width: 100px;
     z-index: 3;
 }

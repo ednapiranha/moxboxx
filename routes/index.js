@@ -36,7 +36,8 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
 
       res.render('profile', {
         pageType: 'profile',
-        session: req.session
+        session: req.session,
+        location: user.location || ''
       });
     });
   });
