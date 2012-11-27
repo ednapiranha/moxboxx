@@ -17,7 +17,8 @@ block content
   ol#playlists
     for playlist in playlists
       li(data-id='#{playlist.id}', data-action='/playlist/', class='item')
-        img(src='#{playlist.owner.gravatar}')
+        a(href='/user/#{playlist.owner.id}')
+          img(src='#{playlist.owner.gravatar}')
         h2
           a(href='/playlist/#{playlist.id}', title='#{playlist.title}', class='playlist-title')= playlist.title
         time= playlist.created

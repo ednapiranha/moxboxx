@@ -23,7 +23,9 @@ define(['jquery'],
     },
 
     remove: function(self) {
-      self.remove();
+      self.fadeOut(function() {
+        self.remove();
+      });
     }
   };
 

@@ -70,7 +70,7 @@ body {
 }
 
 a {
-    color: #bde258;
+    color: #2dbfd4;
     text-decoration: none;
 }
 
@@ -125,7 +125,7 @@ form input[type="text"]:focus {
 }
 
 form button {
-    background-color: #111;
+    background-color: #659631;
     border: 0;
     border-radius: 5px;
     clear: both;
@@ -145,18 +145,32 @@ form button {
 .actions {
     position: fixed;
     right: 20px;
-    top: -1px;
+    top: -2px;
     z-index: 5;
-}
-
-.actions li {
-    margin-right: 5px;
 }
 
 .actions li a {
     background-color: #eee;
     color: #333;
     padding: 10px 5px 2px 5px;
+    text-align: center;
+    min-width: 70px;
+}
+
+.actions > li > ul {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+}
+
+.actions > li > ul li a {
+    box-shadow: #333 1px 1px 3px;
+    margin-bottom: 3px;
+}
+
+.actions > li > ul li a {
+    min-width: 150px;
 }
 
 .actions li a:hover, #playlist-actions li a:hover, form button:hover,
@@ -175,11 +189,14 @@ header a {
     font-size: 16px;
 }
 
-.actions li {
-    box-shadow: #ccc 1px 1px 1px;
+.actions > li {
     float: left;
     font-size: 30px;
-    padding: 0;
+    position: relative;
+}
+
+.actions > li:hover > ul {
+    display: block;
 }
 
 header {
@@ -194,7 +211,7 @@ header span, h1, h2, h3, p, #playlists li,
     background: rgba(256, 256, 256, 0.83);
 }
 
-header span {
+header a {
     display: inline-block;
     float: left;
     font-family: 'LeagueGothicRegular';
@@ -254,13 +271,14 @@ time {
 
 .wrapper {
     background: rgba(256, 256, 256, 0.85);
+    border-radius: 25px;
     clear: both;
     display: block;
     float: left;
     margin: 2px 0 0;
     min-height: 100px;
-    padding: 0;
-    width: 870px;
+    padding: 30px 20px;
+    width: 830px;
 }
 
 .playlist-item {
@@ -307,11 +325,13 @@ time {
 }
 
 #playlists li {
+    box-shadow: #eee -2px 0 3px;
+    border-radius: 5px;
     clear: both;
     float: left;
     margin-bottom: 10px;
     position: relative;
-    width: 100%;
+    width: 770px;
     white-space: nowrap;
 }
 
@@ -395,6 +415,19 @@ time {
     display: block;
     line-height: 14px;
     padding: 5px;
+}
+
+#profile-edit {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+#background-delete > img {
+    border-radius: 200px;
+    height: 150px;
+    margin-left: 20px;
+    width: 150px;
 }
 
 #add-track {

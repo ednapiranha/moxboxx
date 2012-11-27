@@ -17,7 +17,6 @@ module.exports = function(app, client, nconf, isLoggedIn, hasUsername) {
     } else {
       res.render('index', {
         pageType: 'index',
-        session: req.session,
         background: BACKGROUND_DEFAULT
       });
     }
@@ -42,7 +41,6 @@ module.exports = function(app, client, nconf, isLoggedIn, hasUsername) {
 
       res.render('profile', {
         pageType: 'profile',
-        session: req.session,
         location: user.location || '',
         website: user.website || '',
         background: user.background || BACKGROUND_DEFAULT
@@ -110,7 +108,6 @@ module.exports = function(app, client, nconf, isLoggedIn, hasUsername) {
 
         res.render('playlists', {
           pageType: 'userProfile',
-          session: req.session,
           playlists: playlists.data,
           owner: playlists.owner,
           isOwner: isOwner,
