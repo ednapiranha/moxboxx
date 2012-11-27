@@ -6,7 +6,13 @@ block content
   else
     h1= owner.username
 
-  p Location: #{owner.location}
+  if pageType == 'userProfile'
+    if owner.location
+      p Location: #{owner.location}
+
+    if owner.website
+      p Website:&#xa0;
+        a(href='#{owner.website}', target='_blank')= owner.website
 
   ol#playlists
     for playlist in playlists
@@ -17,4 +23,4 @@ block content
         time= playlist.created
         if isOwner
           .item-actions
-              a(href='javascript:;', class='playlist-delete') delete
+              a(href='javascript:;', class='playlist-delete', data-context='playlist-delete') delete

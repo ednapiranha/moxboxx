@@ -1,7 +1,11 @@
-module.exports = function(app, client, isLoggedIn, hasUsername) {
+'use strict';
+
+module.exports = function(app, client, nconf, isLoggedIn, hasUsername) {
   var user = require('../lib/user');
   var playlist = require('../lib/playlist');
   var mox = require('../lib/mox');
+
+  var BACKGROUND_DEFAULT = '/images/back.png';
 
   app.get('/', function (req, res) {
     if (req.session.email) {
@@ -13,7 +17,8 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
     } else {
       res.render('index', {
         pageType: 'index',
-        session: req.session
+        session: req.session,
+        background: BACKGROUND_DEFAULT
       });
     }
   });
@@ -32,12 +37,15 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
       } else {
         req.session.username = user.username;
         req.session.userId = user.id;
+        req.session.background = user.background;
       }
 
       res.render('profile', {
         pageType: 'profile',
         session: req.session,
-        location: user.location || ''
+        location: user.location || '',
+        website: user.website || '',
+        background: user.background || BACKGROUND_DEFAULT
       });
     });
   });
@@ -49,7 +57,31 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
         res.json({ message: err.toString() });
       } else {
         req.session.username = user.username;
+        req.session.background = user.background;
         res.json({ message: 'Profile has been updated!' });
+      }
+    });
+  });
+
+  app.post('/background', isLoggedIn, function(req, res) {
+    user.saveBackground(req, client, nconf, function(err, background) {
+      if (err) {
+        res.redirect('/profile?error=1');
+      } else {
+        req.session.background = background;
+        res.redirect('/profile');
+      }
+    });
+  });
+
+  app.post('/reset/background', isLoggedIn, function(req, res) {
+    req.body.background = '';
+    user.saveBackground(req, client, nconf, function(err, background) {
+      if (err) {
+        res.redirect('/profile?error=1');
+      } else {
+        req.session.background = '';
+        res.redirect('/profile');
       }
     });
   });
@@ -57,28 +89,32 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
   app.get('/dashboard', isLoggedIn, hasUsername, function (req, res) {
     res.render('dashboard', {
       pageType: 'dashboard',
-      session: req.session
+      session: req.session,
+      background: req.session.background || BACKGROUND_DEFAULT
     });
   });
 
   app.get('/user/:id', function(req, res) {
     var isOwner = false;
+    var id = parseInt(req.params.id);
 
     playlist.userRecent(req, client, function(err, playlists) {
       if (err) {
         res.redirect('/500');
       } else {
+
         if (req.session && req.session.email &&
           parseInt(req.session.userId, 10) === parseInt(req.params.id, 10)) {
           isOwner = true;
         }
 
         res.render('playlists', {
-          pageType: 'playlists',
+          pageType: 'userProfile',
           session: req.session,
           playlists: playlists.data,
           owner: playlists.owner,
-          isOwner: isOwner
+          isOwner: isOwner,
+          background: playlists.owner.background || BACKGROUND_DEFAULT
         });
       }
     });
@@ -93,7 +129,8 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
           pageType: 'playlists',
           session: req.session,
           playlists: playlists,
-          isOwner: true
+          isOwner: true,
+          background: req.session.background || BACKGROUND_DEFAULT
         });
       }
     });
@@ -102,7 +139,8 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
   app.get('/playlist/new', isLoggedIn, hasUsername, function (req, res) {
     res.render('new', {
       pageType: 'new',
-      session: req.session
+      session: req.session,
+      background: req.session.background || BACKGROUND_DEFAULT
     });
   });
 
@@ -145,7 +183,8 @@ module.exports = function(app, client, isLoggedIn, hasUsername) {
                 session: req.session,
                 playlist: playlist,
                 moxes: moxes,
-                isOwner: isOwner
+                isOwner: isOwner,
+                background: playlist.owner.background || BACKGROUND_DEFAULT
               });
             }
           });

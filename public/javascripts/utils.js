@@ -5,14 +5,19 @@ define(['jquery'],
 
   var flash = $('#flash');
 
-  var displayMessage = function(data) {
+  var displayMessage = function(data, isError) {
     var msg = data.responseText || data;
 
     if (typeof msg !== 'object') {
       msg = JSON.parse(msg);
     }
 
-    flash.text(msg.message);
+    flash.text(msg.message.split(',').join('\n'));
+    if (isError) {
+      flash.addClass('error');
+    } else {
+      flash.removeClass('error');
+    }
     flash.fadeIn(500, function() {
       flash.fadeOut(4500);
     });
@@ -28,7 +33,7 @@ define(['jquery'],
         cache: false
       }).done(function(data) {
         if (data.message) {
-          displayMessage(data);
+          displayMessage(data, false);
         } else if (data.url) {
           document.location.href = data.url;
         }
@@ -37,12 +42,11 @@ define(['jquery'],
           callback(data);
         }
       }).error(function(data) {
-        displayMessage(data);
+        displayMessage(data, true);
       });
     },
 
     serverDelete: function(self, options, callback) {
-      console.log(self.data('action'), options)
       $.ajax({
         url: self.data('action'),
         data: options,
@@ -54,7 +58,7 @@ define(['jquery'],
           callback(data);
         }
       }).error(function(data) {
-        displayMessage(data);
+        displayMessage(data, true);
       });
     },
 
@@ -68,7 +72,7 @@ define(['jquery'],
           callback(data);
         }
       }).error(function(data) {
-        displayMessage(data);
+        displayMessage(data, true);
       });
     },
   };

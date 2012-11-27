@@ -32,7 +32,7 @@ require('express-persona')(app, {
 });
 
 // routes
-require("./routes")(app, client, isLoggedIn, hasUsername);
+require("./routes")(app, client, nconf, isLoggedIn, hasUsername);
 
 app.get('/404', function(req, res, next){
   next();

@@ -17,21 +17,23 @@ define(['jquery', 'user', 'playlist', 'mox'],
   body.on('click', function(ev) {
     var self = $(ev.target);
 
-    switch (true) {
+    switch (self[0].id) {
       // persona login
-      case self.is('#login'):
+      case 'login':
         ev.preventDefault();
         user.login();
         break;
 
       // persona logout
-      case self.is('#logout'):
+      case 'logout':
         ev.preventDefault();
         user.logout();
         break;
+    }
 
+    switch (self.data('context')) {
       // mox delete
-      case self.hasClass('mox-delete'):
+      case 'mox-delete':
         var item = self.closest('.item');
         mox.delete(item, {
           playlist_id: item.data('playlistid'),
@@ -40,7 +42,7 @@ define(['jquery', 'user', 'playlist', 'mox'],
         break;
 
       // playlist delete
-      case self.hasClass('playlist-delete'):
+      case 'playlist-delete':
         var item = self.closest('.item');
         playlist.delete(item, {
           id: item.data('id')
@@ -50,23 +52,24 @@ define(['jquery', 'user', 'playlist', 'mox'],
   });
 
   form.submit(function(ev) {
-    ev.preventDefault();
-
     var self = $(this);
 
-    switch (true) {
+    switch (self[0].id) {
       // profile editing
-      case self.is('#profile-edit'):
+      case 'profile-edit':
+        ev.preventDefault();
         user.saveProfile(self);
         break;
 
       // add playlist
-      case self.is('#new-playlist'):
+      case 'new-playlist':
+        ev.preventDefault();
         playlist.add(self);
         break;
 
       // add mox
-      case self.is('#new-mox'):
+      case 'new-mox':
+        ev.preventDefault();
         mox.add(self);
         break;
     }

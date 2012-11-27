@@ -14,7 +14,7 @@ define(['jquery'],
       moxItem.attr('data-id', options.id);
       moxItem.attr('data-playlistid', options.playlistId);
       if (options.isDeletable) {
-        actions.html('<a href="javascript:;" class="mox-delete">delete</a>');
+        actions.html('<a href="javascript:;" class="mox-delete" data-context="mox-delete">delete</a>');
       }
       moxItem.html(options.content).append(actions);
 

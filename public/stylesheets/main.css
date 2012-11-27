@@ -102,6 +102,12 @@ form label:first-child {
     margin-top: 0;
 }
 
+form input[type="file"] {
+    clear: both;
+    display: block;
+    float: left;
+}
+
 form input[type="text"] {
     border: 2px dashed #ccc;
     border-radius: 5px;
@@ -229,10 +235,10 @@ time {
 }
 
 #flash {
-    background-color: #f00;
+    background-color: #16c458;
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
-    color: #ffd9d9;
+    color: #e6ffef;
     display: none;
     left: 0;
     padding: 10px 20px;
@@ -241,14 +247,20 @@ time {
     width: 495px;
 }
 
+#flash.error {
+    background-color: #f00;
+    color: #ffd9d9;
+}
+
 .wrapper {
+    background: rgba(256, 256, 256, 0.85);
     clear: both;
     display: block;
     float: left;
     margin: 2px 0 0;
     min-height: 100px;
     padding: 0;
-    width: 800px;
+    width: 870px;
 }
 
 .playlist-item {

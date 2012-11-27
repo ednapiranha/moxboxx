@@ -8,4 +8,16 @@ block content
     input(type='text', name='username', placeholder='Username', value='#{session.username || ''}')
     label(for='location', class='tip') Location
     input(type='text', name='location', placeholder='Where are you located?', value='#{location}')
+    label(for='website', class='tip') Website
+    input(type='text', name='website', placeholder='Your website url', value='#{website}')
     button(type='submit') Update
+
+  if session.username
+    if session.background
+      form(method='post', action='/reset/background', id='background-delete')
+        img(src='#{session.background}')
+        button(type='submit') Remove current background
+    form(method='post', action='/background', id='background-update', enctype='multipart/form-data')
+      label(for='background', class='tip') Background Image
+      input(type='file', name='background')
+      button(type='submit') Update Background Image
