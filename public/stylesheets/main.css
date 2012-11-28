@@ -150,7 +150,6 @@ form button {
 }
 
 .actions {
-    height: 200px;
     position: fixed;
     right: 0;
     top: -2px;
@@ -202,6 +201,10 @@ header a {
     float: left;
     font-size: 30px;
     position: relative;
+}
+
+.actions > li:hover, .actions li:focus {
+    height: 200px;
 }
 
 .actions > li:hover ul, .actions > li a:focus + ul {
