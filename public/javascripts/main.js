@@ -64,7 +64,7 @@ define(['jquery', 'user', 'playlist', 'mox'],
     }
   });
 
-  body.on('blur', '#edit-title', function() {
+  body.on('blur', '#edit-title', function(ev) {
     var titleEl = $(this);
     var self = titleEl.closest('form');
 
@@ -95,6 +95,18 @@ define(['jquery', 'user', 'playlist', 'mox'],
       case 'new-mox':
         ev.preventDefault();
         mox.add(self);
+        break;
+
+      case 'edit-playlist-title':
+        ev.preventDefault();
+
+        var titleEl = editTitle;
+
+        playlist.update(self, function() {
+          editTitle.hide();
+          playlistTitle.text(titleEl.val()).show();
+          playlistEdit.show();
+        });
         break;
     }
   });
