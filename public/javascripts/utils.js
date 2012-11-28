@@ -8,19 +8,21 @@ define(['jquery'],
   var displayMessage = function(data, isError) {
     var msg = data.responseText || data;
 
-    if (typeof msg !== 'object') {
-      msg = JSON.parse(msg);
-    }
+    if (msg) {
+      if (typeof msg !== 'object') {
+        msg = JSON.parse(msg);
+      }
 
-    flash.text(msg.message.split(',').join('\n'));
-    if (isError) {
-      flash.addClass('error');
-    } else {
-      flash.removeClass('error');
+      flash.text(msg.message.split(',').join('\n'));
+      if (isError) {
+        flash.addClass('error');
+      } else {
+        flash.removeClass('error');
+      }
+      flash.fadeIn(500, function() {
+        flash.fadeOut(4500);
+      });
     }
-    flash.fadeIn(500, function() {
-      flash.fadeOut(4500);
-    });
   };
 
   var self = {

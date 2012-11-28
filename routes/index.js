@@ -210,24 +210,12 @@ module.exports = function(app, client, nconf, isLoggedIn, hasUsername) {
   });
 
   app.delete('/mox', isLoggedIn, hasUsername, function (req, res) {
-    mox.delete(req, client, function(err, mox) {
-      if (err) {
-        res.status(500);
-        res.json({ message: err.toString() });
-      } else {
-        res.json({ message: 'deleted' });
-      }
-    });
+    mox.delete(req, client);
+    res.json({ message: 'deleted' });
   });
 
   app.delete('/playlist', isLoggedIn, hasUsername, function (req, res) {
-    playlist.delete(req, client, function(err, mox) {
-      if (err) {
-        res.status(500);
-        res.json({ message: err.toString() });
-      } else {
-        res.json({ message: 'deleted' });
-      }
-    });
+    playlist.delete(req, client);
+    res.json({ message: 'deleted' });
   });
 };

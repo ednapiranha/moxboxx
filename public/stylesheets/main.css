@@ -182,7 +182,7 @@ form button {
 }
 
 .actions li a:hover, #playlist-actions li a:hover, form button:hover,
-#playlists > li a:hover {
+#playlists > li a:hover, .item-actions a:hover {
     background-color: #6aecff;
     color: #111;
 }
@@ -282,11 +282,11 @@ h3 {
 }
 
 time {
-    background-color: #ccc;
+    background-color: #bbb;
     border-radius: 5px;
     color: #fff;
     float: left;
-    font-size: 14px;
+    font-size: 13px;
     padding: 5px;
 }
 
@@ -376,7 +376,7 @@ time {
     float: left;
     margin-bottom: 10px;
     position: relative;
-    width: 770px;
+    width: 755px;
     white-space: nowrap;
 }
 
@@ -402,7 +402,7 @@ time {
 #playlists time {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    margin-left: 10px;
+    margin-left: 5px;
 }
 
 #playlists li.item h2 {
@@ -448,17 +448,21 @@ time {
 }
 
 .item-actions {
-    background-color: #222;
     position: absolute;
-    right: -102px;
+    right: -92px;
     top: 25px;
-    width: 100px;
+    width: 90px;
     z-index: 3;
 }
 
 .item-actions a {
+    background-color: #ff6022;
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+    color: #ffc7b1;
     display: block;
-    line-height: 14px;
+    font-size: 18px;
+    line-height: 18px;
     padding: 5px;
 }
 
