@@ -324,9 +324,10 @@ time {
     display: none;
     left: 0;
     padding: 10px 20px;
-    position: absolute;
-    top: 100px;
+    position: fixed;
+    top: 10px;
     width: 495px;
+    z-index: 4;
 }
 
 #flash.error {
