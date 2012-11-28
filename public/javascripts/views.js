@@ -18,7 +18,7 @@ define(['jquery'],
       }
       moxItem.html(options.content).append(actions);
 
-      moxlist.prepend(moxItem);
+      moxlist.append(moxItem);
       form.find('input[type="text"]').val('');
     },
 
