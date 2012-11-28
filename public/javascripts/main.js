@@ -13,6 +13,9 @@ define(['jquery', 'user', 'playlist', 'mox'],
 
   var body = $('body');
   var form = $('form');
+  var editTitle = $('#edit-title');
+  var playlistTitle = $('h1#playlist-title > span');
+  var playlistEdit = $('.playlist-edit');
 
   body.on('click', function(ev) {
     var self = $(ev.target);
@@ -48,7 +51,28 @@ define(['jquery', 'user', 'playlist', 'mox'],
           id: item.data('id')
         });
         break;
+
+      // playlist edit
+      case 'playlist-edit':
+        playlistEdit.hide();
+        playlistTitle.hide(function() {
+          editTitle
+            .focus()
+            .show();
+        });
+        break;
     }
+  });
+
+  body.on('blur', '#edit-title', function() {
+    var titleEl = $(this);
+    var self = titleEl.closest('form');
+
+    playlist.update(self, function() {
+      editTitle.hide();
+      playlistTitle.text(titleEl.val()).show();
+      playlistEdit.show();
+    });
   });
 
   form.submit(function(ev) {

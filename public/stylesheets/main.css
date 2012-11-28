@@ -183,7 +183,7 @@ form button {
 }
 
 .actions li a:hover, #playlist-actions li a:hover, form button:hover,
-#playlists > li a:hover, .item-actions a:hover {
+#playlists > li a:hover, .item-actions a:hover, .playlist-edit:hover {
     background-color: #6aecff;
     color: #111;
 }
@@ -204,8 +204,17 @@ header a {
     position: relative;
 }
 
-.actions > li:hover > ul, .actions > li a:focus + ul {
+.actions > li:hover ul, .actions > li a:focus + ul {
     display: block;
+}
+
+.playlist-edit {
+    background-color: #fff;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 17px;
+    margin-left: 20px;
+    padding: 3px 7px;
 }
 
 header {
@@ -215,7 +224,7 @@ header {
     margin-bottom: 30px;
 }
 
-#logo, h2, h3, p, #playlists li,
+h2, h3, p, #playlists li,
 #moxlist, form label {
     background: rgba(256, 256, 256, 0.83);
 }
@@ -236,19 +245,19 @@ header a {
     line-height: 25px;
     margin: 0;
     padding: 2px 0 5px 2px;
-    text-shadow: #fff 1px 0 2px;
+    text-shadow: #fff 1px 0 1px;
 }
 
 .page-index #logo {
     display: none;
 }
 
-h1, h2 {
+h1, h2, h1 > input {
     color: #111;
     font-size: 40px;
 }
 
-h1 {
+h1, h1 > input {
     clear: both;
     display: inline-block;
     float: left;
@@ -280,6 +289,15 @@ h2 {
 
 h3 {
     font-size: 20px;
+}
+
+h1 > input {
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+}
+
+#edit-title {
+    display: none;
 }
 
 time {
@@ -362,6 +380,15 @@ time {
     float: left;
     margin-bottom: 30px;
     width: 100%;
+}
+
+#playlist-title form {
+    display: inline;
+    margin: 0;
+}
+
+#playlist-title form button {
+    display: none;
 }
 
 #playlists {

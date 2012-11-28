@@ -168,38 +168,54 @@ module.exports = function(app, client, nconf, isLoggedIn, hasUsername) {
 
   app.get('/playlist/:id', function (req, res) {
     playlist.get(req, client, function(err, playlist) {
-      if (req.params.id !== 'undefined') {
-        if (err) {
-          res.redirect('/500');
-        } else {
-          var moxes = [];
-          var isOwner = false;
+      if (err) {
+        res.status(500);
+        res.json({ message: err.toString() });
+      } else {
+        if (req.params.id !== 'undefined') {
+          if (err) {
+            res.redirect('/500');
+          } else {
+            var moxes = [];
+            var isOwner = false;
 
-          if (req.session && req.session.email &&
-            parseInt(playlist.owner.id, 10) === parseInt(req.session.userId, 10)) {
-            isOwner = true;
-          }
-
-          mox.allByPlaylistId(req, client, function(err, moxes) {
-            moxes = moxes.sort(function(a, b) {
-              return parseInt(b.id, 10) - parseInt(a.id, 10);
-            });
-
-            if (err) {
-              res.status(500);
-              res.json({ message: err.toString() });
-            } else {
-              res.render('playlist', {
-                pageType: 'playlist',
-                session: req.session,
-                playlist: playlist,
-                moxes: moxes,
-                isOwner: isOwner,
-                background: playlist.owner.background || BACKGROUND_DEFAULT
-              });
+            if (req.session && req.session.email &&
+              parseInt(playlist.owner.id, 10) === parseInt(req.session.userId, 10)) {
+              isOwner = true;
             }
-          });
+
+            mox.allByPlaylistId(req, client, function(err, moxes) {
+              moxes = moxes.sort(function(a, b) {
+                return parseInt(b.id, 10) - parseInt(a.id, 10);
+              });
+
+              if (err) {
+                res.status(500);
+                res.json({ message: err.toString() });
+              } else {
+                res.render('playlist', {
+                  pageType: 'playlist',
+                  session: req.session,
+                  playlist: playlist,
+                  moxes: moxes,
+                  isOwner: isOwner,
+                  background: playlist.owner.background || BACKGROUND_DEFAULT
+                });
+              }
+            });
+          }
         }
+      }
+    });
+  });
+
+  app.post('/playlist/:id', isLoggedIn, hasUsername, function(req, res) {
+    playlist.update(req, client, function(err, playlist) {
+      if (err) {
+        res.status(500);
+        res.json({ message: err.toString() });
+      } else {
+        res.json({ 'message': 'updated' });
       }
     });
   });

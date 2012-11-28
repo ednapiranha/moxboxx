@@ -1,7 +1,13 @@
 extend layout
 
 block content
-  h1= playlist.title
+  h1#playlist-title
+    span= playlist.title
+    if session.email && isOwner
+      form(method='post', action='/playlist/#{playlist.id}')
+        input(type='text', name='title', id='edit-title', value='#{playlist.title}', data-action='/playlist/#{playlist.id}')
+        button(type='submit') Update
+      a(href='javascript:;', class='playlist-edit', data-context='playlist-edit') edit
   .playlist-wrapper
     .playlist-item
       h3= 'Created by ' + playlist.owner.username
