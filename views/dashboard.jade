@@ -2,3 +2,12 @@ extend layout
 
 block content
   h1 Recent Activity
+
+  ol#playlists
+    for playlist in playlists
+      li(data-id='#{playlist.id}', data-action='/playlist/', class='item')
+        a(href='/user/#{playlist.owner.id}')
+          img(src='#{playlist.owner.gravatar}')
+        h2
+          a(href='/playlist/#{playlist.id}', title='#{playlist.title}', class='playlist-title')= playlist.title
+        time= playlist.created

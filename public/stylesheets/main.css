@@ -214,7 +214,7 @@ header {
     margin-bottom: 30px;
 }
 
-#logo, h1, h2, h3, p, #playlists li,
+#logo, h2, h3, p, #playlists li,
 #moxlist, form label {
     background: rgba(256, 256, 256, 0.83);
 }
@@ -235,7 +235,7 @@ header a {
     line-height: 25px;
     margin: 0;
     padding: 2px 0 5px 2px;
-    text-shadow: #fff 0 0 3px;
+    text-shadow: #fff 1px 0 2px;
 }
 
 .page-index #logo {
@@ -244,16 +244,16 @@ header a {
 
 h1, h2 {
     color: #111;
-    font-family: 'LeagueGothicRegular';
     font-size: 40px;
-    text-transform: uppercase;
 }
 
 h1 {
     clear: both;
     display: inline-block;
     float: left;
-    margin-bottom: 30px;
+    font-family: 'LeagueGothicRegular';
+    margin-bottom: 20px;
+    text-transform: uppercase;
 }
 
 .page-index .wrapper {
@@ -341,6 +341,7 @@ time {
 }
 
 .playlist-item img {
+    border-radius: 5px;
     display: block;
     width: 100px;
 }
@@ -464,6 +465,11 @@ time {
     font-size: 18px;
     line-height: 18px;
     padding: 5px;
+}
+
+.user-info p {
+    background: none;
+    margin-bottom: 5px;
 }
 
 #profile-edit {

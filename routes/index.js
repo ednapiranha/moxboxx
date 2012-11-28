@@ -93,10 +93,16 @@ module.exports = function(app, client, nconf, isLoggedIn, hasUsername) {
   });
 
   app.get('/dashboard', isLoggedIn, hasUsername, function (req, res) {
-    res.render('dashboard', {
-      pageType: 'dashboard',
-      session: req.session,
-      background: req.session.background || BACKGROUND_DEFAULT
+    playlist.getGlobal(req, client, function(err, playlists) {
+      if (err) {
+        res.redirect('/500');
+      } else {
+        res.render('dashboard', {
+          pageType: 'dashboard',
+          playlists: playlists,
+          background: req.session.background || BACKGROUND_DEFAULT
+        });
+      }
     });
   });
 
