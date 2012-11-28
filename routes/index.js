@@ -49,6 +49,11 @@ module.exports = function(app, client, nconf, isLoggedIn, hasUsername) {
   });
 
   app.post('/profile', isLoggedIn, function(req, res) {
+    if (!req.session.username) {
+      req.session.firstVisit = true;
+    } else {
+      req.session.firstVisit = false;
+    }
     user.saveProfile(req, client, function(err, user) {
       if (err) {
         res.status(500);
@@ -56,7 +61,10 @@ module.exports = function(app, client, nconf, isLoggedIn, hasUsername) {
       } else {
         req.session.username = user.username;
         req.session.background = user.background;
-        res.json({ message: 'Profile has been updated!' });
+        res.json({
+          message: 'Profile has been updated!',
+          meta: { firstVisit: req.session.firstVisit }
+        });
       }
     });
   });

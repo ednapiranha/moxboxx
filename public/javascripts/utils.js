@@ -32,14 +32,18 @@ define(['jquery'],
         dataType: 'json',
         cache: false
       }).done(function(data) {
-        if (data.message) {
-          displayMessage(data, false);
-        } else if (data.url) {
-          document.location.href = data.url;
-        }
+        if (data.meta && data.meta.firstVisit) {
+          document.location.href = '/profile';
+        } else {
+          if (data.message) {
+            displayMessage(data, false);
+          } else if (data.url) {
+            document.location.href = data.url;
+          }
 
-        if (callback) {
-          callback(data);
+          if (callback) {
+            callback(data);
+          }
         }
       }).error(function(data) {
         displayMessage(data, true);

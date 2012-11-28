@@ -4,7 +4,7 @@ block content
   h1 Edit your profile
 
   form(method='post', action='/profile', id='profile-edit')
-    label(for='username', class='tip') Username
+    label(for='username', class='tip') Username*
     input(type='text', name='username', placeholder='Username', value='#{session.username || ''}')
     label(for='location', class='tip') Location
     input(type='text', name='location', placeholder='Where are you located?', value='#{location}')
@@ -15,7 +15,7 @@ block content
   if session.username
     if session.background
       form(method='post', action='/reset/background', id='background-delete')
-        img(src='#{session.background}')
+        div(class='preview', style='background-image: url(#{session.background})')
         button(type='submit') Remove current background
     form(method='post', action='/background', id='background-update', enctype='multipart/form-data')
       label(for='background', class='tip') Background Image (100 kb maximum file size)

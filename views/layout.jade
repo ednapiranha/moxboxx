@@ -8,11 +8,10 @@ html
     link(rel='shortcut icon', href='/images/favicon.png')
     link(rel='stylesheet', href='/stylesheets/main.css')
 
-  body(style='background-image: url(#{background});')
+  body(style='background-image: url(#{background});', class='page-#{pageType}')
     #flash
     header
-      a(href='/', class='logo')
-        span moxboxx
+      a(href='/', id='logo') moxboxx
 
       ul.actions
         if session.email
@@ -31,13 +30,14 @@ html
               li
                 a(href='/profile') Settings
               li
-                a(href='#', id='logout') Log out
+                a(href='#', id='logout') Sign out
         else
           li
-            a(href='#', id='login') Log in
+            a(href='#', id='login') Sign in with Persona
 
-    .wrapper
-      block content
+    .main-wrapper
+      .wrapper
+        block content
     #footer
 
     script(src='https://login.persona.org/include.js', type='text/javascript')
