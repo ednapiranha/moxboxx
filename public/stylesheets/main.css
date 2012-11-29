@@ -534,7 +534,7 @@ time {
 .item-actions {
     position: absolute;
     right: -86px;
-    top: 4px;
+    top: 0;
     width: 85px;
     z-index: 3;
 }
