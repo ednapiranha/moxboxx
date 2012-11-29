@@ -97,6 +97,10 @@ form {
     width: 525px;
 }
 
+#edit-playlist-title {
+    width: 825px;
+}
+
 form label {
     clear: both;
     display: inline-block;
@@ -182,7 +186,8 @@ form button {
 }
 
 .actions li a:hover, #playlist-actions li a:hover, form button:hover,
-#playlists > li a:hover, .item-actions a:hover, .playlist-edit:hover {
+#playlists > li a:hover, .item-actions a:hover, .playlist-edit:hover,
+.playlist-edit-cancel:hover, .playlist-edit-save:hover {
     background-color: #6aecff;
     color: #111;
 }
@@ -211,13 +216,19 @@ header a {
     display: block;
 }
 
-.playlist-edit {
+.playlist-edit, .playlist-edit-cancel, .playlist-edit-save {
     background-color: #fff;
     border-radius: 5px;
     font-family: Arial, sans-serif;
     font-size: 17px;
     margin-left: 20px;
     padding: 3px 7px;
+}
+
+.playlist-edit-save {
+    font-size: 25px;
+    font-weight: bold;
+    margin-left: 20px;
 }
 
 header {
@@ -297,10 +308,6 @@ h3 {
 h1 > input {
     border: 2px dashed #ccc;
     border-radius: 5px;
-}
-
-#edit-title {
-    display: none;
 }
 
 time {
@@ -413,10 +420,6 @@ time {
     white-space: nowrap;
 }
 
-#playlists li .item-actions {
-    top: 0;
-}
-
 #playlists li h2 {
     margin-bottom: 0;
 }
@@ -482,21 +485,26 @@ time {
 
 .item-actions {
     position: absolute;
-    right: -92px;
-    top: 25px;
-    width: 90px;
+    right: -86px;
+    top: 4px;
+    width: 85px;
     z-index: 3;
 }
 
 .item-actions a {
-    background-color: #ff6022;
+    background-color: #ff9c1c;
     border-bottom-right-radius: 8px;
     border-top-right-radius: 8px;
-    color: #ffc7b1;
+    color: #fff4e5;
     display: block;
-    font-size: 18px;
-    line-height: 18px;
-    padding: 5px;
+    font-size: 15px;
+    line-height: 15px;
+    margin-bottom: 1px;
+    padding: 3px 3px 3px 6px;
+}
+
+.item-actions a.playlist-delete {
+    background-color: #f00;
 }
 
 .user-info p {
@@ -521,6 +529,10 @@ time {
 #add-track {
     float: left;
     max-width: 500px;
+}
+
+.off, #edit-title.off {
+    display: none;
 }
 
 #footer {

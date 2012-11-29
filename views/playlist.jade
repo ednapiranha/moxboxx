@@ -5,7 +5,9 @@ block content
     span= playlist.title
     if session.email && isOwner
       form(method='post', action='/playlist/#{playlist.id}', id='edit-playlist-title')
-        input(type='text', name='title', id='edit-title', value='#{playlist.title}', data-action='/playlist/#{playlist.id}')
+        input(type='text', name='title', id='edit-title', value='#{playlist.title}', data-action='/playlist/#{playlist.id}', class='off')
+        a(href='javascript:;', class='playlist-edit-cancel off', data-context='playlist-edit-cancel') Cancel
+        a(href='javascript:;', class='playlist-edit-save off', data-context='playlist-edit-save') Save
         button(type='submit') Update
       a(href='javascript:;', class='playlist-edit', data-context='playlist-edit') edit
   .playlist-wrapper
@@ -30,6 +32,5 @@ block content
         for mox in moxes
           li(data-id='#{mox.id}', data-playlistid='#{mox.playlistId}', data-action='/mox/', class='item')
             != mox.content
-            .item-actions
-              if session.email && isOwner
-                a(href='javascript:;', class='mox-delete', data-context='mox-delete') delete
+            if session.email && isOwner
+              a(href='javascript:;', class='mox-delete', data-context='mox-delete') delete

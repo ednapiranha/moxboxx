@@ -34,6 +34,21 @@ define(['jquery', 'utils', 'views'],
       });
     },
 
+    star: function(self, callback) {
+      utils.serverPost(self, function(data) {
+        if (data.message) {
+          flash.text(data.message);
+          flash.fadeIn(500, function() {
+            flash.fadeOut(4500);
+          });
+        }
+
+        if (callback) {
+          callback();
+        }
+      });
+    },
+
     delete: function(self, options) {
       utils.serverDelete(self, options);
       views.remove(self);

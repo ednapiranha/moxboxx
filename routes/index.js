@@ -155,6 +155,35 @@ module.exports = function(app, client, nconf, isLoggedIn, hasUsername) {
     });
   });
 
+  app.get('/playlists/starred', isLoggedIn, hasUsername, function (req, res) {
+    playlist.recentStarred(req, client, function(err, playlists) {
+      if (err) {
+        res.redirect('/500');
+      } else {
+        res.render('starred', {
+          pageType: 'starred',
+          playlists: playlists,
+          background: req.session.background || BACKGROUND_DEFAULT
+        });
+      }
+    });
+  });
+
+  app.post('/playlist/star/', isLoggedIn, hasUsername, function (req, res) {
+    playlist.star(req, client, function(err, resp) {
+      if (err) {
+        res.status(500);
+        res.json({ message: err.toString() });
+      } else {
+        if (req.body.starred === 'true') {
+          res.json({ 'message': 'unstarred' });
+        } else {
+          res.json({ 'message': 'starred' });
+        }
+      }
+    });
+  });
+
   app.post('/playlist', isLoggedIn, hasUsername, function (req, res) {
     playlist.add(req, client, function(err, playlist) {
       if (err) {

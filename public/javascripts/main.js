@@ -16,6 +16,16 @@ define(['jquery', 'user', 'playlist', 'mox'],
   var editTitle = $('#edit-title');
   var playlistTitle = $('h1#playlist-title > span');
   var playlistEdit = $('.playlist-edit');
+  var playlistEditCancel = $('.playlist-edit-cancel');
+  var playlistEditSave = $('.playlist-edit-save');
+
+  var resetEditActions = function(titleEl) {
+    editTitle.addClass('off');
+    playlistTitle.text(titleEl.val()).removeClass('off');
+    playlistEdit.removeClass('off');
+    playlistEditCancel.addClass('off');
+    playlistEditSave.addClass('off');
+  };
 
   body.on('click', function(ev) {
     var self = $(ev.target);
@@ -52,27 +62,40 @@ define(['jquery', 'user', 'playlist', 'mox'],
         });
         break;
 
+      // playlist star/unstar
+      case 'playlist-star':
+        playlist.star(self);
+        if (self.hasClass('on')) {
+          self.removeClass('on').text('star');
+        } else {
+          self.addClass('on').text('unstar');
+        }
+        break;
+
       // playlist edit
       case 'playlist-edit':
-        playlistEdit.hide();
-        playlistTitle.hide(function() {
-          editTitle
-            .focus()
-            .show();
-        });
+        playlistEditCancel.removeClass('off');
+        playlistEdit.addClass('off');
+        playlistTitle.addClass('off');
+        playlistEditSave.removeClass('off');
+        editTitle
+          .focus()
+          .removeClass('off');
         break;
+
+      // cancel playlist edit
+      case 'playlist-edit-cancel':
+        self.addClass('off');
+        playlistEdit.removeClass('off');
+        playlistTitle.removeClass('off');
+        editTitle.addClass('off');
+        playlistEditSave.addClass('off');
+        break;
+
+      // save playlist
+      case 'playlist-edit-save':
+        self.closest('form').submit();
     }
-  });
-
-  body.on('blur', '#edit-title', function(ev) {
-    var titleEl = $(this);
-    var self = titleEl.closest('form');
-
-    playlist.update(self, function() {
-      editTitle.hide();
-      playlistTitle.text(titleEl.val()).show();
-      playlistEdit.show();
-    });
   });
 
   form.submit(function(ev) {
@@ -103,9 +126,7 @@ define(['jquery', 'user', 'playlist', 'mox'],
         var titleEl = editTitle;
 
         playlist.update(self, function() {
-          editTitle.hide();
-          playlistTitle.text(titleEl.val()).show();
-          playlistEdit.show();
+          resetEditActions(titleEl);
         });
         break;
     }

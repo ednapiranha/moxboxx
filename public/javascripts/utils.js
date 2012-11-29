@@ -27,9 +27,17 @@ define(['jquery'],
 
   var self = {
     serverPost: function(self, callback) {
+      var data = self.serialize();
+      var action = self.attr('action');
+
+      // For starred posts
+      if (!self.is('form')) {
+        data = { id: self.data('id'), starred: self.hasClass('on') };
+        action = self.data('action');
+      }
       $.ajax({
-        url: self.attr('action'),
-        data: self.serialize(),
+        url: action,
+        data: data,
         type: 'POST',
         dataType: 'json',
         cache: false
@@ -80,7 +88,7 @@ define(['jquery'],
       }).error(function(data) {
         displayMessage(data, true);
       });
-    },
+    }
   };
 
   return self;
