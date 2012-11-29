@@ -17,11 +17,20 @@ block content
         img(src='#{playlist.owner.gravatar}')
       time= playlist.created
 
+      if session.email
+        .item-actions
+          if parseInt(session.userId, 10) === parseInt(playlist.owner.id, 10)
+            a(href='javascript:;', data-id='#{playlist.id}', class='playlist-delete', data-action='/playlist/', data-context='playlist-delete-detail') delete
+          if playlist.isStarred
+            a(href='javascript:;', data-id='#{playlist.id}', class='playlist-star on', data-action='/playlist/star/', data-context='playlist-star') unstar
+          else
+            a(href='javascript:;', data-id='#{playlist.id}', class='playlist-star', data-action='/playlist/star/', data-context='playlist-star') star
+
     .mox-items
       if session.email && isOwner
         #add-track
           h2 Add a media link
-          p.tip This can be a youtube/vimeo/soundcloud/rdio url
+          p.tip This can be a youtube/vimeo/mixcloud/soundcloud/rdio url
 
           form(method='post', action='/mox', id='new-mox')
             input(type='text', name='url')

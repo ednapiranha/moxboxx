@@ -188,9 +188,10 @@ form button {
 .actions li a:hover, #playlist-actions li a:hover, form button:hover,
 #playlists > li a:hover, .item-actions a:hover, .playlist-edit:hover,
 .playlist-edit-cancel:hover, .playlist-edit-save:hover,
-.item-actions a.mox-delete:hover {
+.item-actions a.mox-delete:hover, .playlist-item .item-actions a:hover {
     background-color: #6aecff;
     color: #111;
+    text-shadow: #fff 1px 1px 3px;
 }
 
 a.on, #playlist-actions a.on, header a.on {
@@ -393,6 +394,7 @@ time {
 .playlist-item {
     float: left;
     padding: 0 20px 0 0;
+    position: relative;
     width: 210px;
 }
 
@@ -522,6 +524,20 @@ time {
     z-index: 3;
 }
 
+.playlist-item .item-actions {
+    clear: both;
+    float: left;
+    margin-top: 10px;
+    position: relative;
+    right: 0;
+    text-align: center;
+}
+
+.playlist-item .item-actions a {
+    border-radius: 8px;
+    margin-bottom: 3px;
+}
+
 .item-actions a {
     background-color: #ff9c1c;
     border-bottom-right-radius: 8px;
@@ -563,7 +579,7 @@ time {
 
 #add-track {
     float: left;
-    max-width: 500px;
+    max-width: 525px;
 }
 
 .off, #edit-title.off {

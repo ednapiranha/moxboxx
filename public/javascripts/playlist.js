@@ -49,9 +49,14 @@ define(['jquery', 'utils', 'views'],
       });
     },
 
-    delete: function(self, options) {
-      utils.serverDelete(self, options);
-      views.remove(self);
+    delete: function(self, options, refresh) {
+      utils.serverDelete(self, options, function() {
+        if (refresh) {
+          document.location.href = '/dashboard';
+        } else {
+          views.remove(self);
+        }
+      });
     }
   };
 

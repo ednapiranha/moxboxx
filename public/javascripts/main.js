@@ -62,6 +62,13 @@ define(['jquery', 'user', 'playlist', 'mox'],
         });
         break;
 
+      // playlist delete
+      case 'playlist-delete-detail':
+        playlist.delete(self, {
+          id: self.data('id')
+        }, true);
+        break;
+
       // playlist star/unstar
       case 'playlist-star':
         playlist.star(self);
