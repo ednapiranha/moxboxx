@@ -440,6 +440,7 @@ time {
     clear: both;
     float: left;
     margin: 20px 0;
+    padding: 0;
     width: 800px;
 }
 
@@ -492,12 +493,25 @@ time {
 #moxlist {
     clear: both;
     color: #333;
+    counter-reset: li;
     float: left;
     font-size: 20px;
     margin: 0;
     padding: 0;
-    list-style-position: inside;
-    list-style-type: decimal;
+}
+
+#moxlist li:before {
+    background-color: #111;
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+    color: #fff;
+    content: counter(li);
+    counter-increment: li;
+    font-family: 'LeagueGothicRegular';
+    left: -30px;
+    padding: 5px 10px 3px 10px;
+    position: absolute;
+    width: 10px;
 }
 
 #moxlist li {
@@ -509,7 +523,7 @@ time {
     clear: both;
     float: left;
     margin: 0;
-    padding: 2px 0;
+    padding: 0;
 }
 
 .object-wrapper iframe {
