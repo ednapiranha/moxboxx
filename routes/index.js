@@ -138,7 +138,6 @@ module.exports = function(app, client, nconf, isLoggedIn, hasUsername) {
       } else {
         res.render('playlists', {
           pageType: 'playlists',
-          session: req.session,
           playlists: playlists,
           isOwner: true,
           background: req.session.background || BACKGROUND_DEFAULT
@@ -220,7 +219,6 @@ module.exports = function(app, client, nconf, isLoggedIn, hasUsername) {
               } else {
                 res.render('playlist', {
                   pageType: 'playlist',
-                  session: req.session,
                   playlist: playlist,
                   moxes: moxes,
                   isOwner: isOwner,
@@ -252,6 +250,30 @@ module.exports = function(app, client, nconf, isLoggedIn, hasUsername) {
         res.json({ message: err.toString() });
       } else {
         res.json({ mox: mox });
+      }
+    });
+  });
+
+  app.get('/bookmarklet', isLoggedIn, hasUsername, function (req, res) {
+    playlist.yourRecent(req, client, function(err, playlists) {
+      if (err) {
+        res.redirect('/500');
+      } else {
+        res.render('bookmarklet', {
+          pageType: 'bookmarklet',
+          playlists: playlists,
+          background: req.session.background || BACKGROUND_DEFAULT
+        });
+      }
+    });
+  });
+
+  app.post('/mini/mox', isLoggedIn, hasUsername, function (req, res) {
+    mox.add(req, client, function(err, mox) {
+      if (err) {
+        res.redirect('/bookmarklet?error=1');
+      } else {
+        res.redirect('/bookmarklet?sucess=1');
       }
     });
   });

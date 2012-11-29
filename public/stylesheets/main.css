@@ -359,6 +359,32 @@ time {
     width: 830px;
 }
 
+.page-bookmarklet .wrapper {
+    margin-top: 10px;
+    padding: 15px 20px 5px 20px;
+    width: 450px;
+}
+
+.page-bookmarklet form {
+    width: 440px;
+}
+
+.page-bookmarklet form button {
+    margin: 5px;
+}
+
+.page-bookmarklet form input[type="text"] {
+    width: 440px;
+}
+
+.page-bookmarklet form select {
+    clear: both;
+    display: block;
+    float: left;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
 .playlist-item {
     float: left;
     padding: 0 20px 0 0;
@@ -501,6 +527,10 @@ time {
     line-height: 15px;
     margin-bottom: 1px;
     padding: 3px 3px 3px 6px;
+}
+
+.item-actions a.on {
+    background-color: #3d3434;
 }
 
 .item-actions a.playlist-delete {

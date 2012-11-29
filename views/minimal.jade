@@ -1,0 +1,12 @@
+!!! 5
+html
+  head
+    title moxboxx
+    meta(content='chrome=1', http-equiv='X-UA-Compatible')
+    link(rel='shortcut icon', href='/images/favicon.png')
+    link(rel='stylesheet', href='/stylesheets/main.css')
+
+  body(style='background-image: url(#{background});', class='page-#{pageType}')
+    .main-wrapper
+      .wrapper
+        block content
