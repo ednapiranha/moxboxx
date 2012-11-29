@@ -187,7 +187,8 @@ form button {
 
 .actions li a:hover, #playlist-actions li a:hover, form button:hover,
 #playlists > li a:hover, .item-actions a:hover, .playlist-edit:hover,
-.playlist-edit-cancel:hover, .playlist-edit-save:hover {
+.playlist-edit-cancel:hover, .playlist-edit-save:hover,
+.item-actions a.mox-delete:hover {
     background-color: #6aecff;
     color: #111;
 }
@@ -533,7 +534,7 @@ time {
     background-color: #3d3434;
 }
 
-.item-actions a.playlist-delete {
+.item-actions a.playlist-delete, .item-actions a.mox-delete {
     background-color: #f00;
 }
 

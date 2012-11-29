@@ -33,4 +33,5 @@ block content
           li(data-id='#{mox.id}', data-playlistid='#{mox.playlistId}', data-action='/mox/', class='item')
             != mox.content
             if session.email && isOwner
-              a(href='javascript:;', class='mox-delete', data-context='mox-delete') delete
+              .item-actions
+                a(href='javascript:;', class='mox-delete', data-context='mox-delete') delete

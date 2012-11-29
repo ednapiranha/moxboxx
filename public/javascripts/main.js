@@ -78,9 +78,9 @@ define(['jquery', 'user', 'playlist', 'mox'],
         playlistEdit.addClass('off');
         playlistTitle.addClass('off');
         playlistEditSave.removeClass('off');
-        editTitle
-          .focus()
-          .removeClass('off');
+        editTitle.focus();
+        editTitle.val(playlistTitle.text());
+        editTitle.removeClass('off');
         break;
 
       // cancel playlist edit
