@@ -188,7 +188,8 @@ form button {
 .actions li a:hover, #playlist-actions li a:hover, form button:hover,
 #playlists > li a:hover, .item-actions a:hover, .playlist-edit:hover,
 .playlist-edit-cancel:hover, .playlist-edit-save:hover,
-.item-actions a.mox-delete:hover, .playlist-item .item-actions a:hover {
+.item-actions a.mox-delete:hover, .playlist-item .item-actions a:hover,
+#logo:hover {
     background-color: #6aecff;
     color: #111;
     text-shadow: #fff 1px 1px 3px;
