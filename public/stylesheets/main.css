@@ -97,6 +97,17 @@ form {
     width: 525px;
 }
 
+.page-index .boombox {
+    display: block;
+    float: none;
+    margin: 0 auto;
+    width: 300px;
+}
+
+.boombox img {
+    display: block;
+}
+
 #edit-playlist-title {
     width: 825px;
 }
