@@ -367,7 +367,7 @@ time {
     clear: both;
     display: block;
     float: left;
-    margin: 2px 0 30px;
+    margin: 2px 0 50px;
     min-height: 100px;
     padding: 30px 20px;
     width: 830px;
@@ -477,6 +477,10 @@ time {
 
 #playlists li h2 {
     margin-bottom: 0;
+}
+
+#playlists li .item-actions {
+    top: 4px;
 }
 
 #playlists > li a.playlist-title {
@@ -625,7 +629,7 @@ time {
     background: rgba(17, 17, 17, 0.9);
     bottom: 0;
     left: 0;
-    min-height: 20px;
+    min-height: 40px;
     padding: 0;
     position: fixed;
     width: 100%;

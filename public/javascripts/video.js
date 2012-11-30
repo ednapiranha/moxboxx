@@ -38,7 +38,7 @@ define(['jquery'],
   var checkVimeoProgress = function(data, id) {
     var percent = parseFloat(data.percent);
 
-    if (percent > 0.000 && percent < 1.000) {
+    if (percent > 0.001 && percent < 1.000) {
       currentPlay = id;
     } else {
       checkVimeoEnd();
@@ -55,7 +55,7 @@ define(['jquery'],
   };
 
   var self = {
-    setVideos: function(video, prepend) {
+    setVideos: function(video) {
       var id = video[0].id;
       var options;
 
@@ -88,12 +88,7 @@ define(['jquery'],
         options = { 'soundcloud': player, id: id };
       }
 
-      if (prepend) {
-        videoList.unshift(options);
-
-      } else {
-        videoList.push(options);
-      }
+      videoList.push(options);
     }
   };
 
