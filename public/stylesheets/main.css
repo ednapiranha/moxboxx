@@ -367,7 +367,7 @@ time {
     clear: both;
     display: block;
     float: left;
-    margin: 2px 0;
+    margin: 2px 0 30px;
     min-height: 100px;
     padding: 30px 20px;
     width: 830px;
@@ -406,13 +406,21 @@ time {
 .playlist-item {
     float: left;
     padding: 0 20px 0 0;
+    margin-right: 30px;
     position: relative;
-    width: 210px;
+    width: 180px;
 }
 
 .playlist-item h3 {
     font-size: 16px;
     margin: 10px 0;
+}
+
+.playlist-item > a {
+    clear: both;
+    display: block;
+    float: left;
+    width: 100px;
 }
 
 .playlist-item img {
@@ -544,9 +552,9 @@ time {
 
 .item-actions {
     position: absolute;
-    right: -86px;
+    right: -75px;
     top: 0;
-    width: 85px;
+    width: 75px;
     z-index: 3;
 }
 
@@ -566,14 +574,14 @@ time {
 
 .item-actions a {
     background-color: #ff9c1c;
-    border-bottom-right-radius: 8px;
-    border-top-right-radius: 8px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
     color: #fff4e5;
     display: block;
     font-size: 15px;
     line-height: 15px;
     margin-bottom: 1px;
-    padding: 3px 3px 3px 6px;
+    padding: 3px 3px 3px 8px;
 }
 
 .item-actions a.on {

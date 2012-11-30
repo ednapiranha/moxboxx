@@ -30,7 +30,7 @@ block content
       if session.email && isOwner
         #add-track
           h2 Add a media link
-          p.tip This can be a youtube/vimeo/mixcloud/soundcloud/rdio url
+          p.tip This can be a youtube/vimeo/soundcloud url
 
           form(method='post', action='/mox', id='new-mox')
             input(type='text', name='url')

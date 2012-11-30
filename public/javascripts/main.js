@@ -8,8 +8,8 @@ requirejs.config({
   }
 });
 
-define(['jquery', 'user', 'playlist', 'mox'],
-  function($, user, playlist, mox) {
+define(['jquery', 'user', 'playlist', 'mox', 'video'],
+  function($, user, playlist, mox, videoActions) {
 
   var body = $('body');
   var form = $('form');
@@ -18,6 +18,7 @@ define(['jquery', 'user', 'playlist', 'mox'],
   var playlistEdit = $('.playlist-edit');
   var playlistEditCancel = $('.playlist-edit-cancel');
   var playlistEditSave = $('.playlist-edit-save');
+  var videos = $('#moxlist .object-wrapper iframe');
 
   var resetEditActions = function(titleEl) {
     editTitle.addClass('off');
@@ -137,5 +138,11 @@ define(['jquery', 'user', 'playlist', 'mox'],
         });
         break;
     }
+  });
+
+  // Load all video listeners
+  videos.each(function(idx, video) {
+    video = $(video);
+    videoActions.setVideos(video);
   });
 });

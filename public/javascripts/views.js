@@ -1,7 +1,7 @@
 'use strict';
 
-define(['jquery'],
-  function($) {
+define(['jquery', 'video'],
+  function($, videoActions) {
 
   var moxlist = $('#moxlist');
   var form = $('form');
@@ -19,6 +19,8 @@ define(['jquery'],
       moxItem.html(options.content).append(actions);
 
       moxlist.append(moxItem);
+      var video = moxItem.find('iframe');
+      videoActions.setVideos(video, true);
       form.find('input[type="text"]').val('');
     },
 

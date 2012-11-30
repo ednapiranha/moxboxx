@@ -1,7 +1,7 @@
 'use strict';
 
-define(['jquery', 'utils', 'views'],
-  function($, utils, views) {
+define(['jquery', 'utils', 'views', 'video'],
+  function($, utils, views, video) {
 
   var self = {
     add: function(self) {
