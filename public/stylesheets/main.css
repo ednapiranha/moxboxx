@@ -420,6 +420,7 @@ time {
     clear: both;
     display: block;
     float: left;
+    margin-right: 30px;
     width: 100px;
 }
 
