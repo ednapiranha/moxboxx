@@ -1,4 +1,5 @@
 var videoList = [];
+var currentPlay;
 
 // Define YT_ready function.
 var YT_ready = (function() {

@@ -535,7 +535,7 @@ time {
 }
 
 #moxlist li {
-    height: 330px;
+    margin-bottom: 3px;
     position: relative;
 }
 
