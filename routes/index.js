@@ -22,38 +22,6 @@ module.exports = function(app, client, nconf, isLoggedIn, hasUsername) {
     }
   });
 
-  app.get('/fixup', function(req, res) {
-    client.keys('moxboxx:mox:hash:*', function(err, k) {
-      k.forEach(function(id) {
-         client.hgetall(id, function(err, mox) {
-         // fix up old mixes
-          var c;
-          var i;
-          console.log('got here')
-          if (mox.content.indexOf('youtube') > -1 && mox.content.indexOf('id=\"video-') < 0) {
-            i = mox.content.split('embed/')[1].split('?')[0];
-            c = mox.content.replace('wmode=transparent', 'wmode=transparent&version=3&enablejsapi=1')
-              .replace(/frameborder/, 'class="youtube" id="video-youtube-' + i + '" frameborder');
-            client.hset('moxboxx:mox:hash:' + req.params.id, 'content', c);
-
-          } else if (mox.content.indexOf('vimeo') > -1 && mox.content.indexOf('id=\"video-') < 0) {
-            i = mox.content.split('\" width=')[0].split('video/')[1];
-            c = mox.content.replace('\" width', '?api=1&player_id=' + i + '\" class="vimeo" ' +
-              'id="video-vimeo-' + i + '" width');
-            client.hset('moxboxx:mox:hash:' + req.params.id, 'content', c);
-
-          } else if (mox.content.indexOf('soundcloud') > -1 && mox.content.indexOf('id=\"video-') < 0) {
-            i = mox.content.split('%2Ftracks%2F')[1].split('&')[0];
-            c = mox.content.replace('<iframe', '<iframe class="soundcloud" ' +
-              'id="video-soundcloud-' + i + '"');
-            client.hset('moxboxx:mox:hash:' + req.params.id, 'content', c);
-
-          }
-        });
-      });
-    });
-  });
-
   app.get('/logout', function (req, res) {
     req.session.reset();
 
