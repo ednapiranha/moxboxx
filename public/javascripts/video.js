@@ -24,8 +24,6 @@ define(['jquery'],
       } else if (nextVideo.soundcloud) {
         nextVideo.soundcloud.play();
       }
-    } else {
-      console.log('no more videos in list');
     }
   };
 
