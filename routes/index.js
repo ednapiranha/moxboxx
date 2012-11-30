@@ -9,6 +9,7 @@ module.exports = function(app, client, nconf, isLoggedIn, hasUsername) {
 
   app.get('/', function (req, res) {
     if (req.session.email) {
+      console.log('got here')
       if (req.session.username) {
         res.redirect('/dashboard');
       } else {
@@ -39,12 +40,16 @@ module.exports = function(app, client, nconf, isLoggedIn, hasUsername) {
         req.session.background = user.background;
       }
 
-      res.render('profile', {
-        pageType: 'profile',
-        location: user.location || '',
-        website: user.website || '',
-        background: user.background || BACKGROUND_DEFAULT
-      });
+      if (req.session.username) {
+        res.redirect('/dashboard');
+      } else {
+        res.render('profile', {
+          pageType: 'profile',
+          location: user.location || '',
+          website: user.website || '',
+          background: user.background || BACKGROUND_DEFAULT
+        });
+      }
     });
   });
 

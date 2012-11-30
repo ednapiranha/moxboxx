@@ -20,7 +20,7 @@ define(['jquery', 'utils'],
           cache: false
         }).done(function(data) {
           if (data.status === 'okay') {
-            document.location.href = '/profile';
+            document.location.href = '/';
           } else {
             console.log('Login failed because ' + data.reason);
           }
