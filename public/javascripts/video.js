@@ -46,9 +46,7 @@ define(['jquery'],
         options = { 'vimeo': player };
 
       } else if (video.hasClass('soundcloud')) {
-        SC.stream(video[0].id, function(sound) {
-          options = { 'soundcloud': sound };
-        });
+        // Todo
       }
 
       if (prepend) {
@@ -57,7 +55,6 @@ define(['jquery'],
       } else {
         videoList.push(options);
       }
-      console.log(videoList)
     },
 
     playYoutube: function(id) {
@@ -75,9 +72,6 @@ define(['jquery'],
     },
 
     playSoundcloud: function(id) {
-      SC.stream(id, function(sound) {
-        sound.play();
-      });
     },
 
     playVimeo: function(id) {
