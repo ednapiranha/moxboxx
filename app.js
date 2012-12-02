@@ -5,6 +5,37 @@ var server = require('http').createServer(app);
 var settings = require('./settings')(app, configurations, express);
 var nconf = require('nconf');
 
+/** TEMP **/
+var redis = require('redis');
+var client = redis.createClient();
+var userl = require('./lib/user');
+
+client.keys('moxboxx:profile:hash:*', function(err, u) {
+  client.hgetall(u, function(err, user) {
+    console.log(user);
+    var req = {
+      session: {
+        userId: user.id,
+        email: user.email
+      },
+      body: {}
+    };
+    req.body.username = user.username;
+    req.body.location = user.location;
+    req.body.background = user.background;
+    req.body.website = user.website;
+
+    userl.saveProfile(req, function(err, user) {
+      if (err) {
+        console.error('could not save', err)
+      } else {
+        console.log('saved')
+      }
+    });
+  });
+});
+/** END TEMP **/
+
 nconf.argv().env().file({ file: 'local.json' });
 
 /* Filters for routes */

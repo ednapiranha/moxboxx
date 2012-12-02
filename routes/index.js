@@ -56,7 +56,6 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
       req.session.firstVisit = false;
     }
     user.saveProfile(req, function(err, user) {
-      console.log(err, user)
       if (err) {
         res.status(500);
         res.json({ message: err.toString() });
