@@ -13,25 +13,27 @@ var userl = require('./lib/user');
 client.keys('moxboxx:profile:hash:*', function(err, u) {
   client.hgetall(u, function(err, user) {
     console.log(user);
-    var req = {
-      session: {
-        userId: user.id,
-        email: user.email
-      },
-      body: {}
-    };
-    req.body.username = user.username;
-    req.body.location = user.location;
-    req.body.background = user.background;
-    req.body.website = user.website;
+    if (user) {
+      var req = {
+        session: {
+          userId: user.id,
+          email: user.email
+        },
+        body: {}
+      };
+      req.body.username = user.username;
+      req.body.location = user.location;
+      req.body.background = user.background;
+      req.body.website = user.website;
 
-    userl.saveProfile(req, function(err, user) {
-      if (err) {
-        console.error('could not save', err)
-      } else {
-        console.log('saved')
-      }
-    });
+      userl.saveProfile(req, function(err, user) {
+        if (err) {
+          console.error('could not save', err)
+        } else {
+          console.log('saved')
+        }
+      });
+    }
   });
 });
 /** END TEMP **/
