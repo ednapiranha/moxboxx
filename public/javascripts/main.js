@@ -65,7 +65,6 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
 
       // playlist delete
       case 'playlist-delete-detail':
-        alert('got here')
         playlist.delete(self, {
           id: self.data('id')
         }, true);

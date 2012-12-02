@@ -13,15 +13,16 @@ html
 
       ul.actions
         if session.email
-          li
-            a(href='javascript:;') Playlists
-            ul
-              li
-                a(href='/user/#{session.userId}') View Playlists
-              li
-                a(href='/playlist/new') Create Playlist
-              li
-                a(href='/playlists/starred') View Starred
+          if session.username
+            li
+              a(href='javascript:;') Playlists
+              ul
+                li
+                  a(href='/user/#{session.userId}') View Playlists
+                li
+                  a(href='/playlist/new') Create Playlist
+                li
+                  a(href='/playlists/starred') View Starred
           li
             a(href='javascript:;') You
             ul

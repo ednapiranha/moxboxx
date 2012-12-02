@@ -28,17 +28,17 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
   app.get('/profile', isLoggedIn, function (req, res) {
     user.loadProfile(req, function(err, user) {
       if (err) {
-        res.status(500);
-        res.json({ message: err.toString() });
+        res.render('profile', {
+          pageType: 'profile',
+          location: '',
+          website: '',
+          background: nconf.get('background_default')
+        });
       } else {
         req.session.username = user.username;
         req.session.userId = user.id;
         req.session.background = user.background;
-      }
 
-      if (req.session.username) {
-        res.redirect('/dashboard');
-      } else {
         res.render('profile', {
           pageType: 'profile',
           location: user.location || '',
@@ -56,10 +56,12 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
       req.session.firstVisit = false;
     }
     user.saveProfile(req, function(err, user) {
+      console.log(err, user)
       if (err) {
         res.status(500);
         res.json({ message: err.toString() });
       } else {
+        req.session.userId = user.id;
         req.session.username = user.username;
         req.session.background = user.background;
         res.json({

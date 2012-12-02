@@ -45,11 +45,10 @@ define(['jquery'],
         if (data.meta && data.meta.firstVisit) {
           document.location.href = '/profile';
         } else {
-          console.log(data)
           if (data.message) {
             displayMessage(data, false);
           } else if (data.url) {
-            //document.location.href = data.url;
+            document.location.href = data.url;
           }
 
           if (callback) {
