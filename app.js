@@ -2,10 +2,8 @@ var express = require('express');
 var configurations = module.exports;
 var app = express();
 var server = require('http').createServer(app);
-var nconf = require('nconf');
 var settings = require('./settings')(app, configurations, express);
-var redis = require('redis');
-var client = redis.createClient();
+var nconf = require('nconf');
 
 nconf.argv().env().file({ file: 'local.json' });
 
@@ -32,18 +30,20 @@ require('express-persona')(app, {
 });
 
 // routes
-require("./routes")(app, client, nconf, isLoggedIn, hasUsername);
+require("./routes")(app, nconf, isLoggedIn, hasUsername);
+require("./routes/playlist")(app, nconf, isLoggedIn, hasUsername);
+require("./routes/mox")(app, nconf, isLoggedIn, hasUsername);
 
-app.get('/404', function(req, res, next){
+app.get('/404', function(req, res, next) {
   next();
 });
 
-app.get('/403', function(req, res, next){
+app.get('/403', function(req, res, next) {
   err.status = 403;
   next(new Error('not allowed!'));
 });
 
-app.get('/500', function(req, res, next){
+app.get('/500', function(req, res, next) {
   next(new Error('something went wrong!'));
 });
 

@@ -8,8 +8,8 @@ define(['jquery', 'utils', 'views', 'video'],
       utils.serverPost(self, function(data) {
         views.moxItem({
           content: data.mox.content,
-          isDeletable: data.mox.isDeletable,
-          playlistId: data.mox.playlistId,
+          isDeletable: true,
+          playlist_id: data.mox.playlist_id,
           id: data.mox.id
         });
       });

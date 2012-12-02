@@ -39,7 +39,7 @@ block content
 
       ol#moxlist
         for mox in moxes
-          li(data-id='#{mox.id}', data-playlistid='#{mox.playlistId}', data-action='/mox/', class='item')
+          li(data-id='#{mox.id}', data-playlistid='#{mox.playlist_id}', data-action='/mox/', class='item')
             != mox.content
             if session.email && isOwner
               .item-actions

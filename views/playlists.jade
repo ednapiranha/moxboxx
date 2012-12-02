@@ -18,14 +18,14 @@ block content
   ol#playlists
     for playlist in playlists
       li(data-id='#{playlist.id}', data-action='/playlist/', class='item')
-        a(href='/user/#{playlist.owner.id}')
-          img(src='#{playlist.owner.gravatar}')
+        a(href='/user/#{owner.id}')
+          img(src='#{owner.gravatar}')
         h2
           a(href='/playlist/#{playlist.id}', title='#{playlist.title}', class='playlist-title')= playlist.title
         time= playlist.created
         if session.email
           .item-actions
-            if parseInt(session.userId, 10) === parseInt(playlist.owner.id, 10)
+            if parseInt(session.userId, 10) === parseInt(owner.id, 10)
               a(href='javascript:;', class='playlist-delete', data-context='playlist-delete') delete
             if playlist.isStarred
               a(href='javascript:;', data-id='#{playlist.id}', class='playlist-star on', data-action='/playlist/star/', data-context='playlist-star') unstar

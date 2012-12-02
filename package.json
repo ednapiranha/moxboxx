@@ -13,14 +13,13 @@
     "jade": ">= 0.27.2",
     "request": "git://github.com/mikeal/request.git",
     "nconf": "git://github.com/flatiron/nconf.git",
-    "connect-redis": ">= 1.4.4",
-    "hiredis": "0.1.14",
-    "redis": "0.7.2",
     "express-persona": "0.0.7",
     "requirejs": ">= 2.1.0",
     "gravatar": "1.0.6",
     "knox": "0.4.1",
-    "knox-mpu": ">= 0.0.4"
+    "knox-mpu": ">= 0.0.4",
+    "orm": "git://github.com/dresende/node-orm2.git",
+    "mysql": ">= 2.0.0-alpha4"
   },
   "devDependencies": {
     "mocha": "1.4.2",
