@@ -8,25 +8,22 @@ var nconf = require('nconf');
 /** TEMP **/
 var redis = require('redis');
 var client = redis.createClient();
-var userl = require('./lib/user');
+var playl = require('./lib/playlist');
 
-client.keys('moxboxx:profile:hash:*', function(err, u) {
-  u.forEach(function(ukey) {
-    client.hgetall(ukey, function(err, users) {
-      if (user) {
+client.lrange('moxboxx:global:playlists:list', 0, -1, function(err, p) {
+  p.forEach(function(pkey) {
+    client.hgetall('moxboxx:playlist:hash:' + pkey, function(err, pl) {
+      if (pl) {
         var req = {
           session: {
-            userId: user.id,
-            email: user.email
+            userId: pl.owner
           },
           body: {}
         };
-        req.body.username = user.username;
-        req.body.location = user.location;
-        req.body.background = user.background;
-        req.body.website = user.website;
+        req.body.title = pl.title;
+        req.created = pl.created;
 
-        userl.saveProfile(req, function(err, user) {
+        playl.add(req, function(err, user) {
           if (err) {
             console.error('could not save', err)
           } else {
