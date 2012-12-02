@@ -21,7 +21,7 @@ client.lrange('moxboxx:global:playlists:list', 0, -1, function(err, p) {
           body: {}
         };
         req.body.title = pl.title;
-        req.created = pl.created;
+        req.body.created = pl.created;
 
         playl.add(req, function(err, user) {
           if (err) {
