@@ -25,6 +25,6 @@ block content
         div(class='preview', style='background-image: url(#{session.background})')
         button(type='submit') Remove current background
     form(method='post', action='/background', id='background-update', enctype='multipart/form-data')
-      label(for='background', class='tip') Background Image (100 kb maximum file size)
+      label(for='background', class='tip') Background Image (300 kb maximum file size)
       input(type='file', name='background')
       button(type='submit') Update Background Image
