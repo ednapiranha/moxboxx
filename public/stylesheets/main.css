@@ -463,6 +463,12 @@ time {
     width: 100%;
 }
 
+#playlist-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 820px;
+}
+
 #playlist-title form {
     display: inline;
     margin: 0;
@@ -501,7 +507,6 @@ time {
 #playlists > li a.playlist-title {
     display: block;
     line-height: 35px;
-    overflow: hidden;
     padding-left: 10px;
     text-overflow: ellipsis;
 }
