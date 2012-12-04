@@ -32,6 +32,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
           pageType: 'profile',
           location: '',
           website: '',
+          gravatar: '',
           background: nconf.get('background_default')
         });
       } else {
@@ -43,6 +44,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
           pageType: 'profile',
           location: user.location || '',
           website: user.website || '',
+          gravatar: user.gravatar || '',
           background: user.background || nconf.get('background_default')
         });
       }

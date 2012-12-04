@@ -434,6 +434,22 @@ time {
     margin-top: 10px;
 }
 
+#starred {
+    clear: both;
+    display: block;
+    float: left;
+    margin: 20px 0 0 3px;
+}
+
+#starred li {
+    float: left;
+    margin: 0 5px 5px 0;
+}
+
+#starred img {
+    width: 54px;
+}
+
 .mox-items {
     float: left;
     margin-top: 10px;
@@ -606,6 +622,25 @@ time {
     border-bottom: 1px solid #ccc;
     margin-bottom: 20px;
     padding-bottom: 10px;
+}
+
+#gravatar-wrapper {
+    clear: both;
+    display: block;
+    float: left;
+    width: 100%;
+}
+
+#gravatar-profile {
+    border-radius: 5px;
+    float: left;
+    margin: 0 10px 10px 0;
+    width: 80px;
+}
+
+p.gravatar.tip {
+    display: inline;
+    width: 300px;
 }
 
 #background-delete > .preview {

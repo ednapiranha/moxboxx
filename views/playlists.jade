@@ -19,7 +19,7 @@ block content
     for playlist in playlists
       li(data-id='#{playlist.id}', data-action='/playlist/', class='item')
         a(href='/user/#{owner.id}')
-          img(src='#{owner.gravatar}')
+          img(src='#{owner.gravatar}', title="#{owner.username}")
         h2
           a(href='/playlist/#{playlist.id}', title='#{playlist.title}', class='playlist-title')= playlist.title
         time= playlist.created
