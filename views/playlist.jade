@@ -54,3 +54,9 @@ block content
             if session.email && isOwner
               .item-actions
                 a(href='javascript:;', class='mox-delete', data-context='mox-delete') delete
+
+block footer
+  if moxes.length > 0
+    a(href='javascript:;', id='play-playlist', title='Start playlist') play
+    a(href='javascript:;', id='repeat-playlist', title='Repeat playlist') repeat
+

@@ -43,6 +43,23 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
         ev.preventDefault();
         user.logout();
         break;
+
+      // start playlist
+      case 'play-playlist':
+        ev.preventDefault();
+        videoActions.togglePlay();
+        break;
+
+      // repeat playlist
+      case 'repeat-playlist':
+        ev.preventDefault();
+        if (self.hasClass('on')) {
+          self.removeClass('on');
+        } else {
+          self.addClass('on');
+        }
+        videoActions.toggleRepeat();
+        break;
     }
 
     switch (self.data('context')) {

@@ -203,7 +203,7 @@ form button {
 #logo:hover {
     background-color: #6aecff;
     color: #111;
-    text-shadow: #fff 1px 1px 3px;
+    text-shadow: #fff 1px 1px 2px;
 }
 
 a.on, #playlist-actions a.on, header a.on {
@@ -529,6 +529,13 @@ time {
     padding: 2px 5px 0 5px;
 }
 
+#playlists li a:hover span.count {
+    background-color: #e1f53d;
+    box-shadow: #fff 1px 1px 0;
+    color: #6f7f22;
+    text-shadow: none;
+}
+
 #playlists li.item h2 {
     float: left;
     font-size: 28px;
@@ -613,9 +620,9 @@ time {
     color: #fff4e5;
     display: block;
     font-size: 15px;
-    line-height: 15px;
+    line-height: 16px;
     margin-bottom: 1px;
-    padding: 3px 3px 3px 8px;
+    padding: 3px 3px 2px 8px;
 }
 
 .item-actions a.on {
@@ -675,6 +682,7 @@ p.gravatar.tip {
 
 #footer {
     background: rgba(17, 17, 17, 0.9);
+    box-shadow: inset #111 0 3px 5px;
     bottom: 0;
     left: 0;
     min-height: 40px;
@@ -682,4 +690,41 @@ p.gravatar.tip {
     position: fixed;
     width: 100%;
     z-index: 5;
+}
+
+#footer a {
+    background-repeat: no-repeat;
+    display: block;
+    font-size: 1px;
+    outline: none;
+    text-indent: -9999px;
+}
+
+#play-playlist, #repeat-playlist {
+    float: left;
+    height: 26px;
+    margin: 7px 0 0 15px;
+    width: 26px;
+}
+
+#play-playlist {
+    background-image: url('/images/play.png');
+}
+
+#play-playlist:hover, #repeat-playlist:hover,
+#play-playlist.on, #repeat-playlist.on {
+    background-color: transparent;
+    background-position: -26px;
+}
+
+#repeat-playlist {
+    background-image: url('/images/repeat.png');
+}
+
+#noodle-logo {
+    background-image: url('/images/noodleindustries.png');
+    float: right;
+    height: 13px;
+    margin: 13px 20px 0 0;
+    width: 174px;
 }
