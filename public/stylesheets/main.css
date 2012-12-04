@@ -498,6 +498,7 @@ time {
 
 #playlists li h2 {
     margin-bottom: 0;
+    padding-top: 10px;
 }
 
 #playlists li .item-actions {
