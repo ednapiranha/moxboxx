@@ -516,9 +516,17 @@ time {
     margin-left: 5px;
 }
 
+#playlists li span.count {
+    background-color: #ccc;
+    color: #fff;
+    font-size: 20px;
+    margin-left: 5px;
+    padding: 2px 5px 0 5px;
+}
+
 #playlists li.item h2 {
     float: left;
-    font-size: 32px;
+    font-size: 28px;
     line-height: 50px;
     width: 570px;
 }
