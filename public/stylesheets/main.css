@@ -488,7 +488,6 @@ time {
     margin-bottom: 10px;
     position: relative;
     width: 755px;
-    white-space: nowrap;
 }
 
 #playlists li h2 {
@@ -501,6 +500,7 @@ time {
 
 #playlists > li a.playlist-title {
     display: block;
+    line-height: 35px;
     overflow: hidden;
     padding-left: 10px;
     text-overflow: ellipsis;
