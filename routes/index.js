@@ -6,11 +6,12 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
 
   app.get('/', function (req, res) {
     if (req.session.email) {
-      if (req.session.username) {
+      user.loadProfile(req, function(err, user) {
+        req.session.username = user.username;
+        req.session.userId = user.id;
+        req.session.background = user.background;
         res.redirect('/dashboard');
-      } else {
-        res.redirect('/profile');
-      }
+      });
     } else {
       res.render('index', {
         pageType: 'index',

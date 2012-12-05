@@ -57,6 +57,22 @@ define(['jquery', 'utils', 'views'],
           views.remove(self);
         }
       });
+    },
+
+    addTag: function(self, callback) {
+      utils.serverPost(self, function(data) {
+        views.addTag(self);
+        if (data.message) {
+          flash.text(data.message);
+          flash.fadeIn(500, function() {
+            flash.fadeOut(4500);
+          });
+        }
+
+        if (callback) {
+          callback();
+        }
+      });
     }
   };
 

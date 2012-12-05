@@ -87,8 +87,39 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
     });
   });
 
-  app.delete('/playlist', isLoggedIn, hasUsername, function (req, res) {
+  app.get('/tag/:tag', function(req, res) {
+    playlist.getRecentByTag(req, function(err, playlists) {
+      if (err) {
+        res.redirect('/500');
+      } else {
+        res.render('tagged', {
+          pageType: 'tagged',
+          tag: req.params.tag.trim().toLowerCase(),
+          playlists: playlists || [],
+          background: req.session.background || nconf.get('background_default')
+        });
+      }
+    });
+  });
+
+  app.delete('/playlist', isLoggedIn, hasUsername, function(req, res) {
     playlist.delete(req);
+    res.json({ message: 'deleted' });
+  });
+
+  app.post('/tag', isLoggedIn, hasUsername, function(req, res) {
+    playlist.addTag(req, function(err, tag) {
+      if (err) {
+        res.status(500);
+        res.json({ message: err.toString() });
+      } else {
+        res.json({ 'message': 'added tag' });
+      }
+    });
+  });
+
+  app.delete('/tag/:id', isLoggedIn, hasUsername, function(req, res) {
+    playlist.deleteTag(req);
     res.json({ message: 'deleted' });
   });
 };

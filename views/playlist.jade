@@ -10,6 +10,15 @@ block content
         a(href='javascript:;', class='playlist-edit-save off', data-context='playlist-edit-save') Save
         button(type='submit') Update
       a(href='javascript:;', class='playlist-edit', data-context='playlist-edit') edit
+
+  ul#playlist-tags
+    if playlist.tags.length > 0
+      for tag in playlist.tags
+        li(data-action='/tag/#{playlist.id}', data-tag='#{tag.name}')
+          a(href='/tag/#{tag.name}')= tag.name
+          if session.email && isOwner
+            a(href='javascript:;', class='delete tag', data-context='delete-tag') X
+
   .playlist-wrapper
     .playlist-item
       h3= 'Created by ' + playlist.owner.username
@@ -38,6 +47,12 @@ block content
 
     .mox-items
       if session.email && isOwner
+        #add-tag
+          h2 Add a tag
+          form(method='post', action='/tag', id='new-tag')
+            input(type='text', name='tag')
+            input(type='hidden', name='playlist_id', value='#{playlist.id}')
+            button(type='submit') Add
         #add-track
           h2 Add a media link
           p.tip This can be a youtube/vimeo/soundcloud url

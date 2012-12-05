@@ -133,12 +133,11 @@ form input[type="file"] {
 form input[type="text"] {
     border: 2px dashed #ccc;
     border-radius: 5px;
-    clear: both;
     display: block;
     float: left;
     font-size: 25px;
     padding: 5px;
-    width: 510px;
+    width: 420px;
 }
 
 form input[type="text"]:focus {
@@ -150,14 +149,17 @@ form button {
     background-color: #659631;
     border: 0;
     border-radius: 5px;
-    clear: both;
     color: #eee;
     cursor: pointer;
     display: block;
     float: right;
     font-size: 20px;
-    margin: 15px;
+    margin: 5px 15px;
     padding: 5px;
+}
+
+#profile-edit input[type="text"] {
+    clear: both;
 }
 
 .tip {
@@ -200,7 +202,7 @@ form button {
 #playlists > li a:hover, .item-actions a:hover, .playlist-edit:hover,
 .playlist-edit-cancel:hover, .playlist-edit-save:hover,
 .item-actions a.mox-delete:hover, .playlist-item .item-actions a:hover,
-#logo:hover {
+#logo:hover, #playlist-tags li:hover {
     background-color: #6aecff;
     color: #111;
     text-shadow: #fff 1px 1px 2px;
@@ -478,6 +480,53 @@ time {
     display: none;
 }
 
+#playlist-tags {
+    clear: both;
+    display: block;
+    float: left;
+    margin: 5px 0 10px;
+}
+
+#playlist-tags li {
+    background-color: #32c0c9;
+    border-radius: 5px;
+    display: inline-block;
+    float: left;
+    margin: 3px 10px 3px 0;
+    padding: 3px 6px;
+    position: relative;
+}
+
+#playlist-tags li:hover a {
+    color: #111;
+}
+
+#playlist-tags a {
+    color: #fff;
+}
+
+#playlist-tags li a.delete {
+    background-color: #fff;
+    border-radius: 100px;
+    color: #f00;
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    height: 13px;
+    line-height: 13px;
+    padding: 1px;
+    position: absolute;
+    right: -7px;
+    text-align: center;
+    top: -10px;
+    width: 13px;
+}
+
+#playlist-tags li a.delete:hover {
+    background-color: #f00;
+    color: #fff;
+}
+
 #playlists {
     clear: both;
     float: left;
@@ -642,6 +691,11 @@ time {
     border-bottom: 1px solid #ccc;
     margin-bottom: 20px;
     padding-bottom: 10px;
+    width: 820px;
+}
+
+#new-playlist {
+    width: 550px;
 }
 
 #gravatar-wrapper {
@@ -671,9 +725,13 @@ p.gravatar.tip {
     width: 150px;
 }
 
-#add-track {
+#add-track, #add-tag {
     float: left;
     max-width: 525px;
+}
+
+#add-tag form {
+    margin-top: -5px;
 }
 
 .off, #edit-title.off {

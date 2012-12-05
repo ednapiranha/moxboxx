@@ -5,6 +5,7 @@ define(['jquery', 'video'],
 
   var moxlist = $('#moxlist');
   var form = $('form');
+  var tagList = $('#playlist-tags');
 
   var self = {
     moxItem: function(options) {
@@ -29,6 +30,21 @@ define(['jquery', 'video'],
       self.fadeOut(function() {
         self.remove();
       });
+    },
+
+    addTag: function(self) {
+      var playlistId = parseInt(self.find('input[name="playlist_id"]').val(), 10);
+
+      var tagName = self.find('input[name="tag"]').val().trim().toLowerCase();
+      var tagItem = $('<li data-tag="" data-action="/tag/' + playlistId + '"></li>');
+      var tagLink = $('<a href=""></a>');
+      tagLink.attr('href', '/tag/' + tagName);
+      tagLink.text(tagName);
+
+      tagItem.append(tagLink);
+      var tagDelete = $('<a href="javascript:;" class="delete tag" data-context="delete-tag">X</a>');
+      tagItem.append(tagDelete);
+      tagList.append(tagItem);
     }
   };
 

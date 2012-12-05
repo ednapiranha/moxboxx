@@ -19,6 +19,7 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
   var playlistEditCancel = $('.playlist-edit-cancel');
   var playlistEditSave = $('.playlist-edit-save');
   var videos = $('#moxlist .object-wrapper iframe');
+  var tagList = $('#playlist-tags');
 
   var resetEditActions = function(titleEl) {
     editTitle.addClass('off');
@@ -120,6 +121,12 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
       // save playlist
       case 'playlist-edit-save':
         self.closest('form').submit();
+
+      // delete tag
+      case 'delete-tag':
+        ev.preventDefault();
+        playlist.delete(self.parent(), { tag: self.parent().data('tag') });
+        break;
     }
   });
 
@@ -143,6 +150,14 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
       case 'new-mox':
         ev.preventDefault();
         mox.add(self);
+        break;
+
+      // add tag
+      case 'new-tag':
+        ev.preventDefault();
+        playlist.addTag(self, function() {
+          self.find('input[name="tag"]').val('');
+        });
         break;
 
       case 'edit-playlist-title':
