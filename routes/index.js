@@ -7,10 +7,14 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
   app.get('/', function (req, res) {
     if (req.session.email) {
       user.loadProfile(req, function(err, user) {
-        req.session.username = user.username;
-        req.session.userId = user.id;
-        req.session.background = user.background;
-        res.redirect('/dashboard');
+        if (user) {
+          req.session.username = user.username;
+          req.session.userId = user.id;
+          req.session.background = user.background;
+          res.redirect('/dashboard');
+        } else {
+          res.redirect('/profile');
+        }
       });
     } else {
       res.render('index', {
