@@ -8,6 +8,7 @@ mixin playlist(playlists)
           a(href='/playlist/#{playlist.id}', title='#{playlist.title}', class='playlist-title')
             = playlist.title
             span.count #{playlist.moxCount || 0}
+          p.description= playlist.description
         time= playlist.created
 
         if session.email

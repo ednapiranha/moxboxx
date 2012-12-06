@@ -496,7 +496,8 @@ time {
 
 #playlist-title > span.description {
     font-family: Helvetica, Arial, sans-serif;
-    font-size: 16px;
+    font-size: 17px;
+    line-height: 19px;
     text-transform: none;
 }
 
@@ -619,6 +620,13 @@ time {
     font-size: 28px;
     line-height: 50px;
     width: 570px;
+}
+
+#playlists li.item h2 .description {
+    color: #333;
+    font-size: 17px;
+    line-height: 19px;
+    padding: 0 10px 10px 10px;
 }
 
 #playlists img {

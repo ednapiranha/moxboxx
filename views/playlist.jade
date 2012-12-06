@@ -22,8 +22,6 @@ block content
 
       if session.email
         .item-actions
-          if parseInt(session.userId, 10) === parseInt(playlist.owner.id, 10)
-            a(href='javascript:;', data-id='#{playlist.id}', class='playlist-delete', data-action='/playlist/', data-context='playlist-delete-detail') delete
           if playlist.isStarred
             a(href='javascript:;', data-id='#{playlist.id}', class='playlist-star on', data-action='/playlist/star/', data-context='playlist-star') unstar
           else
