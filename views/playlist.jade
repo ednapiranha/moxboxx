@@ -38,13 +38,13 @@ block content
                 a(href='/user/#{user.id}', title="#{user.username}")
                   img(src='#{user.gravatar}')
 
-      ol#moxlist
-        for mox in moxes
-          li(data-id='#{mox.id}', data-playlistid='#{mox.playlist_id}', data-action='/mox/', class='item')
-            != mox.content
-            if session.email && isOwner
-              .item-actions
-                a(href='javascript:;', class='mox-delete', data-context='mox-delete') delete
+    ol#moxlist
+      for mox in moxes
+        li(data-id='#{mox.id}', data-playlistid='#{mox.playlist_id}', data-action='/mox/', class='item')
+          != mox.content
+          if session.email && isOwner
+            .item-actions
+              a(href='javascript:;', class='mox-delete', data-context='mox-delete') delete
 
 block footer
   if moxes.length > 0

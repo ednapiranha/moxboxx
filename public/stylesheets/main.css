@@ -629,7 +629,6 @@ time {
 }
 
 #moxlist {
-    clear: both;
     color: #333;
     counter-reset: li;
     float: left;
