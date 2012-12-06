@@ -110,7 +110,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
             background: p.owner.background || nconf.get('background_default')
           });
         } else {
-          res.redirect('/');
+          res.redirect('/playlist/' + p.id);
         }
       }
     });
