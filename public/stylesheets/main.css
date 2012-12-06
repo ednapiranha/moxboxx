@@ -108,6 +108,10 @@ form {
     display: block;
 }
 
+#login {
+    background-color: #ddff3e;
+}
+
 #edit-playlist-title {
     width: 825px;
 }
