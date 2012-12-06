@@ -4,5 +4,8 @@ block content
   section
     h1 Create a new playlist
     form(method='post', action='/playlist', id='new-playlist')
-      input(type='text', name='title', placeholder='title')
+      label(for='title', class='tip') Title*
+      input(type='text', name='title')
+      label(for='description', class='tip') Description
+      input(type='text', name='description')
       button(type='submit') Create

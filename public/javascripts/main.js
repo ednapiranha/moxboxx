@@ -14,16 +14,20 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
   var body = $('body');
   var form = $('form');
   var editTitle = $('#edit-title');
-  var playlistTitle = $('h1#playlist-title > span');
+  var editDescription = $('#edit-description');
+  var playlistTitle = $('h1#playlist-title > span.title');
+  var playlistDescription = $('h1#playlist-title > span.description');
   var playlistEdit = $('.playlist-edit');
   var playlistEditCancel = $('.playlist-edit-cancel');
   var playlistEditSave = $('.playlist-edit-save');
   var videos = $('#moxlist .object-wrapper iframe');
   var tagList = $('#playlist-tags');
 
-  var resetEditActions = function(titleEl) {
+  var resetEditActions = function(titleEl, descriptionEl) {
     editTitle.addClass('off');
+    editDescription.addClass('off');
     playlistTitle.text(titleEl.val()).removeClass('off');
+    playlistDescription.text(descriptionEl.val()).removeClass('off');
     playlistEdit.removeClass('off');
     playlistEditCancel.addClass('off');
     playlistEditSave.addClass('off');
@@ -103,10 +107,13 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
         playlistEditCancel.removeClass('off');
         playlistEdit.addClass('off');
         playlistTitle.addClass('off');
+        playlistDescription.addClass('off');
         playlistEditSave.removeClass('off');
         editTitle.focus();
         editTitle.val(playlistTitle.text());
         editTitle.removeClass('off');
+        editDescription.val(playlistDescription.text());
+        editDescription.removeClass('off');
         break;
 
       // cancel playlist edit
@@ -114,7 +121,9 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
         self.addClass('off');
         playlistEdit.removeClass('off');
         playlistTitle.removeClass('off');
+        playlistDescription.removeClass('off');
         editTitle.addClass('off');
+        editDescription.addClass('off');
         playlistEditSave.addClass('off');
         break;
 
@@ -163,10 +172,8 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
       case 'edit-playlist-title':
         ev.preventDefault();
 
-        var titleEl = editTitle;
-
         playlist.update(self, function() {
-          resetEditActions(titleEl);
+          resetEditActions(editTitle, editDescription);
         });
         break;
     }

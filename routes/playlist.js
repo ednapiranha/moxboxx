@@ -94,6 +94,28 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
     });
   });
 
+  app.get('/playlist/edit/:id', isLoggedIn, hasUsername, function (req, res) {
+    playlist.get(req, function(err, p) {
+      if (err) {
+        res.redirect('/404');
+      } else {
+        if (req.session && req.session.email &&
+          parseInt(p.owner.id, 10) === parseInt(req.session.userId, 10)) {
+
+          res.render('edit', {
+            pageType: 'playlist',
+            playlist: p,
+            moxes: p.moxes,
+            isOwner: true,
+            background: p.owner.background || nconf.get('background_default')
+          });
+        } else {
+          res.redirect('/');
+        }
+      }
+    });
+  });
+
   app.post('/playlist/:id', isLoggedIn, hasUsername, function(req, res) {
     playlist.update(req, function(err, playlist) {
       if (err) {

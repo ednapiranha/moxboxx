@@ -4,16 +4,24 @@ block content
   h1#playlist-title
     span.title= playlist.title
     span.description= playlist.description
-    if session.email && isOwner
-      a(href='/playlist/edit/#{playlist.id}', class='playlist-edit') Edit
+    form(method='post', action='/playlist/#{playlist.id}', id='edit-playlist-title')
+      input(type='text', name='title', id='edit-title', value='#{playlist.title}', data-action='/playlist/#{playlist.id}', class='off')
+      input(type='text', name='description', id='edit-description', value='#{playlist.description}', placeholder='add a description', data-action='/playlist/#{playlist.id}', class='off')
+      a(href='javascript:;', class='playlist-edit-cancel off', data-context='playlist-edit-cancel') Cancel
+      a(href='javascript:;', class='playlist-edit-save off', data-context='playlist-edit-save') Save
+      button(type='submit') Update
+    a(href='javascript:;', class='playlist-edit', data-context='playlist-edit') edit
+    a(href='/playlist/#{playlist.id}', class='playlist-edit') view public
 
   ul#playlist-tags
     if playlist.tags.length > 0
       for tag in playlist.tags
         li(data-action='/tag/#{playlist.id}', data-tag='#{tag.name}')
           a(href='/tag/#{tag.name}')= tag.name
+          if session.email && isOwner
+            a(href='javascript:;', class='delete tag', data-context='delete-tag') X
 
-  .playlist-wrapper
+  .playlist-wrapper.edit
     .playlist-item
       h3= 'Created by ' + playlist.owner.username
       a(href='/user/#{playlist.owner.id}')
@@ -37,6 +45,23 @@ block content
               li
                 a(href='/user/#{user.id}', title="#{user.username}")
                   img(src='#{user.gravatar}')
+
+
+    .mox-items
+      #add-tag
+        h2 Add a tag
+        form(method='post', action='/tag', id='new-tag')
+          input(type='text', name='tag')
+          input(type='hidden', name='playlist_id', value='#{playlist.id}')
+          button(type='submit') Add
+      #add-track
+        h2 Add a media link
+        p.tip This can be a youtube/vimeo/soundcloud url
+
+        form(method='post', action='/mox', id='new-mox')
+          input(type='text', name='url')
+          input(type='hidden', name='playlist_id', value='#{playlist.id}')
+          button(type='submit') Add
 
       ol#moxlist
         for mox in moxes

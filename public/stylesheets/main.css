@@ -116,6 +116,20 @@ form {
     width: 825px;
 }
 
+#edit-playlist-title input {
+    margin-bottom: 10px;
+}
+
+.edit .object-wrapper {
+    height: 130px;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.edit .object-wrapper iframe, .edit .object-wrapper object {
+    height: 130px;
+}
+
 form label {
     clear: both;
     display: inline-block;
@@ -162,7 +176,7 @@ form button {
     padding: 5px;
 }
 
-#profile-edit input[type="text"] {
+#profile-edit input[type="text"], #new-playlist input[type="text"] {
     clear: both;
 }
 
@@ -475,6 +489,17 @@ time {
     width: 820px;
 }
 
+#playlist-title > span.title {
+    clear: both;
+    display: block;
+}
+
+#playlist-title > span.description {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    text-transform: none;
+}
+
 #playlist-title form {
     display: inline;
     margin: 0;
@@ -738,7 +763,7 @@ p.gravatar.tip {
     margin-top: -5px;
 }
 
-.off, #edit-title.off {
+.off, h1#playlist-title > span.off, #edit-title.off, #edit-description.off {
     display: none;
 }
 
