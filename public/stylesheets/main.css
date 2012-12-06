@@ -89,6 +89,10 @@ a:hover {
     color: #6aecff;
 }
 
+#login {
+    background-color: #d8ff3e;
+}
+
 form {
     clear: both;
     display: block;
@@ -202,7 +206,7 @@ form button {
 #playlists > li a:hover, .item-actions a:hover, .playlist-edit:hover,
 .playlist-edit-cancel:hover, .playlist-edit-save:hover,
 .item-actions a.mox-delete:hover, .playlist-item .item-actions a:hover,
-#logo:hover, #playlist-tags li:hover {
+#logo:hover, #playlist-tags li:hover, #pagination a:hover {
     background-color: #6aecff;
     color: #111;
     text-shadow: #fff 1px 1px 2px;
@@ -785,4 +789,28 @@ p.gravatar.tip {
     height: 13px;
     margin: 13px 20px 0 0;
     width: 174px;
+}
+
+#pagination {
+    clear: both;
+    float: left;
+    width: 100%;
+}
+
+#previous, #next {
+    background-color: #222;
+    color: #eee;
+    padding: 5px 10px;
+}
+
+#previous {
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+    float: left;
+}
+
+#next {
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+    float: right;
 }

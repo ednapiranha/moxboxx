@@ -18,10 +18,19 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
       if (err) {
         res.redirect('/500');
       } else {
+        var nextPage = parseInt(req.query.page, 10) + 1 || 1;
+        var prevPage = parseInt(req.query.page, 10) - 1 || 0;
+        if (prevPage < 0) {
+          prevPage = 0;
+        }
+
         res.render('starred', {
           pageType: 'starred',
           playlists: playlists,
-          background: req.session.background || nconf.get('background_default')
+          background: req.session.background || nconf.get('background_default'),
+          currentPage: parseInt(req.query.page, 10) || 0,
+          pagePrev: prevPage,
+          pageNext: nextPage
         });
       }
     });
@@ -65,12 +74,21 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
           isOwner = true;
         }
 
+        var nextPage = parseInt(req.query.page, 10) + 1 || 1;
+        var prevPage = parseInt(req.query.page, 10) - 1 || 0;
+        if (prevPage < 0) {
+          prevPage = 0;
+        }
+
         res.render('playlist', {
           pageType: 'playlist',
           playlist: p,
           moxes: p.moxes,
           isOwner: isOwner,
-          background: p.owner.background || nconf.get('background_default')
+          background: p.owner.background || nconf.get('background_default'),
+          currentPage: parseInt(req.query.page, 10) || 0,
+          pagePrev: prevPage,
+          pageNext: nextPage
         });
       }
     });
@@ -92,11 +110,19 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
       if (err) {
         res.redirect('/500');
       } else {
+        var nextPage = parseInt(req.query.page, 10) + 1 || 1;
+        var prevPage = parseInt(req.query.page, 10) - 1 || 0;
+        if (prevPage < 0) {
+          prevPage = 0;
+        }
         res.render('tagged', {
           pageType: 'tagged',
           tag: req.params.tag.trim().toLowerCase(),
           playlists: playlists || [],
-          background: req.session.background || nconf.get('background_default')
+          background: req.session.background || nconf.get('background_default'),
+          currentPage: parseInt(req.query.page, 10) || 0,
+          pagePrev: prevPage,
+          pageNext: nextPage
         });
       }
     });

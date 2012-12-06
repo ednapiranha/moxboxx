@@ -18,6 +18,11 @@ mixin playlist(playlists)
               a(href='javascript:;', data-id='#{playlist.id}', class='playlist-star on', data-action='/playlist/star/', data-context='playlist-star') unstar
             else
               a(href='javascript:;', data-id='#{playlist.id}', class='playlist-star', data-action='/playlist/star/', data-context='playlist-star') star
+   #pagination
+    if (currentPage > 0)
+      a#previous(href='?page=#{pagePrev}') Previous
+    if (playlists.length === 25)
+      a#next(href='?page=#{pageNext}') Older
 
 !!! 5
 html
