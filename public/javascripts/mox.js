@@ -18,6 +18,16 @@ define(['jquery', 'utils', 'views', 'video'],
     delete: function(self, options) {
       utils.serverDelete(self, options);
       views.remove(self);
+    },
+
+    updatePosition: function(sortedList) {
+      $.ajax({
+        url: '/mox/position',
+        data: sortedList,
+        type: 'POST',
+        dataType: 'json',
+        cache: false
+      });
     }
   };
 

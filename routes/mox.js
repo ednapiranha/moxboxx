@@ -43,4 +43,8 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
     mox.delete(req);
     res.json({ message: 'deleted' });
   });
+
+  app.post('/mox/position', isLoggedIn, hasUsername, function (req, res) {
+    mox.updatePositions(req);
+  });
 };

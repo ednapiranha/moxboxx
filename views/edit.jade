@@ -37,16 +37,6 @@ block content
           else
             a(href='javascript:;', data-id='#{playlist.id}', class='playlist-star', data-action='/playlist/star/', data-context='playlist-star') star
 
-      if playlist.starredBy.length > 0
-        #starred
-          h3 Starred By
-          ul
-            for user in playlist.starredBy
-              li
-                a(href='/user/#{user.id}', title="#{user.username}")
-                  img(src='#{user.gravatar}')
-
-
     .mox-items
       #add-tag
         h2 Add a tag
@@ -63,16 +53,14 @@ block content
           input(type='hidden', name='playlist_id', value='#{playlist.id}')
           button(type='submit') Add
 
-      ol#moxlist
+
+      p.tip To reorder, drag by the left
+
+      ol#moxlist.sortable
         for mox in moxes
-          li(data-id='#{mox.id}', data-playlistid='#{mox.playlist_id}', data-action='/mox/', class='item')
+          li(class='ui-state-default item', data-id='#{mox.id}', data-playlistid='#{mox.playlist_id}', data-action='/mox/')
             != mox.content
+            .block-content
             if session.email && isOwner
               .item-actions
                 a(href='javascript:;', class='mox-delete', data-context='mox-delete') delete
-
-block footer
-  if moxes.length > 0
-    a(href='javascript:;', id='play-playlist', title='Start playlist') play
-    a(href='javascript:;', id='repeat-playlist', title='Repeat playlist') repeat
-

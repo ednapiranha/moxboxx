@@ -22,6 +22,7 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
   var playlistEditSave = $('.playlist-edit-save');
   var videos = $('#moxlist .object-wrapper iframe');
   var tagList = $('#playlist-tags');
+  var sortMox = $('#moxlist.sortable');
 
   var resetEditActions = function(titleEl, descriptionEl) {
     editTitle.addClass('off');
@@ -32,6 +33,25 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
     playlistEditCancel.addClass('off');
     playlistEditSave.addClass('off');
   };
+
+  sortMox.sortable({
+    update: function() {
+      var sortArr = [];
+      var moxItems = sortMox.find('.item');
+
+      for (var i = 0; i < moxItems.length; i ++) {
+        var m = $(moxItems[i]);
+        sortArr.push({
+          id: m.data('id'),
+          project_id: m.data('playlistid'),
+          pos: i
+        });
+      }
+
+      mox.updatePosition({ sort_arr: sortArr });
+    }
+  });
+  sortMox.disableSelection();
 
   body.on('click', function(ev) {
     var self = $(ev.target);

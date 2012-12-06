@@ -121,13 +121,14 @@ form {
 }
 
 .edit .object-wrapper {
-    height: 130px;
+    height: 183px;
     margin-bottom: 5px;
     overflow: hidden;
 }
 
 .edit .object-wrapper iframe, .edit .object-wrapper object {
-    height: 130px;
+    height: 190px;
+    margin-top: -3px;
 }
 
 form label {
@@ -643,6 +644,7 @@ time {
 }
 
 #moxlist {
+    background-color: transparent;
     color: #333;
     counter-reset: li;
     float: left;
@@ -665,7 +667,27 @@ time {
     width: 10px;
 }
 
+#moxlist.sortable {
+    margin-top: 10px;
+}
+
+#moxlist.sortable li {
+    cursor: move;
+}
+
+#moxlist.sortable li:before {
+    background-color: #3ef4ff;
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+    color: #111;
+    font-size: 30px;
+    padding: 20px 10px 20px 10px;
+    position: absolute;
+    width: 10px;
+}
+
 #moxlist li {
+    background-color:;
     margin-bottom: 3px;
     position: relative;
 }

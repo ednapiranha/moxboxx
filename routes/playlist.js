@@ -57,7 +57,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
         res.status(500);
         res.json({ message: err.toString() });
       } else {
-        res.json({ url: '/playlist/' + p.id });
+        res.json({ url: '/playlist/edit/' + p.id });
       }
     });
   });
