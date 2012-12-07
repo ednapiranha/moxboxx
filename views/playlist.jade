@@ -1,5 +1,8 @@
 extend layout
 
+block title
+  = ': ' + playlist.title
+
 block content
   h1#playlist-title
     span.title= playlist.title
