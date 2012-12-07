@@ -2,7 +2,15 @@
     "domain": "http://localhost",
     "port": 3000,
     "authPort": 3000,
-    "authUrl": "https://browserid.org",
+    "authUrl": "https://login.persona.org",
     "session_secret": "secret",
-    "session_cookie": "session_your_cookie_name"
+    "session_cookie": "session_your_cookie_name",
+    "s3_url": "https://s3.amazonaws.com/moxboxx_test/",
+    "s3_key": "stub",
+    "s3_secret": "stub",
+    "s3_bucket": "moxboxx_test",
+    "database": "moxboxx_test",
+    "db_username": "root",
+    "db_password": "",
+    "background_default": "/images/back.png"
 }

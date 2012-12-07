@@ -32,7 +32,6 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
   app.post('/mini/mox', isLoggedIn, hasUsername, function (req, res) {
     mox.add(req, function(err, mox) {
       if (err) {
-        console.log(err)
         res.redirect('/bookmarklet?error=1&msg=' + err);
       } else {
         res.redirect('/bookmarklet?sucess=1');
