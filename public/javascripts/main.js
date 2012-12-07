@@ -95,6 +95,7 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
           playlist_id: item.data('playlistid'),
           id: item.data('id')
         });
+        sortMox.sortable('refresh');
         break;
 
       // playlist delete
@@ -179,6 +180,7 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
       case 'new-mox':
         ev.preventDefault();
         mox.add(self);
+        sortMox.sortable('refresh');
         break;
 
       // add tag
