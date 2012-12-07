@@ -668,6 +668,7 @@ time {
 }
 
 #moxlist.sortable {
+    background-color: #f00;
     margin-top: 10px;
 }
 
@@ -677,13 +678,14 @@ time {
 
 #moxlist.sortable li:before {
     background-color: #3ef4ff;
-    border-bottom-left-radius: 8px;
-    border-top-left-radius: 8px;
+    border-radius: 0;
+    border-bottom-right-radius: 8px;
     color: #111;
     font-size: 30px;
-    padding: 20px 10px 20px 10px;
+    left: 0;
+    padding: 30px 10px 30px 10px;
     position: absolute;
-    width: 10px;
+    width: 20px;
 }
 
 #moxlist li {
