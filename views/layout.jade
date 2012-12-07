@@ -22,7 +22,7 @@ mixin playlist(playlists)
    #pagination
     if (currentPage > 0)
       a#previous(href='?page=#{pagePrev}') Previous
-    if (playlists.length === 25)
+    if (playlists.length > 19)
       a#next(href='?page=#{pageNext}') Older
 
 !!! 5
