@@ -124,35 +124,40 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
   });
 
   app.get('/user/:id', function(req, res) {
-    var isOwner = false;
-    var id = parseInt(req.params.id);
+    if (req.session.email &&
+      !req.session.username) {
+      res.redirect('/profile');
+    } else {
+      var isOwner = false;
+      var id = parseInt(req.params.id);
 
-    var nextPage = parseInt(req.query.page, 10) + 1 || 1;
-    var prevPage = parseInt(req.query.page, 10) - 1 || 0;
-    if (prevPage < 0) {
-      prevPage = 0;
-    }
-
-    playlist.userRecent(req, function(err, playlists) {
-      if (err) {
-        res.redirect('/404');
-      } else {
-        if (req.session && req.session.email &&
-          parseInt(req.session.userId, 10) === parseInt(req.params.id, 10)) {
-          isOwner = true;
-        }
-
-        res.render('playlists', {
-          pageType: 'userProfile',
-          playlists: playlists.data,
-          owner: playlists.owner,
-          isOwner: isOwner,
-          background: playlists.owner.background || nconf.get('background_default'),
-          currentPage: parseInt(req.query.page, 10) || 0,
-          pagePrev: prevPage,
-          pageNext: nextPage
-        });
+      var nextPage = parseInt(req.query.page, 10) + 1 || 1;
+      var prevPage = parseInt(req.query.page, 10) - 1 || 0;
+      if (prevPage < 0) {
+        prevPage = 0;
       }
-    });
+
+      playlist.userRecent(req, function(err, playlists) {
+        if (err) {
+          res.redirect('/404');
+        } else {
+          if (req.session && req.session.email &&
+            parseInt(req.session.userId, 10) === parseInt(req.params.id, 10)) {
+            isOwner = true;
+          }
+
+          res.render('playlists', {
+            pageType: 'userProfile',
+            playlists: playlists.data,
+            owner: playlists.owner,
+            isOwner: isOwner,
+            background: playlists.owner.background || nconf.get('background_default'),
+            currentPage: parseInt(req.query.page, 10) || 0,
+            pagePrev: prevPage,
+            pageNext: nextPage
+          });
+        }
+      });
+    }
   });
 };

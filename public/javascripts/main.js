@@ -43,7 +43,7 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
         var m = $(moxItems[i]);
         sortArr.push({
           id: m.data('id'),
-          project_id: m.data('playlistid'),
+          playlist_id: m.data('playlistid'),
           pos: i
         });
       }

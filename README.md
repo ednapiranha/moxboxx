@@ -22,4 +22,4 @@ Run the site
 
 ## Tests
 
-> make test
+> NODE_ENV=test make test
