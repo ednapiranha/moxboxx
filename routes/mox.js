@@ -16,13 +16,17 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
   });
 
   app.get('/bookmarklet', isLoggedIn, hasUsername, function (req, res) {
-    playlist.yourRecent(req, function(err, playlists) {
+    req.params.id = req.session.userId;
+
+    playlist.userRecent(req, function(err, playlists) {
       if (err) {
         res.redirect('/500');
       } else {
         res.render('bookmarklet', {
           pageType: 'bookmarklet',
-          playlists: playlists,
+          error: req.query.error || '',
+          errorMsg: req.query.msg || '',
+          playlists: playlists.data,
           background: req.session.background || nconf.get('background_default')
         });
       }

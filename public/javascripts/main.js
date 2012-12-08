@@ -23,6 +23,16 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
   var videos = $('#moxlist .object-wrapper iframe');
   var tagList = $('#playlist-tags');
   var sortMox = $('#moxlist.sortable');
+  var flash = $('#flash');
+
+  if (document.location.href.indexOf('error=1') > -1) {
+    flash
+      .addClass('error')
+      .text(unescape(document.location.href.split('msg=')[1]));
+    flash.fadeIn(500, function() {
+      flash.fadeOut(4500);
+    });
+  }
 
   var resetEditActions = function(titleEl, descriptionEl) {
     editTitle.addClass('off');

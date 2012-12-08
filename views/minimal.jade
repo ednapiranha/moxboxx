@@ -7,6 +7,8 @@ html
     link(rel='stylesheet', href='/stylesheets/main.css')
 
   body(style='background-image: url(#{background});', class='page-#{pageType}')
+    #flash
     .main-wrapper
       .wrapper
         block content
+    script(src='/javascripts/require.js', data-main='/javascripts/main')
