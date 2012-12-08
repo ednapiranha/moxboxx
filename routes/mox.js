@@ -17,11 +17,20 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
 
   app.get('/bookmarklet', isLoggedIn, hasUsername, function (req, res) {
     req.params.id = req.session.userId;
-
     playlist.userRecent(req, function(err, playlists) {
       if (err) {
         res.redirect('/500');
       } else {
+        playlists.data.sort(function(a, b) {
+          if (a.title < b.title) {
+            return -1;
+          }
+          if (a.title > b.title) {
+            return 1;
+          }
+          return 0;
+        });
+
         res.render('bookmarklet', {
           pageType: 'bookmarklet',
           error: req.query.error || '',
