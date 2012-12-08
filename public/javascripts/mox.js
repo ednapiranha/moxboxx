@@ -9,7 +9,7 @@ define(['jquery', 'utils', 'views', 'video'],
         views.moxItem({
           content: data.mox.content,
           isDeletable: true,
-          playlist_id: data.mox.playlist_id,
+          playlistId: data.mox.playlist_id,
           id: data.mox.id
         });
       });
