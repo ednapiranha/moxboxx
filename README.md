@@ -2,6 +2,10 @@
 
 ## Installation instructions
 
+Grab the [database file](https://dl.dropbox.com/u/1913694/moxboxx/moxboxx_prod_2012-12-08.sql) and create moxboxx_dev and moxboxx_test locally
+
+Import the database file to set up the schema
+
 Clone the repository
 
 > git clone git://github.com/ednapiranha/moxboxx.git
