@@ -85,7 +85,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
           playlist: p,
           moxes: p.moxes,
           isOwner: isOwner,
-          background: p.background || nconf.get('background_default'),
+          background: p.background || p.owner.background || nconf.get('background_default'),
           currentPage: parseInt(req.query.page, 10) || 0,
           pagePrev: prevPage,
           pageNext: nextPage
@@ -107,7 +107,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
             playlist: p,
             moxes: p.moxes,
             isOwner: true,
-            background: p.background || nconf.get('background_default')
+            background: p.background || req.session.background || nconf.get('background_default')
           });
         } else {
           res.redirect('/playlist/' + p.id);
