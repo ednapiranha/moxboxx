@@ -1,6 +1,7 @@
 extend layout
 
 block content
+  img(src='#{owner.gravatar}', id="gravatar-profile-large")
   if isOwner
     h1 Your Playlists
   else

@@ -748,6 +748,12 @@ time {
     background-color: #f00;
 }
 
+.user-info {
+    float: left;
+    margin-top: -5px;
+    width: 710px;
+}
+
 .user-info p {
     background: none;
     margin-bottom: 5px;
@@ -776,6 +782,24 @@ time {
     float: left;
     margin: 0 10px 10px 0;
     width: 80px;
+}
+
+#gravatar-profile-large {
+    border-radius: 5px;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 18px;
+    float: left;
+    margin: 0 10px 10px 0;
+    width: 100px;
+}
+
+.page-userProfile h1 {
+    clear: none;
+    float: left;
+}
+
+.page-userProfile .wrapper {
+    padding-top: 20px;
 }
 
 p.gravatar.tip {
