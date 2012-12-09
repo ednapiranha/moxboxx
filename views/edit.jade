@@ -41,6 +41,17 @@ block content
             a(href='javascript:;', data-id='#{playlist.id}', class='playlist-star', data-action='/playlist/star/', data-context='playlist-star') star
 
     .mox-items
+      #add-background
+        if playlist.background
+          form(method='post', action='/playlist/reset/background', id='background-delete')
+            input(type='hidden', name='playlist_id', value='#{playlist.id}')
+            div(class='preview', style='background-image: url(#{playlist.background})')
+            button(type='submit') Remove current background
+        form(method='post', action='/playlist/set/background', enctype='multipart/form-data')
+          input(type='hidden', name='playlist_id', value='#{playlist.id}')
+          label(for='background', class='tip') Background Image (300 kb maximum file size)
+          input(type='file', name='background')
+          button(type='submit') Update Background Image
       #add-tag
         h2 Add a tag
         form(method='post', action='/tag', id='new-tag')

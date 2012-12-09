@@ -85,7 +85,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
           playlist: p,
           moxes: p.moxes,
           isOwner: isOwner,
-          background: p.owner.background || nconf.get('background_default'),
+          background: p.background || nconf.get('background_default'),
           currentPage: parseInt(req.query.page, 10) || 0,
           pagePrev: prevPage,
           pageNext: nextPage
@@ -107,7 +107,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
             playlist: p,
             moxes: p.moxes,
             isOwner: true,
-            background: p.owner.background || nconf.get('background_default')
+            background: p.background || nconf.get('background_default')
           });
         } else {
           res.redirect('/playlist/' + p.id);
@@ -162,6 +162,27 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
         res.json({ message: err.toString() });
       } else {
         res.json({ 'message': 'added tag' });
+      }
+    });
+  });
+
+  app.post('/playlist/set/background', isLoggedIn, hasUsername, function(req, res) {
+    playlist.saveBackground(req, nconf, function(err, background) {
+      if (err) {
+        res.redirect('/playlist/edit/' + req.body.playlist_id + '?error=1');
+      } else {
+        res.redirect('/playlist/edit/' + req.body.playlist_id);
+      }
+    });
+  });
+
+  app.post('/playlist/reset/background', isLoggedIn, hasUsername, function(req, res) {
+    req.body.background = '';
+    playlist.saveBackground(req, nconf, function(err, background) {
+      if (err) {
+        res.redirect('/playlist/edit/' + req.body.playlist_id + '?error=1');
+      } else {
+        res.redirect('/playlist/edit/' + req.body.playlist_id);
       }
     });
   });
