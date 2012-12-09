@@ -225,10 +225,15 @@ form button {
 #playlists > li a:hover, .item-actions a:hover, .playlist-edit:hover,
 .playlist-edit-cancel:hover, .playlist-edit-save:hover,
 .item-actions a.mox-delete:hover, .playlist-item .item-actions a:hover,
-#logo:hover, #playlist-tags li:hover, #pagination a:hover {
+#logo:hover, #playlist-tags li:hover, #pagination a:hover, #intro-link:hover {
     background-color: #6aecff;
     color: #111;
     text-shadow: #fff 1px 1px 2px;
+}
+
+#intro-link {
+    display: inline-block;
+    float: right;
 }
 
 a.on, #playlist-actions a.on, header a.on {
