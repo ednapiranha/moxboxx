@@ -493,6 +493,12 @@ time {
     width: 100%;
 }
 
+#share {
+    clear: both;
+    float: left;
+    margin: 15px 0;
+}
+
 #playlist-title {
     overflow: hidden;
     text-overflow: ellipsis;
