@@ -64,6 +64,8 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
           document.location.href = '/#';
         }
       });
+    } else if (wrapper.html().length === 0) {
+      document.location.href = '/#/dashboard';
     }
   };
 

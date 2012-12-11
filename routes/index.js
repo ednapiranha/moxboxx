@@ -19,9 +19,9 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
           html: function() {
             res.render('_dashboard', {
               playlists: playlists || [],
-              currentPage: parseInt(req.query.page, 10) || 0,
-              pagePrev: prevPage,
-              pageNext: nextPage
+              currentHashPrev: '/#' + req.url.split('?')[0] + '?page=' + prevPage,
+              currentHashNext: '/#' + req.url.split('?')[0] + '?page=' + nextPage,
+              currentPage: parseInt(req.query.page, 10) || 0
             });
           },
           json: function() {
@@ -43,10 +43,12 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
   app.get('/', function (req, res) {
     if (req.session.email) {
       user.loadProfile(req, function(err, user) {
-        if (req.session.username) {
+        if (user) {
           req.session.username = user.username;
           req.session.userId = user.id;
           req.session.background = user.background;
+        }
+        if (req.session.username) {
           res.render('index', {
             pageType: 'index',
             background: req.session.background || nconf.get('background_default')
@@ -173,9 +175,9 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
                 playlists: playlists.data,
                 owner: playlists.owner,
                 isOwner: isOwner,
-                currentPage: parseInt(req.query.page, 10) || 0,
-                pagePrev: prevPage,
-                pageNext: nextPage
+                currentHashPrev: '/#' + req.url.split('?')[0] + '?page=' + prevPage,
+                currentHashNext: '/#' + req.url.split('?')[0] + '?page=' + nextPage,
+                currentPage: parseInt(req.query.page, 10) || 0
               });
             },
             json: function() {

@@ -20,6 +20,6 @@ ol#playlists
             a(href='javascript:;', data-id='#{playlist.id}', class='playlist-star', data-action='/playlist/star/', data-context='playlist-star') star
  #pagination
   if (currentPage > 0)
-    a#previous(href='?page=#{pagePrev}') Previous
+    a#previous(href='#{currentHashPrev}') Previous
   if (playlists.length > 19)
-    a#next(href='?page=#{pageNext}') Older
+    a#next(href='#{currentHashNext}') Older

@@ -28,9 +28,9 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
           html: function() {
             res.render('_starred', {
               playlists: playlists,
-              currentPage: parseInt(req.query.page, 10) || 0,
-              pagePrev: prevPage,
-              pageNext: nextPage
+              currentHashPrev: '/#' + req.url.split('?')[0] + '?page=' + prevPage,
+              currentHashNext: '/#' + req.url.split('?')[0] + '?page=' + nextPage,
+              currentPage: parseInt(req.query.page, 10) || 0
             });
           },
           json: function() {
@@ -95,9 +95,9 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
               playlist: p,
               moxes: p.moxes,
               isOwner: isOwner,
-              currentPage: parseInt(req.query.page, 10) || 0,
-              pagePrev: prevPage,
-              pageNext: nextPage
+              currentHashPrev: '/#' + req.url.split('?')[0] + '?page=' + prevPage,
+              currentHashNext: '/#' + req.url.split('?')[0] + '?page=' + nextPage,
+              currentPage: parseInt(req.query.page, 10) || 0
             });
           },
           json: function() {
@@ -161,9 +161,9 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
             res.render('_tagged', {
               tag: req.params.tag.trim().toLowerCase(),
               playlists: playlists || [],
-              currentPage: parseInt(req.query.page, 10) || 0,
-              pagePrev: prevPage,
-              pageNext: nextPage
+              currentHashPrev: '/#' + req.url.split('?')[0] + '?page=' + prevPage,
+              currentHashNext: '/#' + req.url.split('?')[0] + '?page=' + nextPage,
+              currentPage: parseInt(req.query.page, 10) || 0
             });
           },
           json: function() {
