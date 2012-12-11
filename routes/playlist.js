@@ -104,7 +104,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
             res.send({
               title: 'moxboxx: ' + p.title,
               pageType: 'playlist',
-              background: p.owner.background || nconf.get('background_default'),
+              background: p.background || nconf.get('background_default'),
             });
           }
         });
