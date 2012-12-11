@@ -51,7 +51,7 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
         if (data) {
           wrapper.html(data);
           $.getJSON(url, function(data) {
-            body.css({ backgroundImage: 'url("' + data.background + '");' });
+            body.css('background-image', 'url(' + data.background + ')' });
             body.removeClass().addClass('page-' + data.pageType);
             title.text(data.title);
 
