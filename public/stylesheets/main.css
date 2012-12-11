@@ -101,7 +101,7 @@ form {
     width: 525px;
 }
 
-.page-index .boombox {
+.page-home .boombox {
     display: block;
     float: none;
     margin: 0 auto;
@@ -306,7 +306,7 @@ header a {
     text-shadow: #fff 1px 0 1px;
 }
 
-.page-index #logo {
+.page-home #logo {
     display: none;
 }
 
@@ -324,18 +324,18 @@ h1, h1 > input {
     text-transform: uppercase;
 }
 
-.page-index .wrapper {
+.page-home .wrapper {
     margin-top: 40px;
 }
 
-.page-index h1 {
+.page-home h1 {
     color: #bfff43;
     float: left;
     font-family: 'BPdotsUnicaseSquareBold';
     font-size: 100px;
 }
 
-.page-index p {
+.page-home p {
     display: inline-block;
     float: right;
     margin-bottom: 10px;
@@ -910,4 +910,12 @@ p.gravatar.tip {
     border-bottom-right-radius: 8px;
     border-top-right-radius: 8px;
     float: right;
+}
+
+#footer-inner {
+    display: none;
+}
+
+.page-playlist #footer-inner {
+    display: block;
 }

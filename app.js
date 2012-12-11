@@ -25,13 +25,21 @@ var hasUsername = function(req, res, next) {
   }
 };
 
+var isAjaxRequest = function(req, res, next) {
+  if (req.xhr) {
+    next();
+  } else {
+    res.redirect('/#' + req.url);
+  }
+}
+
 require('express-persona')(app, {
   audience: nconf.get('domain') + ':' + nconf.get('authPort')
 });
 
 // routes
-require("./routes")(app, nconf, isLoggedIn, hasUsername);
-require("./routes/playlist")(app, nconf, isLoggedIn, hasUsername);
+require("./routes")(app, nconf, isLoggedIn, hasUsername, isAjaxRequest);
+require("./routes/playlist")(app, nconf, isLoggedIn, hasUsername, isAjaxRequest);
 require("./routes/mox")(app, nconf, isLoggedIn, hasUsername);
 
 app.get('/404', function(req, res, next) {

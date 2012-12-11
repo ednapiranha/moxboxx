@@ -38,7 +38,7 @@ define(['jquery', 'video'],
       var tagName = self.find('input[name="tag"]').val().trim().toLowerCase();
       var tagItem = $('<li data-tag="" data-action="/tag/' + playlistId + '"></li>');
       var tagLink = $('<a href=""></a>');
-      tagLink.attr('href', '/tag/' + tagName);
+      tagLink.attr('href', '/#/tag/' + tagName);
       tagLink.text(tagName);
 
       tagItem.append(tagLink);

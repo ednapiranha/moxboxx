@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(app, nconf, isLoggedIn, hasUsername) {
+module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
   var user = require('../lib/user');
   var playlist = require('../lib/playlist');
   var mox = require('../lib/mox');
@@ -13,7 +13,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
     });
   });
 
-  app.get('/playlists/starred', isLoggedIn, hasUsername, function (req, res) {
+  app.get('/playlists/starred', isLoggedIn, hasUsername, isAjaxRequest, function (req, res) {
     playlist.recentStarred(req, function(err, playlists) {
       if (err) {
         res.redirect('/500');
@@ -24,13 +24,22 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
           prevPage = 0;
         }
 
-        res.render('starred', {
-          pageType: 'starred',
-          playlists: playlists,
-          background: req.session.background || nconf.get('background_default'),
-          currentPage: parseInt(req.query.page, 10) || 0,
-          pagePrev: prevPage,
-          pageNext: nextPage
+        res.format({
+          html: function() {
+            res.render('_starred', {
+              playlists: playlists,
+              currentPage: parseInt(req.query.page, 10) || 0,
+              pagePrev: prevPage,
+              pageNext: nextPage
+            });
+          },
+          json: function() {
+            res.send({
+              title: 'moxboxx: your starred',
+              pageType: 'starred',
+              background: req.session.background || nconf.get('background_default'),
+            });
+          }
         });
       }
     });
@@ -62,7 +71,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
     });
   });
 
-  app.get('/playlist/:id', function (req, res) {
+  app.get('/playlist/:id', isAjaxRequest, function (req, res) {
     playlist.get(req, function(err, p) {
       if (err) {
         res.redirect('/404');
@@ -80,15 +89,24 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
           prevPage = 0;
         }
 
-        res.render('playlist', {
-          pageType: 'playlist',
-          playlist: p,
-          moxes: p.moxes,
-          isOwner: isOwner,
-          background: p.background || p.owner.background || nconf.get('background_default'),
-          currentPage: parseInt(req.query.page, 10) || 0,
-          pagePrev: prevPage,
-          pageNext: nextPage
+        res.format({
+          html: function() {
+            res.render('_playlist', {
+              playlist: p,
+              moxes: p.moxes,
+              isOwner: isOwner,
+              currentPage: parseInt(req.query.page, 10) || 0,
+              pagePrev: prevPage,
+              pageNext: nextPage
+            });
+          },
+          json: function() {
+            res.send({
+              title: 'moxboxx: ' + p.title,
+              pageType: 'playlist',
+              background: p.owner.background || nconf.get('background_default'),
+            });
+          }
         });
       }
     });
@@ -127,7 +145,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
     });
   });
 
-  app.get('/tag/:tag', function(req, res) {
+  app.get('/tag/:tag', isAjaxRequest, function(req, res) {
     playlist.getRecentByTag(req, function(err, playlists) {
       if (err) {
         res.redirect('/500');
@@ -137,14 +155,24 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
         if (prevPage < 0) {
           prevPage = 0;
         }
-        res.render('tagged', {
-          pageType: 'tagged',
-          tag: req.params.tag.trim().toLowerCase(),
-          playlists: playlists || [],
-          background: req.session.background || nconf.get('background_default'),
-          currentPage: parseInt(req.query.page, 10) || 0,
-          pagePrev: prevPage,
-          pageNext: nextPage
+
+        res.format({
+          html: function() {
+            res.render('_tagged', {
+              tag: req.params.tag.trim().toLowerCase(),
+              playlists: playlists || [],
+              currentPage: parseInt(req.query.page, 10) || 0,
+              pagePrev: prevPage,
+              pageNext: nextPage
+            });
+          },
+          json: function() {
+            res.send({
+              title: 'moxboxx: tagged with ' + req.params.tag,
+              pageType: 'tagged',
+              background: req.session.background || nconf.get('background_default'),
+            });
+          }
         });
       }
     });

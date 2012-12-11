@@ -1,0 +1,15 @@
+img(src='#{owner.gravatar}', id="gravatar-profile-large")
+if isOwner
+  h1 Your Playlists
+else
+  h1= owner.username
+
+.user-info
+  if owner.location
+    p Location: #{owner.location}
+
+  if owner.website
+    p Website:&#xa0;
+      a(href='#{owner.website}', target='_blank')= owner.website
+
+include _playlists

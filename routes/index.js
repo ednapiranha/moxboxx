@@ -1,24 +1,63 @@
 'use strict';
 
-module.exports = function(app, nconf, isLoggedIn, hasUsername) {
+module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
   var user = require('../lib/user');
   var playlist = require('../lib/playlist');
+
+  var loadDashboard = function(req, res) {
+    playlist.getGlobal(req, function(err, playlists) {
+      if (err) {
+        res.redirect('/500');
+      } else {
+        var nextPage = parseInt(req.query.page, 10) + 1 || 1;
+        var prevPage = parseInt(req.query.page, 10) - 1 || 0;
+        if (prevPage < 0) {
+          prevPage = 0;
+        }
+
+        res.format({
+          html: function() {
+            res.render('_dashboard', {
+              playlists: playlists || [],
+              currentPage: parseInt(req.query.page, 10) || 0,
+              pagePrev: prevPage,
+              pageNext: nextPage
+            });
+          },
+          json: function() {
+            res.send({
+              title: 'moxboxx: dashboard',
+              pageType: 'dashboard',
+              background: req.session.background || nconf.get('background_default')
+            });
+          }
+        });
+      }
+    });
+  };
+
+  app.get('/dashboard', isLoggedIn, hasUsername, isAjaxRequest, function (req, res) {
+    loadDashboard(req, res);
+  });
 
   app.get('/', function (req, res) {
     if (req.session.email) {
       user.loadProfile(req, function(err, user) {
-        if (user) {
+        if (req.session.username) {
           req.session.username = user.username;
           req.session.userId = user.id;
           req.session.background = user.background;
-          res.redirect('/dashboard');
+          res.render('index', {
+            pageType: 'index',
+            background: req.session.background || nconf.get('background_default')
+          });
         } else {
           res.redirect('/profile');
         }
       });
     } else {
-      res.render('index', {
-        pageType: 'index',
+      res.render('home', {
+        pageType: 'home',
         background: nconf.get('background_default')
       });
     }
@@ -101,51 +140,11 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
     });
   });
 
-  app.get('/dashboard', isLoggedIn, hasUsername, function (req, res) {
-    playlist.getGlobal(req, function(err, playlists) {
-      if (err) {
-        res.redirect('/500');
-      } else {
-        var nextPage = parseInt(req.query.page, 10) + 1 || 1;
-        var prevPage = parseInt(req.query.page, 10) - 1 || 0;
-        if (prevPage < 0) {
-          prevPage = 0;
-        }
-        res.render('dashboard', {
-          pageType: 'dashboard',
-          playlists: playlists || [],
-          background: req.session.background || nconf.get('background_default'),
-          currentPage: parseInt(req.query.page, 10) || 0,
-          pagePrev: prevPage,
-          pageNext: nextPage
-        });
-      }
-    });
+  app.get('/recent', isAjaxRequest, function (req, res) {
+    loadDashboard(req, res);
   });
 
-  app.get('/recent', function (req, res) {
-    playlist.getGlobal(req, function(err, playlists) {
-      if (err) {
-        res.redirect('/500');
-      } else {
-        var nextPage = parseInt(req.query.page, 10) + 1 || 1;
-        var prevPage = parseInt(req.query.page, 10) - 1 || 0;
-        if (prevPage < 0) {
-          prevPage = 0;
-        }
-        res.render('dashboard', {
-          pageType: 'dashboard',
-          playlists: playlists || [],
-          background: nconf.get('background_default'),
-          currentPage: parseInt(req.query.page, 10) || 0,
-          pagePrev: prevPage,
-          pageNext: nextPage
-        });
-      }
-    });
-  });
-
-  app.get('/user/:id', function(req, res) {
+  app.get('/user/:id', isAjaxRequest, function(req, res) {
     if (req.session.email &&
       !req.session.username) {
       res.redirect('/profile');
@@ -168,15 +167,24 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
             isOwner = true;
           }
 
-          res.render('playlists', {
-            pageType: 'userProfile',
-            playlists: playlists.data,
-            owner: playlists.owner,
-            isOwner: isOwner,
-            background: playlists.owner.background || nconf.get('background_default'),
-            currentPage: parseInt(req.query.page, 10) || 0,
-            pagePrev: prevPage,
-            pageNext: nextPage
+          res.format({
+            html: function() {
+              res.render('_playlists_user', {
+                playlists: playlists.data,
+                owner: playlists.owner,
+                isOwner: isOwner,
+                currentPage: parseInt(req.query.page, 10) || 0,
+                pagePrev: prevPage,
+                pageNext: nextPage
+              });
+            },
+            json: function() {
+              res.send({
+                title: 'moxboxx: ' + playlists.owner.username,
+                pageType: 'userProfile',
+                background: playlists.owner.background || nconf.get('background_default'),
+              });
+            }
           });
         }
       });

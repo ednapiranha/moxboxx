@@ -13,6 +13,8 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
 
   var body = $('body');
   var form = $('form');
+  var title = $('title');
+  var wrapper = $('.wrapper');
   var editTitle = $('#edit-title');
   var editDescription = $('#edit-description');
   var playlistTitle = $('h1#playlist-title > span.title');
@@ -20,10 +22,10 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
   var playlistEdit = $('.playlist-edit');
   var playlistEditCancel = $('.playlist-edit-cancel');
   var playlistEditSave = $('.playlist-edit-save');
-  var videos = $('#moxlist .object-wrapper iframe');
   var tagList = $('#playlist-tags');
   var sortMox = $('#moxlist.sortable');
   var flash = $('#flash');
+  var footer = $('#footer');
 
   if (document.location.href.indexOf('error=1') > -1) {
     flash
@@ -33,6 +35,43 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
       flash.fadeOut(4500);
     });
   }
+
+  var loadVideos = function() {
+    $('#moxlist .object-wrapper iframe').each(function(idx, video) {
+      videoActions.setVideos($(video));
+    });
+  };
+
+  // Routing for pages
+  var checkUrl = function() {
+    var url = document.location.hash;
+    if (url.match(/^#\//)) {
+      url = url.split('#')[1];
+      $.get(url, function(data) {
+        if (data) {
+          wrapper.html(data);
+          $.getJSON(url, function(data) {
+            body.css({ backgroundImage: data.background + ';' });
+            body.removeClass().addClass('page-' + data.pageType);
+            title.text(data.title);
+
+            if (data.pageType === 'playlist') {
+              // Load all video listeners
+              loadVideos();
+            }
+          });
+        } else {
+          document.location.href = '/#';
+        }
+      });
+    }
+  };
+
+  checkUrl();
+
+  $(window).bind('hashchange', function() {
+    checkUrl();
+  });
 
   var resetEditActions = function(titleEl, descriptionEl) {
     editTitle.addClass('off');
@@ -209,11 +248,5 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
         });
         break;
     }
-  });
-
-  // Load all video listeners
-  videos.each(function(idx, video) {
-    video = $(video);
-    videoActions.setVideos(video);
   });
 });
