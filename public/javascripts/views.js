@@ -20,9 +20,6 @@ define(['jquery', 'video'],
       moxItem.html(options.content).append(actions);
 
       moxlist.append(moxItem);
-      var video = moxItem.find('iframe');
-
-      videoActions.setVideos(video);
       form.find('input[type="text"]').val('');
     },
 

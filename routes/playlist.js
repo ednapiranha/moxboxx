@@ -121,7 +121,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
           parseInt(p.owner.id, 10) === parseInt(req.session.userId, 10)) {
 
           res.render('edit', {
-            pageType: 'playlist',
+            pageType: 'playlist-edit',
             playlist: p,
             moxes: p.moxes,
             isOwner: true,
