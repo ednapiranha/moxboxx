@@ -30,6 +30,10 @@ ul#playlist-tags
         else
           a(href='javascript:;', data-id='#{playlist.id}', class='playlist-star', data-action='/playlist/star/', data-context='playlist-star') star
 
+    #view-count
+      h3 Views
+      p= playlist.views
+
     if playlist.starredBy.length > 0
       #starred
         h3 Starred By

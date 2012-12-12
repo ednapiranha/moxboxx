@@ -42,27 +42,35 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
     });
   };
 
+  var loadMetaAndVideos = function(url) {
+    $.ajax({
+      url: url,
+      type: 'GET',
+      dataType: 'json',
+      cache: false
+    }).done(function(data) {
+      body.css('background-image', 'url(' + data.background + ')');
+      body.addClass('page-' + data.pageType);
+      title.text(data.title);
+
+      if (data.pageType === 'playlist') {
+        loadVideos();
+      }
+    });
+  };
+
   // Routing for pages
   var checkUrl = function() {
     var url = document.location.hash;
     if (url.match(/^#\//)) {
       url = url.split('#')[1];
+      body.removeClass();
       $.get(url, function(data) {
-        if (data) {
-          wrapper.html(data);
-          $.getJSON(url, function(data) {
-            body.css('background-image', 'url(' + data.background + ')');
-            body.removeClass().addClass('page-' + data.pageType);
-            title.text(data.title);
-
-            if (data.pageType === 'playlist') {
-              // Load all video listeners
-              loadVideos();
-            }
+        wrapper.html(data)
+          .promise()
+          .done(function() {
+            loadMetaAndVideos(url);
           });
-        } else {
-          document.location.href = '/#';
-        }
       });
     } else if (wrapper.html().length === 0) {
       document.location.href = '/#/dashboard';

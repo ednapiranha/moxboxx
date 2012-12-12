@@ -5,32 +5,32 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
   var playlist = require('../lib/playlist');
 
   var loadDashboard = function(req, res) {
-    playlist.getGlobal(req, function(err, playlists) {
-      if (err) {
-        res.redirect('/500');
-      } else {
-        var nextPage = parseInt(req.query.page, 10) + 1 || 1;
-        var prevPage = parseInt(req.query.page, 10) - 1 || 0;
-        if (prevPage < 0) {
-          prevPage = 0;
-        }
-
-        res.format({
-          html: function() {
-            res.render('_dashboard', {
-              playlists: playlists || [],
-              currentHashPrev: '/#' + req.url.split('?')[0] + '?page=' + prevPage,
-              currentHashNext: '/#' + req.url.split('?')[0] + '?page=' + nextPage,
-              currentPage: parseInt(req.query.page, 10) || 0
-            });
-          },
-          json: function() {
-            res.send({
-              title: 'moxboxx: dashboard',
-              pageType: 'dashboard',
-              background: req.session.background || nconf.get('background_default')
-            });
+    res.format({
+      html: function() {
+        playlist.getGlobal(req, function(err, playlists) {
+          if (err) {
+            res.redirect('/500');
+          } else {
+            var nextPage = parseInt(req.query.page, 10) + 1 || 1;
+            var prevPage = parseInt(req.query.page, 10) - 1 || 0;
+            if (prevPage < 0) {
+              prevPage = 0;
+            }
           }
+
+          res.render('_dashboard', {
+            playlists: playlists || [],
+            currentHashPrev: '/#' + req.url.split('?')[0] + '?page=' + prevPage,
+            currentHashNext: '/#' + req.url.split('?')[0] + '?page=' + nextPage,
+            currentPage: parseInt(req.query.page, 10) || 0
+          });
+        });
+      },
+      json: function() {
+        res.send({
+          title: 'moxboxx: dashboard',
+          pageType: 'dashboard',
+          background: req.session.background || nconf.get('background_default')
         });
       }
     });
@@ -151,26 +151,26 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
       !req.session.username) {
       res.redirect('/profile');
     } else {
-      var isOwner = false;
-      var id = parseInt(req.params.id);
+      res.format({
+        html: function() {
+          var isOwner = false;
+          var id = parseInt(req.params.id);
 
-      var nextPage = parseInt(req.query.page, 10) + 1 || 1;
-      var prevPage = parseInt(req.query.page, 10) - 1 || 0;
-      if (prevPage < 0) {
-        prevPage = 0;
-      }
-
-      playlist.userRecent(req, function(err, playlists) {
-        if (err) {
-          res.redirect('/404');
-        } else {
-          if (req.session && req.session.email &&
-            parseInt(req.session.userId, 10) === parseInt(req.params.id, 10)) {
-            isOwner = true;
+          var nextPage = parseInt(req.query.page, 10) + 1 || 1;
+          var prevPage = parseInt(req.query.page, 10) - 1 || 0;
+          if (prevPage < 0) {
+            prevPage = 0;
           }
 
-          res.format({
-            html: function() {
+          playlist.userRecent(req, function(err, playlists) {
+            if (err) {
+              res.redirect('/404');
+            } else {
+              if (req.session && req.session.email &&
+                parseInt(req.session.userId, 10) === parseInt(req.params.id, 10)) {
+                isOwner = true;
+              }
+
               res.render('_playlists_user', {
                 playlists: playlists.data,
                 owner: playlists.owner,
@@ -179,12 +179,16 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
                 currentHashNext: '/#' + req.url.split('?')[0] + '?page=' + nextPage,
                 currentPage: parseInt(req.query.page, 10) || 0
               });
-            },
-            json: function() {
+            }
+          });
+        },
+        json: function() {
+          playlist.getUser(req, function(err, user) {
+            if (!err) {
               res.send({
-                title: 'moxboxx: ' + playlists.owner.username,
+                title: 'moxboxx: user profile for ' + user.username,
                 pageType: 'userProfile',
-                background: playlists.owner.background || nconf.get('background_default'),
+                background: user.background || nconf.get('background_default'),
               });
             }
           });

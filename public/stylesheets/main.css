@@ -464,11 +464,22 @@ time {
     margin-top: 10px;
 }
 
-#starred {
+#starred, #view-count {
     clear: both;
     display: block;
     float: left;
     margin: 20px 0 0 3px;
+}
+
+#view-count p {
+    background-color: #eee;
+    border-radius: 5px;
+    color: #777;
+    font-size: 23px;
+    line-height: 23px;
+    min-width: 50px;
+    padding: 3px 5px 0px 5px;
+    text-align: center;
 }
 
 #starred li {
@@ -732,6 +743,7 @@ time {
     position: relative;
     right: 0;
     text-align: center;
+    width: 180px;
 }
 
 .playlist-item .item-actions a {
@@ -745,10 +757,16 @@ time {
     border-top-right-radius: 10px;
     color: #fff4e5;
     display: block;
+    float: left;
     font-size: 15px;
     line-height: 16px;
     margin-bottom: 1px;
     padding: 3px 3px 2px 8px;
+    width: 65px;
+}
+
+.item-actions a:first-child {
+    margin-right: 6px;
 }
 
 .item-actions a.on {
