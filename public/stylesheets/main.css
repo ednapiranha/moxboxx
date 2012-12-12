@@ -261,12 +261,16 @@ header a {
 }
 
 .playlist-edit, .playlist-edit-cancel, .playlist-edit-save {
-    background-color: #fff;
+    background-color: #defbfd;
+    border: 1px solid #b5f1f5;
     border-radius: 5px;
+    color: #329aa1;
+    float: left;
     font-family: Arial, sans-serif;
     font-size: 17px;
-    margin-left: 20px;
+    margin: 5px 20px 5px 5px;
     padding: 3px 7px;
+    text-transform: none;
 }
 
 .playlist-edit-save {
@@ -748,7 +752,13 @@ time {
 
 .playlist-item .item-actions a {
     border-radius: 8px;
+    float: left;
     margin-bottom: 3px;
+    width: 70px;
+}
+
+.playlist-item .item-actions a:first-child {
+    margin-right: 5px;
 }
 
 .item-actions a {

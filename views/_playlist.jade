@@ -17,10 +17,6 @@ ul#playlist-tags
       img(src='#{playlist.owner.gravatar}')
     time= playlist.created
 
-    #share
-      span(class='st_facebook_large', displayText='Facebook')
-      span(class='st_twitter_large', displayText='Tweet')
-
     if session.email
       .item-actions
         if isOwner
