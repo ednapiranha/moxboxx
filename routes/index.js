@@ -183,7 +183,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
           });
         },
         json: function() {
-          playlist.getUser(req, function(err, user) {
+          user.getUser(req, function(err, user) {
             if (!err) {
               res.send({
                 title: 'moxboxx: user profile for ' + user.username,
