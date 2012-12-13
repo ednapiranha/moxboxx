@@ -68,17 +68,22 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
   // Routing for pages
   var checkUrl = function() {
     var url = document.location.hash;
+
     if (url.match(/^#\//)) {
       url = url.split('#')[1];
       body.removeClass();
       $.get(url, function(data) {
-        wrapper.html(data)
-          .promise()
-          .done(function() {
-            loadMetaAndVideos(url);
-          });
+        if (data) {
+          wrapper.html(data)
+            .promise()
+            .done(function() {
+              loadMetaAndVideos(url);
+            });
+        } else {
+          document.location.href = '/#/';
+        }
       });
-    } else if (wrapper.html().length === 0) {
+    } else if (wrapper.html().trim().length === 0) {
       document.location.href = '/#/dashboard';
     }
   };
