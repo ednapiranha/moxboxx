@@ -34,6 +34,7 @@ module.exports = function(app, configurations, express) {
       next();
     });
     app.use(app.router);
+    app.locals.pretty = true;
     app.use(function(req, res, next) {
       res.status(404);
       res.render('404', { url: req.url, layout: false });

@@ -20,6 +20,7 @@ ul#playlist-tags
     #share
       a(href='https://twitter.com/share?url=http://moxboxx.com/playlist/#{playlist.id}', class='twitter-share-button', data-lang='en', data-size='large', data-count='none')
         Tweet
+      .fb-like(data-href='http://moxboxx.com/playlist/#{playlist.id}', data-send='false', data-layout='button_count', data-width='90', data-show-faces='false', data-font='arial')
 
     if session.email
       .item-actions

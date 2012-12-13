@@ -105,13 +105,13 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
         });
       },
       json: function() {
-        playlist.getBasic(req, function(err, p) {
+        playlist.get(req, function(err, p) {
           if (!err) {
             res.send({
               playlist: p,
               title: 'moxboxx: ' + p.title,
               pageType: 'playlist',
-              background: p.background || req.session.background || nconf.get('background_default'),
+              background: p.background || p.owner.background || nconf.get('background_default'),
             });
           }
         });
