@@ -55,7 +55,7 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
 
       if (data.pageType === 'playlist') {
         $('#meta-title').attr('content', data.playlist.title);
-        $('#meta-url').attr('content', 'http://moxboxx.com/playlist/' + data.playlist.id);
+        $('#meta-url').attr('content', 'http://' + document.location.host + '/playlist/' + data.playlist.id);
         $('#meta-description').attr('content', data.playlist.description);
         loadVideos();
       }
