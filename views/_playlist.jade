@@ -17,6 +17,10 @@ ul#playlist-tags
       img(src='#{playlist.owner.gravatar}')
     time= playlist.created
 
+    #share
+      a(href='https://twitter.com/share?url=http://moxboxx.com/playlist/#{playlist.id}', class='twitter-share-button', data-lang='en', data-size='large', data-count='none')
+        Tweet
+
     if session.email
       .item-actions
         if isOwner
@@ -47,6 +51,8 @@ ul#playlist-tags
           .item-actions
             a(href='javascript:;', class='mox-delete', data-context='mox-delete') delete
 
+script(type='text/javascript')
+  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
 script(src='/javascripts/youtube.js')
 script(src='/javascripts/froogaloop.js')
 script(src='/javascripts/sc.js')

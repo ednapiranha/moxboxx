@@ -511,7 +511,7 @@ time {
 #share {
     clear: both;
     float: left;
-    margin-top: 15px;
+    margin: 15px 0 25px 0;
 }
 
 #playlist-title {
