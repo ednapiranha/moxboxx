@@ -54,6 +54,9 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
       title.text(data.title);
 
       if (data.pageType === 'playlist') {
+        $('#meta-title').attr('content', data.playlist.title);
+        $('#meta-url').attr('content', 'http://moxboxx.com/playlist/' + data.playlist.id);
+        $('#meta-description').attr('content', data.playlist.description);
         loadVideos();
       }
     });
