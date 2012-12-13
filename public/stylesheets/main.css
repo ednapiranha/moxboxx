@@ -472,7 +472,7 @@ time {
     clear: both;
     display: block;
     float: left;
-    margin: 20px 0 0 3px;
+    margin: 10px 0 0 3px;
 }
 
 #view-count p {
@@ -511,7 +511,16 @@ time {
 #share {
     clear: both;
     float: left;
-    margin: 15px 0 25px 0;
+    margin: 15px 0 5px 0;
+}
+
+#share .twitter-share-button {
+    margin-right: 10px;
+}
+
+#share .twitter-share-button, #share .fb-like {
+    display: block;
+    float: left;
 }
 
 #playlist-title {
