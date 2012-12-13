@@ -521,6 +521,7 @@ time {
 #share .twitter-share-button, #share .fb-like {
     display: block;
     float: left;
+    z-index: 5;
 }
 
 #playlist-title {
