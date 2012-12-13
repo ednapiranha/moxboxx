@@ -57,6 +57,9 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
         $('#meta-title').attr('content', data.playlist.title);
         $('#meta-url').attr('content', 'http://' + document.location.host + '/playlist/' + data.playlist.id);
         $('#meta-description').attr('content', data.playlist.description);
+        try {
+          FB.XFBML.parse();
+        } catch(ex) { }
         loadVideos();
       }
     });
