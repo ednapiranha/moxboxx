@@ -24,6 +24,7 @@ html(xmlns:fb='http://ogp.me/ns/fb')
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
+
   body(style='background-image: url(#{background});', class='page-#{pageType}')
     #fb-root
     script
@@ -34,6 +35,27 @@ html(xmlns:fb='http://ogp.me/ns/fb')
         js.src = '//connect.facebook.net/en_US/all.js#xfbml=1&appId=122592771235803';
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
+      window.fbAsyncInit = function() {
+        // init the FB JS SDK
+        FB.init({
+          appId      : '122592771235803',
+          channelUrl : '//dev.moxboxx.com/channel', // Channel File for x-domain communication
+          status     : true,
+          cookie     : true,
+          xfbml      : true
+        });
+
+        // Additional initialization code such as adding Event Listeners goes here
+
+      };
+
+      (function(d, debug){
+         var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement('script'); js.id = id; js.async = true;
+         js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+         ref.parentNode.insertBefore(js, ref);
+       }(document, /*debug*/ false));
     #flash
     header
       if session.email
@@ -62,6 +84,7 @@ html(xmlns:fb='http://ogp.me/ns/fb')
                 a(href='#', id='logout') Sign out
         else
           li
+            a(href='#', id='facebook-login') Sign in with Facebook
             a(href='#', id='login') Sign in with Persona
 
     .main-wrapper

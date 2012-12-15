@@ -28,6 +28,24 @@ define(['jquery', 'utils'],
       });
     },
 
+    facebookLogin: function() {
+      FB.login(function(resp) {
+        if (resp.authResponse) {
+          FB.api('/me', function(response) {
+            $.ajax({
+              url: '/facebook/login',
+              type: 'POST',
+              data: { email: response.email },
+              dataType: 'json',
+              cache: false
+            }).done(function(data) {
+              document.location.href = '/';
+            });
+          });
+        }
+      }, { scope: 'email' });
+    },
+
     logout: function() {
       $.ajax({
         url: '/persona/logout',

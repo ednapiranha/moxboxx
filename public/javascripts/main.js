@@ -133,6 +133,12 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
         user.login();
         break;
 
+      // facebook login
+      case 'facebook-login':
+        ev.preventDefault();
+        user.facebookLogin();
+        break;
+
       // persona logout
       case 'logout':
         ev.preventDefault();
