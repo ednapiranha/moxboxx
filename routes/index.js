@@ -37,12 +37,14 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
   };
 
   app.get('/channel', function(req, res) {
-    res.render('channel');
+    res.render('channel', {
+      layout: false
+    });
   });
 
   app.post('/facebook/login', function(req, res) {
     req.session.email = req.body.email;
-    res.redirect('/profile');
+    res.json({ message: 'okay' });
   });
 
   app.get('/dashboard', isLoggedIn, hasUsername, isAjaxRequest, function (req, res) {
