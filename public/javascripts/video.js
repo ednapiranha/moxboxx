@@ -20,7 +20,6 @@ define(['jquery'],
 
           }
         } catch(e) {
-          console.log('video failed, possibly blocked, going to next video');
           playNextVideo();
         }
       }

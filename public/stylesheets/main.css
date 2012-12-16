@@ -93,6 +93,10 @@ a:hover {
     background-color: #d8ff3e;
 }
 
+#facebook-login {
+    background-color: #80d0ee;
+}
+
 form {
     clear: both;
     display: block;
