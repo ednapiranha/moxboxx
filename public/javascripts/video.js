@@ -8,15 +8,20 @@ define(['jquery'],
   var stopVideos = function() {
     for (var i = 0; i < videoList.length; i ++) {
       if (videoList[i]) {
-        if (videoList[i].youtube) {
-          videoList[i].youtube.pauseVideo();
+        try {
+          if (videoList[i].youtube) {
+            videoList[i].youtube.pauseVideo();
 
-        } else if (videoList[i].vimeo) {
-          videoList[i].vimeo.api('pause');
+          } else if (videoList[i].vimeo) {
+            videoList[i].vimeo.api('pause');
 
-        } else if (videoList[i].soundcloud) {
-          videoList[i].soundcloud.pause();
+          } else if (videoList[i].soundcloud) {
+            videoList[i].soundcloud.pause();
 
+          }
+        } catch(e) {
+          console.log('video failed, possibly blocked, going to next video');
+          playNextVideo();
         }
       }
     }
