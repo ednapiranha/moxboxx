@@ -20,6 +20,14 @@ block content
     input(type='text', name='location', placeholder='Where are you located?', value='#{location}')
     label(for='website', class='tip') Website
     input(type='text', name='website', placeholder='Your website url', value='#{website}')
+    if session.username
+      label(for='notify-stars', class='tip') Email me when someone stars my playlist!
+        label(class='checkbox')
+          if emailStarred
+            input(type='checkbox', name='email_starred', checked='checked')
+          else
+            input(type='checkbox', name='email_starred')
+          span
     button(type='submit') Update
 
   if session.username

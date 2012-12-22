@@ -46,7 +46,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
   });
 
   app.post('/playlist/star/', isLoggedIn, hasUsername, function (req, res) {
-    playlist.star(req, function(err, resp) {
+    playlist.star(req, nconf, function(err, resp) {
       if (err) {
         res.status(500);
         res.json({ message: err.toString() });

@@ -163,6 +163,29 @@ form input[type="text"] {
     width: 420px;
 }
 
+label.checkbox input {
+    display: none;
+}
+
+form label.checkbox {
+    display: block;
+    line-height: 40px;
+    margin: 2px 10px 1px 2px;
+}
+
+label.checkbox span {
+    background-color: #fff;
+    background-repeat: no-repeat;
+    border: 1px solid #111;
+    display: block;
+    height: 20px;
+    width: 20px;
+}
+
+label.checkbox input:checked + span {
+    background-image: url('/images/checked.png');
+}
+
 form input[type="text"]:focus {
     border: 2px dashed #111;
     background-color: #dfff71;

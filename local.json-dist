@@ -12,5 +12,6 @@
     "database": "moxboxx_dev",
     "db_username": "<db_username>",
     "db_password": "<db_password>",
-    "background_default": "/path/to/background"
+    "background_default": "/path/to/background",
+    "postmark_api_key": "postmark_api_key"
 }

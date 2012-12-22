@@ -90,6 +90,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
           location: '',
           website: '',
           gravatar: '',
+          emailStarred: false,
           background: nconf.get('background_default')
         });
       } else {
@@ -102,6 +103,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
           location: user.location || '',
           website: user.website || '',
           gravatar: user.gravatar || '',
+          emailStarred: user.email_starred || false,
           background: user.background || nconf.get('background_default')
         });
       }

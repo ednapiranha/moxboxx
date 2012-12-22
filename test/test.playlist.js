@@ -10,6 +10,9 @@ var Playlist = db.getPlaylist();
 var User = db.getUser();
 var PlaylistStarred = db.getPlaylistStarred();
 
+var nconf = require('nconf');
+nconf.argv().env().file({ file: 'local-test.json' });
+
 var playlistId;
 var userId;
 
@@ -70,7 +73,7 @@ describe('playlist', function() {
   it('stars/unstars a playlist', function(done) {
     req.body.id = playlistId;
 
-    playlist.star(req, function(err, s) {
+    playlist.star(req, nconf, function(err, s) {
       s.should.equal(true);
       done();
     });
