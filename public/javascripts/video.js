@@ -101,12 +101,21 @@ define(['jquery'],
   };
 
   var getMetadata = function(video) {
-    var id = video.attr('src').split('/embed/')[1].split('?wmode')[0];
-    $.getJSON('https://gdata.youtube.com/feeds/api/videos?q=' + id + '&v=2&alt=jsonc', function(d) {
-      if (d.data) {
-        video.closest('li').find('.metadata').append('<span></span>').find('span').text(d.data.items[0].title);
-      }
-    });
+    if (video.hasClass('youtube')) {
+      var id = video.attr('src').split('/embed/')[1].split('?wmode')[0];
+      $.getJSON('https://gdata.youtube.com/feeds/api/videos?q=' + id + '&v=2&alt=jsonc', function(d) {
+        if (d.data) {
+          video.closest('li').find('.metadata').append('<span></span>').find('span').text(d.data.items[0].title);
+        }
+      });
+    } else if (video.hasClass('vimeo')) {
+      var id = video.attr('src').split('/video/')[1].split('?api')[0];
+      $.getJSON('http://vimeo.com/api/v2/video/' + id + '.json?callback=?', function(d) {
+        if (d) {
+          video.closest('li').find('.metadata').append('<span></span>').find('span').text(d[0].title);
+        }
+      });
+    }
   };
 
   var self = {
@@ -123,8 +132,6 @@ define(['jquery'],
           }
         });
         options = { 'youtube': player, id: id };
-
-        // set metadata
         getMetadata(video);
 
       } else if (video.hasClass('vimeo')) {
@@ -135,6 +142,7 @@ define(['jquery'],
           player.addEvent('playProgress', checkVimeoProgress);
         });
         options = { 'vimeo': player, id: id };
+        getMetadata(video);
 
       } else if (video.hasClass('soundcloud')) {
         var player = SC.Widget(id);
