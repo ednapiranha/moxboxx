@@ -495,6 +495,15 @@ time {
     margin-top: 10px;
 }
 
+.metadata span {
+    background-color: #111;
+    color: #eee;
+    display: block;
+    font-size: 15px;
+    line-height: 17px;
+    padding: 5px 3px;
+}
+
 #starred, #view-count {
     clear: both;
     display: block;
@@ -765,7 +774,6 @@ time {
 }
 
 .object-wrapper iframe {
-    height: 295px;
     width: 525px;
 }
 

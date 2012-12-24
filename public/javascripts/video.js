@@ -100,6 +100,15 @@ define(['jquery'],
     playNextVideo();
   };
 
+  var getMetadata = function(video) {
+    var id = video.attr('src').split('/embed/')[1].split('?wmode')[0];
+    $.getJSON('https://gdata.youtube.com/feeds/api/videos?q=' + id + '&v=2&alt=jsonc', function(d) {
+      if (d.data) {
+        video.closest('li').find('.metadata').append('<span></span>').find('span').text(d.data.items[0].title);
+      }
+    });
+  };
+
   var self = {
     setVideos: function(video) {
       var id = video[0].id;
@@ -114,6 +123,9 @@ define(['jquery'],
           }
         });
         options = { 'youtube': player, id: id };
+
+        // set metadata
+        getMetadata(video);
 
       } else if (video.hasClass('vimeo')) {
         var player = $f(video[0]);

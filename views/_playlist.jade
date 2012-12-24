@@ -47,6 +47,7 @@ ul#playlist-tags
   ol#moxlist
     for mox in moxes
       li(data-id='#{mox.id}', data-playlistid='#{mox.playlist_id}', data-action='/mox/', class='item')
+        p.metadata
         != mox.content
         if session.email && isOwner
           .item-actions
