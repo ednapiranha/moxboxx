@@ -495,6 +495,12 @@ time {
     margin-top: 10px;
 }
 
+.metadata {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 525px;
+}
+
 .metadata span {
     background-color: #111;
     color: #eee;
