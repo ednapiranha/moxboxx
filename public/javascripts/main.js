@@ -65,6 +65,16 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
     });
   };
 
+  var loadBookmarkletDetail = function() {
+    var urlItem = $('#mox-url');
+    if (urlItem.length > 0) {
+      var saveURL = decodeURIComponent(window.location.toString().split("mox-box=")[1]);
+      urlItem.val(saveURL);
+    }
+  };
+
+  loadBookmarkletDetail();
+
   // Routing for pages
   var checkUrl = function() {
     var url = document.location.hash;
