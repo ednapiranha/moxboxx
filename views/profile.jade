@@ -39,3 +39,8 @@ block content
       label(for='background', class='tip') Background Image (300 kb maximum file size)
       input(type='file', name='background')
       button(type='submit') Update Background Image
+
+    p
+      | Drag this bookmarket to your bookmark bar to&nbsp;
+      a(href="javascript:var d=document,w=window,f='http://moxboxx.com/bookmarklet',l=d.location,e=encodeURIComponent,p='?mox-box='+e(l.href),u=f+p;try{if(!/^(.*\.)?moxboxx[^.]*$/.test(l.host)) throw(0);}catch(z){a=function(){if(!w.open(u,'t','toolbar=no,resizable=no,status=no,location=no,scrollbars=no,menubar=no,height=220,width=540'))l.href=u;};if(/Firefox/.test(navigator.userAgent)) setTimeout(a,0); else a();}void(0)") Post to MoxBoxx
+      .
