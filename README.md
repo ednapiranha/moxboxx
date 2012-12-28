@@ -10,7 +10,7 @@ Clone the repository
 
 > git clone git://github.com/ednapiranha/moxboxx.git
 
-> curl http://npmjs.org/install.sh | sh
+> curl https://npmjs.org/install.sh | sh
 
 Install node by using brew or through the website http://nodejs.org/#download
 
