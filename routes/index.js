@@ -22,7 +22,9 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
             playlists: playlists || [],
             currentHashPrev: '/#' + req.url.split('?')[0] + '?page=' + prevPage,
             currentHashNext: '/#' + req.url.split('?')[0] + '?page=' + nextPage,
-            currentPage: parseInt(req.query.page, 10) || 0
+            currentPage: parseInt(req.query.page, 10) || 0,
+            facebookAppId: nconf.get('facebook_app_id'),
+            analytics: nconf.get('analytics')
           });
         });
       },
@@ -62,7 +64,9 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
         if (req.session.username) {
           res.render('index', {
             pageType: 'index',
-            background: req.session.background || nconf.get('background_default')
+            background: req.session.background || nconf.get('background_default'),
+            facebookAppId: nconf.get('facebook_app_id'),
+            analytics: nconf.get('analytics')
           });
         } else {
           res.redirect('/profile');
@@ -71,7 +75,9 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
     } else {
       res.render('home', {
         pageType: 'home',
-        background: nconf.get('background_default')
+        background: nconf.get('background_default'),
+        facebookAppId: nconf.get('facebook_app_id'),
+        analytics: nconf.get('analytics')
       });
     }
   });
@@ -91,7 +97,9 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
           website: '',
           gravatar: '',
           emailStarred: false,
-          background: nconf.get('background_default')
+          background: nconf.get('background_default'),
+          facebookAppId: nconf.get('facebook_app_id'),
+          analytics: nconf.get('analytics')
         });
       } else {
         req.session.username = user.username;
@@ -104,7 +112,9 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
           website: user.website || '',
           gravatar: user.gravatar || '',
           emailStarred: user.email_starred || false,
-          background: user.background || nconf.get('background_default')
+          background: user.background || nconf.get('background_default'),
+          facebookAppId: nconf.get('facebook_app_id'),
+          analytics: nconf.get('analytics')
         });
       }
     });
@@ -190,7 +200,9 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
                 isOwner: isOwner,
                 currentHashPrev: '/#' + req.url.split('?')[0] + '?page=' + prevPage,
                 currentHashNext: '/#' + req.url.split('?')[0] + '?page=' + nextPage,
-                currentPage: parseInt(req.query.page, 10) || 0
+                currentPage: parseInt(req.query.page, 10) || 0,
+                facebookAppId: nconf.get('facebook_app_id'),
+                analytics: nconf.get('analytics')
               });
             }
           });
