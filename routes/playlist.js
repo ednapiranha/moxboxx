@@ -9,7 +9,9 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
     res.render('new', {
       pageType: 'new',
       session: req.session,
-      background: req.session.background || nconf.get('background_default')
+      background: req.session.background || nconf.get('background_default'),
+      facebookAppId: nconf.get('facebook_app_id'),
+      analytics: nconf.get('analytics')
     });
   });
 
@@ -132,7 +134,9 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
             playlist: p,
             moxes: p.moxes,
             isOwner: true,
-            background: p.background || req.session.background || nconf.get('background_default')
+            background: p.background || req.session.background || nconf.get('background_default'),
+            facebookAppId: nconf.get('facebook_app_id'),
+            analytics: nconf.get('analytics')
           });
         } else {
           res.redirect('/playlist/' + p.id);
