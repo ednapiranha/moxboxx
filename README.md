@@ -8,7 +8,7 @@ Import the database file to set up the schema
 
 Clone the repository
 
-> git clone git://github.com/noodle/moxboxx.git
+> git clone git://github.com/nooodle/moxboxx.git
 
 > curl https://npmjs.org/install.sh | sh
 
