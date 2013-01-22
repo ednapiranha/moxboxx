@@ -9,7 +9,7 @@ requirejs.config({
 });
 
 define(['jquery', 'user', 'playlist', 'mox', 'video'],
-  function($, user, playlist, mox, videoActions) {
+  function($, user, playlist, mox, VideoPlayer) {
 
   var body = $('body');
   var form = $('form');
@@ -27,6 +27,8 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
   var flash = $('#flash');
   var footer = $('#footer');
 
+  var vp = new VideoPlayer();
+
   if (document.location.href.indexOf('error=1') > -1) {
     flash
       .addClass('error')
@@ -37,12 +39,12 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
   }
 
   var loadVideos = function() {
-    $('#moxlist .object-wrapper iframe').each(function(idx, video) {
-      videoActions.setVideos($(video));
+    $('#moxlist .object-wrapper iframe').each(function (idx, video) {
+      vp.setVideos($(video));
     });
   };
 
-  var loadMetaAndVideos = function(url) {
+  var loadMetaAndVideos = function (url) {
     $.ajax({
       url: url,
       type: 'GET',
@@ -65,7 +67,7 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
     });
   };
 
-  var loadBookmarkletDetail = function() {
+  var loadBookmarkletDetail = function () {
     var urlItem = $('#mox-url');
     if (urlItem.length > 0) {
       var saveURL = decodeURIComponent(window.location.toString().split("mox-box=")[1]);
@@ -76,7 +78,7 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
   loadBookmarkletDetail();
 
   // Routing for pages
-  var checkUrl = function() {
+  var checkUrl = function () {
     var url = document.location.hash;
 
     if (url.match(/^#\//)) {
@@ -100,11 +102,11 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
 
   checkUrl();
 
-  $(window).bind('hashchange', function() {
+  $(window).bind('hashchange', function () {
     checkUrl();
   });
 
-  var resetEditActions = function(titleEl, descriptionEl) {
+  var resetEditActions = function (titleEl, descriptionEl) {
     editTitle.addClass('off');
     editDescription.addClass('off');
     playlistTitle.text(titleEl.val()).removeClass('off');
@@ -115,7 +117,7 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
   };
 
   sortMox.sortable({
-    update: function() {
+    update: function () {
       var sortArr = [];
       var moxItems = sortMox.find('.item');
 
@@ -133,7 +135,7 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
   });
   sortMox.disableSelection();
 
-  body.on('click', function(ev) {
+  body.on('click', function (ev) {
     var self = $(ev.target);
 
     switch (self[0].id) {
@@ -158,7 +160,7 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
       // start playlist
       case 'play-playlist':
         ev.preventDefault();
-        videoActions.togglePlay();
+        vp.togglePlay();
         break;
 
       // repeat playlist
@@ -169,7 +171,7 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
         } else {
           self.addClass('on');
         }
-        videoActions.toggleRepeat();
+        vp.toggleRepeat();
         break;
     }
 
@@ -246,7 +248,7 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
     }
   });
 
-  form.submit(function(ev) {
+  form.submit(function (ev) {
     var self = $(this);
 
     switch (self[0].id) {
@@ -272,7 +274,7 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
       // add tag
       case 'new-tag':
         ev.preventDefault();
-        playlist.addTag(self, function() {
+        playlist.addTag(self, function () {
           self.find('input[name="tag"]').val('');
         });
         break;
@@ -280,7 +282,7 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
       case 'edit-playlist-title':
         ev.preventDefault();
 
-        playlist.update(self, function() {
+        playlist.update(self, function () {
           resetEditActions(editTitle, editDescription);
         });
         break;

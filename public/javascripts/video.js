@@ -3,60 +3,122 @@
 define(['jquery'],
   function($) {
 
-  var repeatPlaylist = false;
+  var VideoPlayer = function () {
+    this.repeatPlaylist = false;
+    this.videoList = [];
+  };
 
-  var stopVideos = function() {
-    for (var i = 0; i < videoList.length; i ++) {
-      if (videoList[i]) {
-        try {
-          if (videoList[i].youtube) {
-            videoList[i].youtube.pauseVideo();
+  VideoPlayer.prototype.setVideos = function (video) {
+    var id = video[0].id;
+    var self = this;
+    var options;
 
-          } else if (videoList[i].vimeo) {
-            videoList[i].vimeo.api('pause');
-
-          } else if (videoList[i].soundcloud) {
-            videoList[i].soundcloud.pause();
-
+    if (video.hasClass('youtube')) {
+      var player = new YT.Player(id, {
+        events: {
+          'onStateChange': function(ev) {
+            checkYoutubeEnd(self, ev, id);
           }
-        } catch(e) {
-          playNextVideo();
+        }
+      });
+
+      options = { 'youtube': player, id: id };
+      getMetadata(this, video);
+
+    } else if (video.hasClass('vimeo')) {
+      var player = $f(video[0]);
+
+      player.addEvent('ready', function () {
+        self.currentPlay = id;
+
+        player.addEvent('finish', function () {
+          checkVimeoEnd(self);
+        });
+        player.addEvent('playProgress', function (data) {
+          checkVimeoProgress(self, data, id);
+        });
+      });
+
+      options = { 'vimeo': player, id: id };
+      getMetadata(this, video);
+
+    } else if (video.hasClass('soundcloud')) {
+      var player = SC.Widget(id);
+
+      player.bind(SC.Widget.Events.READY, function () {
+        player.bind(SC.Widget.Events.FINISH, function() {
+          checkSoundCloudEnd(self, id);
+        });
+      });
+
+      options = { 'soundcloud': player, id: id };
+    }
+
+    this.videoList.push(options);
+  };
+
+  VideoPlayer.prototype.togglePlay = function () {
+    startInitialVideo(this);
+  };
+
+  VideoPlayer.prototype.toggleRepeat = function() {
+    if (!this.repeatPlaylist) {
+      this.repeatPlaylist = true;
+    } else {
+      this.repeatPlaylist = false;
+    }
+  };
+
+  var stopVideos = function (self) {
+    for (var i = 0; i < self.videoList.length; i ++) {
+      if (self.videoList[i]) {
+        if (self.videoList[i].youtube) {
+          self.videoList[i].youtube.pauseVideo();
+
+        } else if (self.videoList[i].vimeo) {
+          self.videoList[i].vimeo.api('pause');
+
+        } else if (self.videoList[i].soundcloud) {
+          self.videoList[i].soundcloud.pause();
+
         }
       }
     }
   };
 
-  var startInitialVideo = function() {
-    stopVideos();
-    currentPlay = videoList[0].id;
+  var startInitialVideo = function (self) {
+    stopVideos(self);
+    self.currentPlay = self.videoList[0].id;
 
-    if (videoList[0].youtube) {
-      videoList[0].youtube.playVideo();
-    } else if (videoList[0].vimeo) {
-      videoList[0].vimeo.api('play');
-    } else if (videoList[0].soundcloud) {
-      videoList[0].soundcloud.play();
+    if (self.videoList[0].youtube) {
+      self.videoList[0].youtube.playVideo();
+    } else if (self.videoList[0].vimeo) {
+      self.videoList[0].vimeo.api('play');
+    } else if (self.videoList[0].soundcloud) {
+      self.videoList[0].soundcloud.play();
     }
   };
 
-  var playNextVideo = function() {
+  var playNextVideo = function (self) {
     var count = 0;
     var nextVideoIdx;
 
-    if (repeatPlaylist && videoList[videoList.length - 1].id === currentPlay) {
+    if (self.repeatPlaylist &&
+      self.videoList[self.videoList.length - 1].id === self.currentPlay) {
+
       nextVideoIdx = 0;
-      stopVideos();
-      currentPlay = videoList[0].id;
+      stopVideos(self);
+      self.currentPlay = self.videoList[0].id;
     } else {
-      for (var i = 0; i < videoList.length; i ++) {
-        if (videoList[i].id === currentPlay) {
+      for (var i = 0; i < self.videoList.length; i ++) {
+        if (self.videoList[i].id === self.currentPlay) {
           nextVideoIdx = i + 1;
           break;
         }
       }
     }
 
-    var nextVideo = videoList[nextVideoIdx];
+    var nextVideo = self.videoList[nextVideoIdx];
 
     if (nextVideo) {
       if (nextVideo.youtube) {
@@ -67,42 +129,44 @@ define(['jquery'],
         nextVideo.soundcloud.play();
       }
     } else {
-      if (repeatPlaylist) {
-        playNextVideo();
+      if (self.repeatPlaylist) {
+        self.currentPlay = self.videoList[self.videoList.length - 1].id;
+        playNextVideo(self);
       }
     }
   };
 
-  var checkYoutubeEnd = function(ev, id) {
+  var checkYoutubeEnd = function (self, ev, id) {
     if (ev.data === 0) {
-      playNextVideo();
+      playNextVideo(self);
     } else if (ev.data > 0) {
-      currentPlay = id;
+      self.currentPlay = id;
     }
   };
 
-  var checkVimeoProgress = function(data, id) {
+  var checkVimeoProgress = function (self, data, id) {
     var percent = parseFloat(data.percent);
 
-    if (percent > 0.001 && percent < 1.000) {
-      currentPlay = id;
+    if (percent >= 0 && percent < 1.000) {
+      self.currentPlay = id;
     } else {
-      checkVimeoEnd();
+      checkVimeoEnd(self);
     }
   };
 
-  var checkVimeoEnd = function() {
-    playNextVideo();
+  var checkVimeoEnd = function (self) {
+    playNextVideo(self);
   };
 
-  var checkSoundCloudEnd = function(id) {
-    currentPlay = id;
-    playNextVideo();
+  var checkSoundCloudEnd = function (self, id) {
+    self.currentPlay = id;
+    playNextVideo(self);
   };
 
-  var getMetadata = function(video) {
+  var getMetadata = function (self, video) {
     if (video.hasClass('youtube')) {
       var id = video.attr('src').split('/embed/')[1].split('?wmode')[0];
+
       $.getJSON('https://gdata.youtube.com/feeds/api/videos?q=' + id + '&v=2&alt=jsonc', function(d) {
         if (d.data) {
           video.closest('li').find('.metadata').append('<span></span>').find('span').text(d.data.items[0].title);
@@ -118,57 +182,5 @@ define(['jquery'],
     }
   };
 
-  var self = {
-    setVideos: function(video) {
-      var id = video[0].id;
-      var options;
-
-      if (video.hasClass('youtube')) {
-        var player = new YT.Player(id, {
-          events: {
-            'onStateChange': function(ev) {
-              checkYoutubeEnd(ev, id);
-            }
-          }
-        });
-        options = { 'youtube': player, id: id };
-        getMetadata(video);
-
-      } else if (video.hasClass('vimeo')) {
-        var player = $f(video[0]);
-        player.addEvent('ready', function() {
-          currentPlay = id;
-          player.addEvent('finish', checkVimeoEnd);
-          player.addEvent('playProgress', checkVimeoProgress);
-        });
-        options = { 'vimeo': player, id: id };
-        getMetadata(video);
-
-      } else if (video.hasClass('soundcloud')) {
-        var player = SC.Widget(id);
-        player.bind(SC.Widget.Events.READY, function() {
-          player.bind(SC.Widget.Events.FINISH, function() {
-            checkSoundCloudEnd(id);
-          });
-        });
-        options = { 'soundcloud': player, id: id };
-      }
-
-      videoList.push(options);
-    },
-
-    togglePlay: function() {
-      startInitialVideo();
-    },
-
-    toggleRepeat: function() {
-      if (!repeatPlaylist) {
-        repeatPlaylist = true;
-      } else {
-        repeatPlaylist = false;
-      }
-    }
-  };
-
-  return self;
+  return VideoPlayer;
 });
