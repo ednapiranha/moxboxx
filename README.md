@@ -2,7 +2,7 @@
 
 ## Installation instructions
 
-Grab the [database file](https://dl.dropbox.com/u/1913694/moxboxx/moxboxx_prod_2012-12-08.sql) and create moxboxx_dev and moxboxx_test locally
+Grab the [database file](http://dl.dropbox.com/u/1913694/moxboxx/moxboxx_prod_2013-01-26.sql) and create moxboxx_dev and moxboxx_test locally
 
 Import the database file to set up the schema
 
@@ -17,6 +17,8 @@ Install node by using brew or through the website http://nodejs.org/#download
 > cd moxboxx
 
 > cp local.json-dist local.json
+
+Update your settings in local.json
 
 > npm install
 
