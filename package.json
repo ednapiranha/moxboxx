@@ -7,20 +7,18 @@
     "npm": "1.1.x"
   },
   "dependencies": {
-    "client-sessions": ">= 0.0.9",
-    "connect": ">= 2.4.5",
-    "express": ">= 2.5.11",
-    "jade": ">= 0.27.2",
-    "request": "git://github.com/mikeal/request.git",
-    "nconf": "git://github.com/flatiron/nconf.git",
-    "express-persona": "0.0.7",
-    "requirejs": ">= 2.1.0",
+    "client-sessions": "0.1.1",
+    "connect": "2.7.6",
+    "express": "3.2.0",
+    "jade": "0.28.2",
+    "request": "2.16.6",
+    "nconf": "0.6.7",
+    "express-persona": "git://github.com/jbuck/express-persona.git",
+    "requirejs": "2.1.5",
     "gravatar": "1.0.6",
     "knox": "0.4.1",
     "knox-mpu": ">= 0.0.4",
     "sequelize": "1.6.0-beta4",
-    "hiredis": "0.1.14",
-    "redis": "0.7.2",
     "postmark": "0.1.8"
   },
   "devDependencies": {
