@@ -69,8 +69,8 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
 
   var loadBookmarkletDetail = function () {
     var urlItem = $('#mox-url');
-    if (urlItem.length > 0) {
-      var saveURL = decodeURIComponent(window.location.toString().split("mox-box=")[1]);
+    if (urlItem.length > 0 && window.location.toString().indexOf('mox-box=') > -1) {
+      var saveURL = decodeURIComponent(window.location.toString().split('mox-box=')[1]);
       urlItem.val(saveURL);
     }
   };
