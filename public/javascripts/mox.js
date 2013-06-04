@@ -14,7 +14,7 @@ define(['jquery', 'utils', 'views', 'video'],
         });
 
         if ($('section').hasClass('bookmarklet-wrapper')) {
-          window.close()
+          window.close();
         }
       });
     },

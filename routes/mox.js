@@ -49,7 +49,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
       if (err) {
         res.redirect('/bookmarklet?error=1&msg=' + err);
       } else {
-        res.redirect('/bookmarklet?sucess=1');
+        res.redirect('/bookmarklet?success=1');
       }
     });
   });

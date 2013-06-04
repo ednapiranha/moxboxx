@@ -9,3 +9,7 @@ block content
         for playlist in playlists
           option(value='#{playlist.id}')= playlist.title
       button(type='submit') Add
+  script(type='text/javascript')
+    if (document.location.href.indexOf('?success') > -1) {
+      window.close();
+    }
