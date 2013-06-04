@@ -12,6 +12,10 @@ define(['jquery', 'utils', 'views', 'video'],
           playlistId: data.mox.playlist_id,
           id: data.mox.id
         });
+
+        if ($('section').hasClass('bookmarklet-wrapper')) {
+          window.close()
+        }
       });
     },
 
