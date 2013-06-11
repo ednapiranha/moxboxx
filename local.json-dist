@@ -4,7 +4,7 @@
     "authPort": 3000,
     "authUrl": "https://login.persona.org",
     "session_secret": "secret",
-    "session_cookie": "session_your_cookie_name",
+    "session_cookie": "session",
     "s3_url": "https://s3.amazonaws.com/<your_s3_bucket>/",
     "s3_key": "s3_key",
     "s3_secret": "s3_secret",
