@@ -1,5 +1,7 @@
 'use strict';
 
+process.env.NODE_ENV = 'test'
+
 var mox = require('../lib/mox');
 var user = require('../lib/user');
 var playlist = require('../lib/playlist');
@@ -10,6 +12,7 @@ var nock = require('nock');
 var nconf = require('nconf');
 var db = require('../lib/database');
 var Mox  = db.getMox();
+var User = db.getUser();
 
 var playlistId;
 var moxId;
@@ -46,6 +49,7 @@ describe('playlist', function() {
     user.saveProfile(req, function(err, u) {
       req.body.title = 'test';
       req.body.description = '';
+
       req.session.userId = u.id;
       req.session.username = u.username;
 

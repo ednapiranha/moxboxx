@@ -1,5 +1,7 @@
 'use strict';
 
+process.env.NODE_ENV = 'test'
+
 var user = require('../lib/user');
 
 var should = require('should');
