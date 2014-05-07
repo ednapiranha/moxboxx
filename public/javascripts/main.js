@@ -8,8 +8,8 @@ requirejs.config({
   }
 });
 
-define(['jquery', 'user', 'playlist', 'mox', 'video'],
-  function($, user, playlist, mox, VideoPlayer) {
+define(['jquery', 'playlist', 'mox', 'video'],
+  function($, playlist, mox, VideoPlayer) {
 
   var body = $('body');
   var form = $('form');
@@ -139,24 +139,6 @@ define(['jquery', 'user', 'playlist', 'mox', 'video'],
     var self = $(ev.target);
 
     switch (self[0].id) {
-      // persona login
-      case 'login':
-        ev.preventDefault();
-        user.login();
-        break;
-
-      // facebook login
-      case 'facebook-login':
-        ev.preventDefault();
-        user.facebookLogin();
-        break;
-
-      // persona logout
-      case 'logout':
-        ev.preventDefault();
-        user.logout();
-        break;
-
       // start playlist
       case 'play-playlist':
         ev.preventDefault();

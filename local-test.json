@@ -13,5 +13,8 @@
     "db_username": "root",
     "db_password": "",
     "background_default": "/images/back.png",
-    "postmark_api_key": "postmark_api_key"
+    "postmark_api_key": "postmark_api_key",
+    "twitter_key": "key",
+    "twitter_secret": "secret",
+    "redis_db": 0
 }

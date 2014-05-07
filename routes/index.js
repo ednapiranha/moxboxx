@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
+module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest, passport) {
   var user = require('../lib/user');
   var playlist = require('../lib/playlist');
 
@@ -23,7 +23,6 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
             currentHashPrev: '/#' + req.url.split('?')[0] + '?page=' + prevPage,
             currentHashNext: '/#' + req.url.split('?')[0] + '?page=' + nextPage,
             currentPage: parseInt(req.query.page, 10) || 0,
-            facebookAppId: nconf.get('facebook_app_id'),
             analytics: nconf.get('analytics')
           });
         });
@@ -38,15 +37,25 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
     });
   };
 
+  app.get('/auth/twitter', passport.authenticate('twitter'), function (req, res) { });
+
+  app.get('/auth/twitter/callback', passport.authenticate('twitter',
+    { failureRedirect: '/' }), function (req, res) {
+
+    req.session.username = req.session.passport.user.username;
+    req.session.userId = req.session.passport.user.id;
+
+    user.getUser(req, res, function (err, id) {
+      channel.addRoom(id);
+      req.session.channel = id;
+      res.redirect('/channel/' + id);
+    });
+  });
+
   app.get('/channel', function(req, res) {
     res.render('channel', {
       layout: false
     });
-  });
-
-  app.post('/facebook/login', function(req, res) {
-    req.session.email = req.body.email;
-    res.json({ message: 'okay' });
   });
 
   app.get('/dashboard', isLoggedIn, hasUsername, isAjaxRequest, function (req, res) {
@@ -65,7 +74,6 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
           res.render('index', {
             pageType: 'index',
             background: req.session.background || nconf.get('background_default'),
-            facebookAppId: nconf.get('facebook_app_id'),
             analytics: nconf.get('analytics')
           });
         } else {
@@ -76,15 +84,14 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
       res.render('home', {
         pageType: 'home',
         background: nconf.get('background_default'),
-        facebookAppId: nconf.get('facebook_app_id'),
         analytics: nconf.get('analytics')
       });
     }
   });
 
   app.get('/logout', function (req, res) {
-    req.session.reset();
-
+    req.session.destroy();
+    req.logout();
     res.redirect('/');
   });
 
@@ -97,9 +104,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
           website: '',
           gravatar: '',
           emailStarred: false,
-          background: nconf.get('background_default'),
-          facebookAppId: nconf.get('facebook_app_id'),
-          analytics: nconf.get('analytics')
+          background: nconf.get('background_default')
         });
       } else {
         req.session.username = user.username;
@@ -112,9 +117,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
           website: user.website || '',
           gravatar: user.gravatar || '',
           emailStarred: user.email_starred || false,
-          background: user.background || nconf.get('background_default'),
-          facebookAppId: nconf.get('facebook_app_id'),
-          analytics: nconf.get('analytics')
+          background: user.background || nconf.get('background_default')
         });
       }
     });
@@ -170,8 +173,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
   });
 
   app.get('/user/:id', isAjaxRequest, function(req, res) {
-    if (req.session.email &&
-      !req.session.username) {
+    if (!req.session.username) {
       res.redirect('/profile');
     } else {
       res.format({

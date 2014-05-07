@@ -13,7 +13,8 @@ module.exports = function(app, configurations, express) {
     app.set('views', __dirname + '/views');
     app.set('view engine', 'jade');
     app.set('view options', { layout: false });
-    app.use(express.bodyParser());
+    app.use(express.json());
+    app.use(express.urlencoded());
     app.use(express.methodOverride());
     if (!process.env.NODE_ENV) {
       app.use(express.logger('dev'));
@@ -21,16 +22,15 @@ module.exports = function(app, configurations, express) {
     } else {
       app.use(express.static(__dirname + '/public_build'));
     }
-    app.use(clientSessions({
-      cookieName: nconf.get('session_cookie'),
+    app.use(express.session({
       secret: nconf.get('session_secret'),
-      duration: maxAge, // 4 weeks
-      cookie: {
-        httpOnly: true,
-        maxAge: maxAge
-      }
+      store: new RedisStore({ db: nconf.get('redis_db'), prefix: 'moxboxx' }),
+      cookie: { maxAge: maxAge }
     }));
+    app.use(passport.initialize());
+    app.use(passport.session());
     app.use(function(req, res, next) {
+      res.locals.analytics = nconf.get('analytics');
       res.locals.session = req.session;
       next();
     });
