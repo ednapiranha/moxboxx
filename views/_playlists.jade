@@ -2,7 +2,7 @@ ol#playlists
   for playlist in playlists
     li(data-id='#{playlist.id}', data-action='/playlist/', class='item')
       a(href='/#/user/#{playlist.owner.id}')
-        img(src='#{playlist.owner.gravatar}', title="#{playlist.owner.username}")
+        img(src='#{playlist.owner.avatar}', title="#{playlist.owner.username}")
       h2
         a(href='/#/playlist/#{playlist.id}', title='#{playlist.title}', class='playlist-title')
           = playlist.title

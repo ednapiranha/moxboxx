@@ -28,7 +28,7 @@ block content
     .playlist-item
       h3= 'Created by ' + playlist.owner.username
       a(href='/user/#{playlist.owner.id}')
-        img(src='#{playlist.owner.gravatar}')
+        img(src='#{playlist.owner.avatar}')
       time= playlist.created
 
       if session.username

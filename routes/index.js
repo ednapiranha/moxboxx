@@ -95,7 +95,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest, pa
           pageType: 'profile',
           location: '',
           website: '',
-          gravatar: '',
+          avatar: '',
           emailStarred: false,
           background: nconf.get('background_default')
         });
@@ -108,7 +108,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest, pa
           pageType: 'profile',
           location: user.location || '',
           website: user.website || '',
-          gravatar: user.gravatar || '',
+          avatar: user.avatar || '',
           background: user.background || nconf.get('background_default')
         });
       }
