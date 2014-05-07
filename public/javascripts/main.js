@@ -234,12 +234,6 @@ define(['jquery', 'playlist', 'mox', 'video'],
     var self = $(this);
 
     switch (self[0].id) {
-      // profile editing
-      case 'profile-edit':
-        ev.preventDefault();
-        user.saveProfile(self);
-        break;
-
       // add playlist
       case 'new-playlist':
         ev.preventDefault();

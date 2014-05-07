@@ -42,14 +42,10 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest, pa
   app.get('/auth/twitter/callback', passport.authenticate('twitter',
     { failureRedirect: '/' }), function (req, res) {
 
+    req.session.avatar = req.session.passport.user.photos[0].value;
     req.session.username = req.session.passport.user.username;
     req.session.userId = req.session.passport.user.id;
-
-    user.getUser(req, res, function (err, id) {
-      channel.addRoom(id);
-      req.session.channel = id;
-      res.redirect('/channel/' + id);
-    });
+    res.redirect('/profile');
   });
 
   app.get('/channel', function(req, res) {
@@ -63,22 +59,19 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest, pa
   });
 
   app.get('/', function (req, res) {
-    if (req.session.email) {
+    if (req.session.username) {
       user.loadProfile(req, function(err, user) {
         if (user) {
           req.session.username = user.username;
           req.session.userId = user.id;
           req.session.background = user.background;
         }
-        if (req.session.username) {
-          res.render('index', {
-            pageType: 'index',
-            background: req.session.background || nconf.get('background_default'),
-            analytics: nconf.get('analytics')
-          });
-        } else {
-          res.redirect('/profile');
-        }
+
+        res.render('index', {
+          pageType: 'index',
+          background: req.session.background || nconf.get('background_default'),
+          analytics: nconf.get('analytics')
+        });
       });
     } else {
       res.render('home', {
@@ -116,7 +109,6 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest, pa
           location: user.location || '',
           website: user.website || '',
           gravatar: user.gravatar || '',
-          emailStarred: user.email_starred || false,
           background: user.background || nconf.get('background_default')
         });
       }
@@ -124,11 +116,6 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest, pa
   });
 
   app.post('/profile', isLoggedIn, function(req, res) {
-    if (!req.session.username) {
-      req.session.firstVisit = true;
-    } else {
-      req.session.firstVisit = false;
-    }
     user.saveProfile(req, function(err, user) {
       if (err) {
         res.status(500);
@@ -138,8 +125,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest, pa
         req.session.username = user.username;
         req.session.background = user.background;
         res.json({
-          message: 'Profile has been updated!',
-          meta: { firstVisit: req.session.firstVisit }
+          message: 'Profile has been updated!'
         });
       }
     });
@@ -203,17 +189,16 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest, pa
                 currentHashPrev: '/#' + req.url.split('?')[0] + '?page=' + prevPage,
                 currentHashNext: '/#' + req.url.split('?')[0] + '?page=' + nextPage,
                 currentPage: parseInt(req.query.page, 10) || 0,
-                facebookAppId: nconf.get('facebook_app_id'),
                 analytics: nconf.get('analytics')
               });
             }
           });
         },
         json: function() {
-          user.getUser(req, function(err, user) {
+          user.getUser(req, function(err, u) {
             if (!err) {
               res.send({
-                title: 'moxboxx: user profile for ' + user.username,
+                title: 'moxboxx: user profile for ' + u.username,
                 pageType: 'userProfile',
                 background: user.background || nconf.get('background_default'),
               });
