@@ -23,6 +23,7 @@ module.exports = function(app, configurations, express) {
     } else {
       app.use(express.static(__dirname + '/public_build'));
     }
+    app.use(express.cookieParser());
     app.use(express.session({
       secret: nconf.get('session_secret'),
       store: new RedisStore({ db: nconf.get('redis_db'), prefix: 'moxboxx' }),
@@ -47,10 +48,6 @@ module.exports = function(app, configurations, express) {
       res.render('403', { url: req.url, layout: false });
       return;
     });
-    app.use(function(err, req, res, next) {
-      res.status(err.status || 500);
-      res.render('500', { error: err, layout: false });
-    });
   });
 
   app.configure('development, test', function(){
@@ -59,6 +56,11 @@ module.exports = function(app, configurations, express) {
 
   app.configure('prod', function(){
     app.use(express.errorHandler());
+
+    app.use(function(err, req, res, next) {
+      res.status(err.status || 500);
+      res.render('500', { error: err, layout: false });
+    });
 
     requirejs.optimize({
       appDir: 'public/',

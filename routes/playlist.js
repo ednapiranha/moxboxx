@@ -8,9 +8,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
   app.get('/playlist/new', isLoggedIn, hasUsername, function (req, res) {
     res.render('new', {
       pageType: 'new',
-      session: req.session,
       background: req.session.background || nconf.get('background_default'),
-      facebookAppId: nconf.get('facebook_app_id'),
       analytics: nconf.get('analytics')
     });
   });
@@ -84,7 +82,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
 
             playlist.addViewCount(req, p);
 
-            if (req.session && req.session.email &&
+            if (req.session && req.session.username &&
               parseInt(p.owner.id, 10) === parseInt(req.session.userId, 10)) {
               isOwner = true;
             }
@@ -126,7 +124,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
       if (err) {
         res.redirect('/404');
       } else {
-        if (req.session && req.session.email &&
+        if (req.session && req.session.username &&
           parseInt(p.owner.id, 10) === parseInt(req.session.userId, 10)) {
 
           res.render('edit', {
@@ -135,7 +133,6 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
             moxes: p.moxes,
             isOwner: true,
             background: p.background || req.session.background || nconf.get('background_default'),
-            facebookAppId: nconf.get('facebook_app_id'),
             analytics: nconf.get('analytics')
           });
         } else {

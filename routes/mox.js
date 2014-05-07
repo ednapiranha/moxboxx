@@ -37,7 +37,6 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
           errorMsg: req.query.msg || '',
           playlists: playlists.data,
           background: req.session.background || nconf.get('background_default'),
-          facebookAppId: nconf.get('facebook_app_id'),
           analytics: nconf.get('analytics')
         });
       }
