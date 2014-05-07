@@ -196,7 +196,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest, pa
           user.getUser(req, function(err, u) {
             if (!err) {
               res.send({
-                title: 'moxboxx: user profile for ' + u.username,
+                title: 'moxboxx: user profile for ' + req.session.username,
                 pageType: 'userProfile',
                 background: user.background || nconf.get('background_default'),
               });
