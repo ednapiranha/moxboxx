@@ -89,26 +89,36 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest, pa
   });
 
   app.get('/profile', isLoggedIn, function (req, res) {
-    user.loadProfile(req, function(err, user) {
+    user.loadProfile(req, function(err, u) {
       if (err) {
-        res.render('profile', {
-          pageType: 'profile',
-          location: '',
-          website: '',
-          avatar: '',
-          emailStarred: false,
-          background: nconf.get('background_default')
+        req.body.username = req.session.username;
+        req.body.website = '';
+
+        user.saveProfile(req, function(err, u) {
+          if (err) {
+            console.log(err)
+            res.status(500);
+            res.render('500');
+          } else {
+            res.render('profile', {
+              pageType: 'profile',
+              location: u.location || '',
+              website: u.website || '',
+              avatar: u.avatar,
+              background: u.background || nconf.get('background_default')
+            });
+          }
         });
       } else {
-        req.session.username = user.username;
-        req.session.userId = user.id;
-        req.session.background = user.background;
+        req.session.username = u.username;
+        req.session.userId = u.id;
+        req.session.background = u.background;
 
         res.render('profile', {
           pageType: 'profile',
-          location: user.location || '',
-          website: user.website || '',
-          avatar: user.avatar || '',
+          location: u.location || '',
+          website: u.website || '',
+          avatar: u.avatar || '',
           background: user.background || nconf.get('background_default')
         });
       }
