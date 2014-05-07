@@ -3,6 +3,7 @@ module.exports = function(app, configurations, express) {
   var RedisStore = require('connect-redis')(express);
   var nconf = require('nconf');
   var requirejs = require('requirejs');
+  var passport = require('passport');
   var maxAge = 24 * 60 * 60 * 1000 * 28;
 
   nconf.argv().env().file({ file: 'local.json' });
