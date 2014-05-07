@@ -1,7 +1,6 @@
 // Module dependencies.
 module.exports = function(app, configurations, express) {
   var RedisStore = require('connect-redis')(express);
-  var busboy = require('connect-busboy');
   var nconf = require('nconf');
   var requirejs = require('requirejs');
   var passport = require('passport');
