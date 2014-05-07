@@ -44,7 +44,6 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest, pa
 
     req.session.avatar = req.session.passport.user.photos[0].value;
     req.session.username = req.session.passport.user.username;
-    req.session.userId = req.session.passport.user.id;
     res.redirect('/profile');
   });
 
