@@ -9,9 +9,6 @@ block content
   if gravatar
     #gravatar-wrapper
       img(src='#{gravatar}', id="gravatar-profile")
-      p.gravatar.tip
-        span Update your&#xa0;
-        a(href='http://gravatar.com', target='_blank') gravatar
 
   form(method='post', action='/profile', id='profile-edit')
     label(for='username', class='tip') Username*

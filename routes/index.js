@@ -124,9 +124,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest, pa
         req.session.userId = user.id;
         req.session.username = user.username;
         req.session.background = user.background;
-        res.json({
-          message: 'Profile has been updated!'
-        });
+        res.redirect('/profile');
       }
     });
   });
