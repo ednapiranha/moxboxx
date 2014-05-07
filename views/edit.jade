@@ -21,7 +21,7 @@ block content
       for tag in playlist.tags
         li(data-action='/tag/#{playlist.id}', data-tag='#{tag.name}')
           a(href='/tag/#{tag.name}')= tag.name
-          if session.email && isOwner
+          if session.username && isOwner
             a(href='javascript:;', class='delete tag', data-context='delete-tag') X
 
   .playlist-wrapper.edit
@@ -31,7 +31,7 @@ block content
         img(src='#{playlist.owner.gravatar}')
       time= playlist.created
 
-      if session.email
+      if session.username
         .item-actions
           if isOwner
             a(href='javascript:;', data-id='#{playlist.id}', class='playlist-delete', data-action='/playlist/', data-context='playlist-delete-detail') delete
@@ -75,6 +75,6 @@ block content
           li(class='ui-state-default item', data-id='#{mox.id}', data-playlistid='#{mox.playlist_id}', data-action='/mox/')
             != mox.content
             .block-content
-            if session.email && isOwner
+            if session.username && isOwner
               .item-actions
                 a(href='javascript:;', class='mox-delete', data-context='mox-delete') delete

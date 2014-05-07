@@ -1,7 +1,7 @@
 h1#playlist-title
   span.title= playlist.title
   span.description= playlist.description
-  if session.email && isOwner
+  if session.username && isOwner
     a(href='/playlist/edit/#{playlist.id}', class='playlist-edit') Edit
 
 ul#playlist-tags
@@ -22,7 +22,7 @@ ul#playlist-tags
         Tweet
       .fb-like(data-href='http://moxboxx.com/#/playlist/#{playlist.id}', data-send='false', data-layout='button_count', data-width='100', data-show-faces='false', data-font='arial')
 
-    if session.email
+    if session.username
       .item-actions
         if isOwner
           a(href='javascript:;', data-id='#{playlist.id}', class='playlist-delete', data-action='/playlist/', data-context='playlist-delete-detail') delete
@@ -49,7 +49,7 @@ ul#playlist-tags
       li(data-id='#{mox.id}', data-playlistid='#{mox.playlist_id}', data-action='/mox/', class='item')
         p.metadata
         != mox.content
-        if session.email && isOwner
+        if session.username && isOwner
           .item-actions
             a(href='javascript:;', class='mox-delete', data-context='mox-delete') delete
 

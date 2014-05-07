@@ -10,7 +10,7 @@ ol#playlists
         p.description= playlist.description
       time= playlist.created
 
-      if session.email
+      if session.username
         .item-actions
           if parseInt(session.userId, 10) === parseInt(playlist.owner.id, 10)
             a(href='javascript:;', class='playlist-delete', data-context='playlist-delete') delete

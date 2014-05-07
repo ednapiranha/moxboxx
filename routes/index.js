@@ -175,7 +175,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest, pa
             if (err) {
               res.redirect('/404');
             } else {
-              if (req.session && req.session.email &&
+              if (req.session && req.session.username &&
                 parseInt(req.session.userId, 10) === parseInt(req.params.id, 10)) {
                 isOwner = true;
               }

@@ -49,7 +49,6 @@ describe('user', function() {
   });
 
   it('loads an existing profile', function(done) {
-    req.session.email = 'test@test.com';
     user.loadProfile(req, function(err, u) {
       u.username.should.equal('test');
       done();
