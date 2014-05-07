@@ -1,8 +1,7 @@
 !!! 5
 html
   head
-    title
-      = 'moxboxx'
+    title moxboxx
     meta(content='chrome=1', http-equiv='X-UA-Compatible')
 
     meta(property='og:title', id='meta-title', content='')
@@ -20,12 +19,12 @@ html
   body(style='background-image: url(#{background});', class='page-#{pageType}')
     #flash
     header
-      if session.email
+      if session.username
         a(href='/#/dashboard', id='logo', title='Home') moxboxx
       else
         a(href='/', id='logo', title='Home') moxboxx
       ul.actions
-        if session.email
+        if session.userId
           if session.username
             li
               a(href='javascript:;') Playlists
