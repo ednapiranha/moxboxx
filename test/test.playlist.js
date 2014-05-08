@@ -20,8 +20,8 @@ var userId;
 
 var req = {
   session: {
-    email: 'test@test.com',
-    username: 'test'
+    username: 'test',
+    avatar: 'facie'
   },
   body: {
   },

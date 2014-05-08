@@ -19,8 +19,8 @@ var moxId;
 
 var req = {
   session: {
-    email: 'test@test.com',
-    username: 'test'
+    username: 'test',
+    avatar: 'facie'
   },
   body: {
   },
@@ -47,6 +47,7 @@ describe('playlist', function() {
     req.body.website = '';
 
     user.saveProfile(req, function(err, u) {
+      console.log(err, u)
       req.body.title = 'test';
       req.body.description = '';
 

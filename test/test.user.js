@@ -14,9 +14,9 @@ nconf.argv().env().file({ file: 'local-test.json' });
 
 var req = {
   session: {
-    email: 'test@test.com',
     userId: 1,
-    username: 'test'
+    username: 'test',
+    avatar: 'facie'
   },
   body: {
     username: '',
@@ -69,14 +69,6 @@ describe('user', function() {
     req.body.location = 'the moon';
     user.saveProfile(req, function(err, u) {
       u.location.should.equal('the moon');
-      done();
-    });
-  });
-
-  it('does not save an existing profile', function(done) {
-    req.body.username = '';
-    user.saveProfile(req, function(err, u) {
-      should.exist(err);
       done();
     });
   });

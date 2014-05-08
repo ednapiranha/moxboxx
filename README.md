@@ -8,11 +8,7 @@ Import the database file to set up the schema
 
 Clone the repository
 
-> git clone git://github.com/nooodle/moxboxx.git
-
-> curl https://npmjs.org/install.sh | sh
-
-Install node by using brew or through the website http://nodejs.org/#download
+> git clone git://github.com/ednapiranha/moxboxx.git
 
 > cd moxboxx
 
@@ -24,8 +20,8 @@ Update your settings in local.json
 
 Run the site
 
-> node app.js
+> npm start
 
 ## Tests
 
-> NODE_ENV=test make test
+> npm test
