@@ -42,6 +42,10 @@ define(['jquery'],
         dataType: 'json',
         cache: false
       }).done(function(data) {
+        if (window.ga) {
+          window.ga('send', 'event', 'message', 'send');
+        }
+
         if (data.meta && data.meta.firstVisit) {
           document.location.href = '/profile';
         } else {
@@ -68,6 +72,10 @@ define(['jquery'],
         dataType: 'json',
         cache: false
       }).done(function(data) {
+        if (window.ga) {
+          window.ga('send', 'event', 'message', 'send');
+        }
+
         if (callback) {
           callback(data);
         }
@@ -82,6 +90,10 @@ define(['jquery'],
         type: 'GET',
         dataType: 'json'
       }).done(function(data) {
+        if (window.ga) {
+          window.ga('send', 'event', 'message', 'receive');
+        }
+
         if (callback) {
           callback(data);
         }
