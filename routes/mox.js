@@ -1,10 +1,10 @@
 'use strict';
 
-module.exports = function(app, nconf, isLoggedIn, hasUsername) {
+module.exports = function(app, nconf, isLoggedIn) {
   var playlist = require('../lib/playlist');
   var mox = require('../lib/mox');
 
-  app.post('/mox', isLoggedIn, hasUsername, function (req, res) {
+  app.post('/mox', isLoggedIn, function (req, res) {
     mox.add(req, function(err, mox) {
       if (err) {
         res.status(500);
@@ -15,7 +15,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
     });
   });
 
-  app.get('/bookmarklet', isLoggedIn, hasUsername, function (req, res) {
+  app.get('/bookmarklet', isLoggedIn, function (req, res) {
     req.params.id = req.session.userId;
     playlist.userRecent(req, function(err, playlists) {
       if (err) {
@@ -43,7 +43,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
     });
   });
 
-  app.post('/mini/mox', isLoggedIn, hasUsername, function (req, res) {
+  app.post('/mini/mox', isLoggedIn, function (req, res) {
     mox.add(req, function(err, mox) {
       if (err) {
         res.redirect('/bookmarklet?error=1&msg=' + err);
@@ -53,12 +53,12 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername) {
     });
   });
 
-  app.delete('/mox', isLoggedIn, hasUsername, function (req, res) {
+  app.delete('/mox', isLoggedIn, function (req, res) {
     mox.delete(req);
     res.json({ message: 'deleted' });
   });
 
-  app.post('/mox/position', isLoggedIn, hasUsername, function (req, res) {
+  app.post('/mox/position', isLoggedIn, function (req, res) {
     mox.updatePositions(req);
   });
 };

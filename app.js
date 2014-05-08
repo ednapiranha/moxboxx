@@ -12,18 +12,10 @@ nconf.argv().env().file({ file: 'local.json' });
 /* Filters for routes */
 
 var isLoggedIn = function(req, res, next) {
-  if (req.session.userId) {
-    next();
-  } else {
-    res.redirect('/');
-  }
-};
-
-var hasUsername = function(req, res, next) {
   if (req.session.username) {
     next();
   } else {
-    res.redirect('/profile');
+    res.redirect('/');
   }
 };
 
@@ -62,9 +54,9 @@ passport.use(new TwitterStrategy({
 
 
 // routes
-require('./routes')(app, nconf, isLoggedIn, hasUsername, isAjaxRequest, passport);
-require('./routes/playlist')(app, nconf, isLoggedIn, hasUsername, isAjaxRequest);
-require('./routes/mox')(app, nconf, isLoggedIn, hasUsername);
+require('./routes')(app, nconf, isLoggedIn, isAjaxRequest, passport);
+require('./routes/playlist')(app, nconf, isLoggedIn, isAjaxRequest);
+require('./routes/mox')(app, nconf, isLoggedIn);
 
 app.get('/404', function(req, res, next) {
   next();

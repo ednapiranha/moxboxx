@@ -24,8 +24,8 @@ html
       else
         a(href='/', id='logo', title='Home') moxboxx
       ul.actions
-        if session.userId
-          if session.username
+        if session.username
+          if session.userId
             li
               a(href='javascript:;') Playlists
               ul

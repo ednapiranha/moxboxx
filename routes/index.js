@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest, passport) {
+module.exports = function(app, nconf, isLoggedIn, isAjaxRequest, passport) {
   var user = require('../lib/user');
   var playlist = require('../lib/playlist');
 
@@ -53,7 +53,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest, pa
     });
   });
 
-  app.get('/dashboard', isLoggedIn, hasUsername, isAjaxRequest, function (req, res) {
+  app.get('/dashboard', isLoggedIn, isAjaxRequest, function (req, res) {
     loadDashboard(req, res);
   });
 

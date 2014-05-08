@@ -1,11 +1,11 @@
 'use strict';
 
-module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
+module.exports = function(app, nconf, isLoggedIn, isAjaxRequest) {
   var user = require('../lib/user');
   var playlist = require('../lib/playlist');
   var mox = require('../lib/mox');
 
-  app.get('/playlist/new', isLoggedIn, hasUsername, function (req, res) {
+  app.get('/playlist/new', isLoggedIn, function (req, res) {
     res.render('new', {
       pageType: 'new',
       background: req.session.background || nconf.get('background_default'),
@@ -13,7 +13,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
     });
   });
 
-  app.get('/playlists/starred', isLoggedIn, hasUsername, isAjaxRequest, function (req, res) {
+  app.get('/playlists/starred', isLoggedIn, isAjaxRequest, function (req, res) {
     res.format({
       html: function() {
         playlist.recentStarred(req, function(err, playlists) {
@@ -45,7 +45,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
     });
   });
 
-  app.post('/playlist/star/', isLoggedIn, hasUsername, function (req, res) {
+  app.post('/playlist/star/', isLoggedIn, function (req, res) {
     playlist.star(req, nconf, function(err, resp) {
       if (err) {
         res.status(500);
@@ -60,7 +60,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
     });
   });
 
-  app.post('/playlist', isLoggedIn, hasUsername, function (req, res) {
+  app.post('/playlist', isLoggedIn, function (req, res) {
     playlist.add(req, function(err, p) {
       if (err) {
         res.status(500);
@@ -119,7 +119,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
     });
   });
 
-  app.get('/playlist/edit/:id', isLoggedIn, hasUsername, function (req, res) {
+  app.get('/playlist/edit/:id', isLoggedIn, function (req, res) {
     playlist.get(req, function(err, p) {
       if (err) {
         res.redirect('/404');
@@ -142,7 +142,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
     });
   });
 
-  app.post('/playlist/:id', isLoggedIn, hasUsername, function(req, res) {
+  app.post('/playlist/:id', isLoggedIn, function(req, res) {
     playlist.update(req, function(err, playlist) {
       if (err) {
         res.status(500);
@@ -186,12 +186,12 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
     });
   });
 
-  app.delete('/playlist', isLoggedIn, hasUsername, function(req, res) {
+  app.delete('/playlist', isLoggedIn, function(req, res) {
     playlist.delete(req);
     res.json({ message: 'deleted' });
   });
 
-  app.post('/tag', isLoggedIn, hasUsername, function(req, res) {
+  app.post('/tag', isLoggedIn, function(req, res) {
     playlist.addTag(req, function(err, tag) {
       if (err) {
         res.status(500);
@@ -202,7 +202,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
     });
   });
 
-  app.post('/playlist/set/background', isLoggedIn, hasUsername, function(req, res) {
+  app.post('/playlist/set/background', isLoggedIn, function(req, res) {
     playlist.saveBackground(req, nconf, function(err, background) {
       if (err) {
         res.redirect('/playlist/edit/' + req.body.playlist_id + '?error=1');
@@ -212,7 +212,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
     });
   });
 
-  app.post('/playlist/reset/background', isLoggedIn, hasUsername, function(req, res) {
+  app.post('/playlist/reset/background', isLoggedIn, function(req, res) {
     req.body.background = '';
     playlist.saveBackground(req, nconf, function(err, background) {
       if (err) {
@@ -223,7 +223,7 @@ module.exports = function(app, nconf, isLoggedIn, hasUsername, isAjaxRequest) {
     });
   });
 
-  app.delete('/tag/:id', isLoggedIn, hasUsername, function(req, res) {
+  app.delete('/tag/:id', isLoggedIn, function(req, res) {
     playlist.deleteTag(req);
     res.json({ message: 'deleted' });
   });
