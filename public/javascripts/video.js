@@ -14,7 +14,6 @@ define(['jquery'],
     var options;
 
     if (video.hasClass('youtube')) {
-      console.log('got here')
       var player = new YT.Player(id, {
         events: {
           'onStateChange': function(ev) {
