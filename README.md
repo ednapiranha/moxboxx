@@ -2,7 +2,7 @@
 
 ## Installation instructions
 
-Grab the [database file](http://dl.dropbox.com/u/1913694/moxboxx/moxboxx_prod_2013-01-26.sql) and create moxboxx_dev and moxboxx_test locally
+Grab the [database file](http://dl.dropbox.com/u/1913694/moxboxx/moxboxx_prod_2014-05-07.sql) and create moxboxx_dev and moxboxx_test locally
 
 Import the database file to set up the schema
 
