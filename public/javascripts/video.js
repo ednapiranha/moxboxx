@@ -14,6 +14,7 @@ define(['jquery'],
     var options;
 
     if (video.hasClass('youtube')) {
+      console.log('got here')
       var player = new YT.Player(id, {
         events: {
           'onStateChange': function(ev) {
@@ -73,7 +74,6 @@ define(['jquery'],
     for (var i = 0; i < self.videoList.length; i ++) {
       if (self.videoList[i]) {
         if (self.videoList[i].youtube) {
-          console.log(self.videoList[i].youtube)
           self.videoList[i].youtube.pauseVideo();
 
         } else if (self.videoList[i].vimeo) {
