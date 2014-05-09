@@ -49,7 +49,7 @@ block content
             button(type='submit') Remove current background
         form(method='post', action='/playlist/set/background', enctype='multipart/form-data')
           input(type='hidden', name='playlist_id', value='#{playlist.id}')
-          label(for='background', class='tip') Background Image (300 kb maximum file size)
+          label(for='background', class='tip') Background Image (500 kb maximum file size)
           input(type='file', name='background')
           button(type='submit') Update Background Image
       #add-tag
