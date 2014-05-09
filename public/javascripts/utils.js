@@ -35,6 +35,7 @@ define(['jquery'],
         data = { id: self.data('id'), starred: self.hasClass('on') };
         action = self.data('action');
       }
+
       $.ajax({
         url: action,
         data: data,
