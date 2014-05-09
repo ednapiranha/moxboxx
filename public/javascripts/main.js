@@ -8,8 +8,8 @@ requirejs.config({
   }
 });
 
-define(['jquery', 'playlist', 'mox', 'video'],
-  function($, playlist, mox, VideoPlayer) {
+define(['jquery', 'playlist', 'utils', 'mox', 'video'],
+  function($, playlist, utils, mox, VideoPlayer) {
 
   var body = $('body');
   var form = $('form');
@@ -234,6 +234,18 @@ define(['jquery', 'playlist', 'mox', 'video'],
     var self = $(this);
 
     switch (self[0].id) {
+      // update profile
+      case 'profile-edit':
+        ev.preventDefault();
+        utils.serverPost(self, function(data) {
+          if (data.message) {
+            flash.text(data.message);
+            flash.fadeIn(500, function() {
+              flash.fadeOut(4500);
+            });
+          }
+        });
+
       // add playlist
       case 'new-playlist':
         ev.preventDefault();

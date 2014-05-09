@@ -11,6 +11,8 @@ block content
       img(src='#{avatar}', id="gravatar-profile")
 
   form(method='post', action='/profile', id='profile-edit')
+    label(for='username', class='tip') Username*
+    input(type='text', name='username', placeholder='Username', value='#{session.username || ''}')
     label(for='location', class='tip') Location
     input(type='text', name='location', placeholder='Where are you located?', value='#{location}')
     label(for='website', class='tip') Website

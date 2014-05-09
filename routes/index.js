@@ -133,7 +133,7 @@ module.exports = function(app, nconf, isLoggedIn, isAjaxRequest, passport) {
         req.session.userId = user.id;
         req.session.username = user.username;
         req.session.background = user.background;
-        res.redirect('/profile');
+        res.json({ message: 'Profile updated' });
       }
     });
   });
