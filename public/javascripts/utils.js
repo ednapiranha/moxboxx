@@ -4,6 +4,7 @@ define(['jquery'],
   function($) {
 
   var flash = $('#flash');
+  var csrf = $('body').data('csrf');
 
   var displayMessage = function(data, isError) {
     var msg = data.responseText || data;
@@ -62,6 +63,8 @@ define(['jquery'],
     },
 
     serverDelete: function(self, options, callback) {
+      options._csrf = csrf;
+
       $.ajax({
         url: self.data('action'),
         data: options,

@@ -12,11 +12,12 @@ block content
 
   form(method='post', action='/profile', id='profile-edit')
     label(for='username', class='tip') Username*
-    input(type='text', name='username', placeholder='Username', value='#{session.username || ''}')
+    input(type='text', name='username', placeholder='Username', value='#{session.username}')
     label(for='location', class='tip') Location
     input(type='text', name='location', placeholder='Where are you located?', value='#{location}')
     label(for='website', class='tip') Website
     input(type='text', name='website', placeholder='Your website url', value='#{website}')
+    input(type='hidden', name='_csrf', value=csrf)
     button(type='submit') Update
 
   if session.username
@@ -27,9 +28,9 @@ block content
     form(method='post', action='/background', id='background-update', enctype='multipart/form-data')
       label(for='background', class='tip') Background Image (300 kb maximum file size)
       input(type='file', name='background')
+      input(type='hidden', name='_csrf', value=csrf)
       button(type='submit') Update Background Image
 
     p
       | Drag this bookmarket to your bookmark bar to&nbsp;
       a(href="javascript:var d=document,w=window,f='http://moxboxx.meatspac.es/bookmarklet',l=d.location,e=encodeURIComponent,p='?mox-box='+e(l.href),u=f+p;try{if(!/^(.*\.)?moxboxx[^.]*$/.test(l.host)) throw(0);}catch(z){a=function(){if(!w.open(u,'t','toolbar=no,resizable=no,status=no,location=no,scrollbars=no,menubar=no,height=220,width=540'))l.href=u;};if(/Firefox/.test(navigator.userAgent)) setTimeout(a,0); else a();}void(0)") Post to MoxBoxx
-      .

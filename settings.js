@@ -30,9 +30,11 @@ module.exports = function(app, configurations, express) {
     }));
     app.use(passport.initialize());
     app.use(passport.session());
+    app.use(express.csrf());
     app.use(function(req, res, next) {
       res.locals.analytics = nconf.get('analytics');
       res.locals.session = req.session;
+      res.locals.csrf = req.csrfToken();
       next();
     });
     app.use(app.router);

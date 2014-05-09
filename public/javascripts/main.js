@@ -26,6 +26,7 @@ define(['jquery', 'playlist', 'utils', 'mox', 'video'],
   var sortMox = $('#moxlist.sortable');
   var flash = $('#flash');
   var footer = $('#footer');
+  var csrf = body.data('csrf');
 
   var vp = new VideoPlayer();
 
@@ -130,7 +131,7 @@ define(['jquery', 'playlist', 'utils', 'mox', 'video'],
         });
       }
 
-      mox.updatePosition({ sort_arr: sortArr });
+      mox.updatePosition({ sort_arr: sortArr, _csrf: csrf });
     }
   });
   sortMox.disableSelection();

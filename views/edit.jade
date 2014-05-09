@@ -12,6 +12,7 @@ block content
       input(type='text', name='description', id='edit-description', value='#{playlist.description}', placeholder='add a description', data-action='/playlist/#{playlist.id}', class='off')
       a(href='javascript:;', class='playlist-edit-cancel off', data-context='playlist-edit-cancel') Cancel
       a(href='javascript:;', class='playlist-edit-save off', data-context='playlist-edit-save') Save
+      input(type='hidden', name='_csrf', value=csrf)
       button(type='submit') Update
     a(href='javascript:;', class='playlist-edit', data-context='playlist-edit') edit title / description
     a(href='/playlist/#{playlist.id}', class='playlist-edit') view public
@@ -46,17 +47,20 @@ block content
           form(method='post', action='/playlist/reset/background', id='background-delete')
             input(type='hidden', name='playlist_id', value='#{playlist.id}')
             div(class='preview', style='background-image: url(#{playlist.background})')
+            input(type='hidden', name='_csrf', value=csrf)
             button(type='submit') Remove current background
         form(method='post', action='/playlist/set/background', enctype='multipart/form-data')
           input(type='hidden', name='playlist_id', value='#{playlist.id}')
           label(for='background', class='tip') Background Image (500 kb maximum file size)
           input(type='file', name='background')
+          input(type='hidden', name='_csrf', value=csrf)
           button(type='submit') Update Background Image
       #add-tag
         h2 Add a tag
         form(method='post', action='/tag', id='new-tag')
           input(type='text', name='tag')
           input(type='hidden', name='playlist_id', value='#{playlist.id}')
+          input(type='hidden', name='_csrf', value=csrf)
           button(type='submit') Add
       #add-track
         h2 Add a media link
@@ -65,6 +69,7 @@ block content
         form(method='post', action='/mox', id='new-mox')
           input(type='text', name='url')
           input(type='hidden', name='playlist_id', value='#{playlist.id}')
+          input(type='hidden', name='_csrf', value=csrf)
           button(type='submit') Add
 
 
